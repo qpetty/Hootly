@@ -11,6 +11,26 @@ import UIKit
 class ViewController: UIViewController, UITableViewDataSource {
     @IBOutlet weak var feedTableView: UITableView!
     
+    var sampleData: [Hoot] = []
+    
+    override init() {
+        super.init()
+        self.makeSampleData()
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.makeSampleData()
+    }
+    
+    func makeSampleData() {
+        var sample = Hoot(userID: "Brandon", photo: nil, comment: "This is a long comment", replies: 5, time: "10m", rating: 8)
+        sampleData.append(sample)
+        
+        sample = Hoot(userID: "Krisna", photo: nil, comment: "This is a longer comment", replies: 5, time: "10m", rating: 8)
+        sampleData.append(sample)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -22,11 +42,15 @@ class ViewController: UIViewController, UITableViewDataSource {
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return sampleData.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        return feedTableView.dequeueReusableCellWithIdentifier("Hoot", forIndexPath: indexPath) as UITableViewCell
+        let cell = feedTableView.dequeueReusableCellWithIdentifier("Hoot", forIndexPath: indexPath) as HootCell
+        
+        cell.setHoot(sampleData[indexPath.row])
+        
+        return cell
     }
 }
 
