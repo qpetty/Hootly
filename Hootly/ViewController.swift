@@ -24,10 +24,10 @@ class ViewController: UIViewController, UITableViewDataSource {
     }
     
     func makeSampleData() {
-        var sample = Hoot(userID: "Brandon", photo: UIImage(named: "owl1"), comment: "This is a long comment", replies: 5, time: "10m", rating: 8)
+        var sample = Hoot(userID: "Brandon", photo: UIImage(named: "owl1"), comment: "This is a long comment", replies: 5, time: "10", rating: 8)
         sampleData.append(sample)
         
-        sample = Hoot(userID: "Krisna", photo: UIImage(named: "owl2"), comment: "This is a longer comment", replies: 5, time: "10m", rating: 8)
+        sample = Hoot(userID: "Krisna", photo: UIImage(named: "owl2"), comment: "This is a longer comment", replies: 5, time: "10", rating: 8)
         sampleData.append(sample)
     }
     

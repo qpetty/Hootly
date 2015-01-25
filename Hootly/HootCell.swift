@@ -20,7 +20,7 @@ class HootCell: UITableViewCell {
         photo.image = singleHoot.photo
         comment.text = singleHoot.comment
         rating.text = "\(singleHoot.rating)"
-        replies.text = "\(singleHoot.replies)"
-        time.text = singleHoot.time
+        replies.text = "\(singleHoot.replies) replies"
+        time.text = singleHoot.time + "m"
     }
 }
