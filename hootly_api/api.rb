@@ -39,7 +39,7 @@ end
 # post info
 # userid, an image, a caption
 post '/hoots' do
-   userid = params['userid']
+   user_id = params['user_id']
    caption = params['caption']
    timestamp = Time.now.to_i
    lat = params["lat"]
@@ -47,7 +47,7 @@ post '/hoots' do
 
    # determine an image path here
    file_type = ".png"
-   imagepath = userid.to_s + timestamp.to_s + file_type
+   imagepath = user_id.to_s + timestamp.to_s + file_type
    img_path_quotes = "\"" + imagepath + "\""
 
    # This saves the image in the uploads directory
@@ -55,8 +55,8 @@ post '/hoots' do
         f.write(params['image'][:tempfile].read)
    end
 
-   client.query("INSERT INTO Posts (userid, caption, timestamp, image_path, latitude, longitude)
-                VALUES ( #{userid}, #{caption}, #{timestamp}, #{img_path_quotes}, #{lat}, #{long} )")
+   client.query("INSERT INTO Hoots (user_id, caption, timestamp, image_path, latitude, longitude)
+                VALUES ( #{user_id}, #{caption}, #{timestamp}, #{img_path_quotes}, #{lat}, #{long} )")
    "success\n"
 end
 
