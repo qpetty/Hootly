@@ -1,0 +1,104 @@
+require 'rubygems'
+require 'sinatra'
+require 'mysql2'
+require 'json'
+
+client = Mysql2::Client.new(:host => "localhost", :username => "root", :database => "hootly")
+
+get '/' do
+   "hello world"
+end
+
+post '/user' do
+   userid = params['userid']
+   client.query("INSERT INTO Users (id) values (#{userid})")
+   "success"
+end
+
+# example usage
+# /clamors?lat=1.4&long=4.3
+get '/hoot' do
+   lat = params['lat']
+   long = params['long']
+   posts = client.query("select * from posts limit 50")
+   posts.each do |post|
+      p post["id"]
+   end
+   #posts.first.to_json unless posts.nil?
+   posts
+end
+
+# post info
+# userid, an image, a caption
+post '/hoot' do
+   userid = params['userid']
+   caption = params['caption']
+   #caption = client.escape(caption)
+   timestamp = Time.now.to_i
+   lat = params["lat"]
+   long = params["long"]
+
+   # determine an image path here
+   file_type = ".png"
+   imagepath = userid.to_s + timestamp.to_s + file_type
+   img_path_quotes = "\"" + imagepath + "\""
+
+   # This saves the image in the uploads directory
+   File.open('./uploads/' + imagepath, "wb") do |f|
+        f.write(params['image'][:tempfile].read)
+   end
+
+   client.query("INSERT INTO Posts (userid, caption, timestamp, image_path, latitude, longitude)
+                VALUES ( #{userid}, #{caption}, #{timestamp}, #{img_path_quotes}, #{lat}, #{long} )")
+   "success\n"
+end
+
+# example usage
+# /comments?postid=1
+get '/comments' do
+   comments_return = {}
+   post_id = params['post_id']
+   comments = client.query("select * from Comments where post_id = #{post_id}")
+   requester_user_id = params["user_id"]
+   comments.each do |comment|
+      vote_dir = 0
+      comment_id = comment["id"]
+      comment_text = comment["comment_text"]
+
+      upvotes = client.query("select sum(vote) as votes from Comments_Upvotes where comment_id = #{comment_id}")
+      downvotes = client.query("select sum(vote) as votes from Comments_Downvotes where comment_id = #{comment_id}")
+
+      up = upvotes.first["votes"]
+      if up.nil?
+         up = 0
+      end
+
+      down = downvotes.first["votes"]
+      if down.nil?
+         down = 0
+      end
+
+      score = up - down
+
+      user_upvote = client.query("select sum(vote) as votes from Comments_Upvotes where comment_id = #{comment_id} and user_id = #{requester_user_id}")
+      user_downvote = client.query("select sum(vote) as votes from Comments_Downvotes where comment_id = #{comment_id} and user_id = #{requester_user_id}")
+      if !user_upvote.first['votes'].nil?
+         vote_dir = 1
+      end
+      if !user_downvote.first['votes'].nil?
+         vote_dir = -1
+      end
+      comments_return[comment_id] = { "comment_id" => comment_id, "comment_text" => comment_text, "score" => score, "requester_vote" => vote_dir }
+   end
+
+   comments_return.to_json
+end
+
+post '/comments' do
+   post_id = params['post_id']
+   text = params['text']
+   user_id = params['user_id']
+
+   client.query("INSERT INTO Comments (user_id, post_id, comment_text) VALUES (#{user_id}, #{post_id}, #{text})")
+   "success"
+end
