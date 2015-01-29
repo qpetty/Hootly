@@ -60,6 +60,24 @@ post '/hoots' do
    "success\n"
 end
 
+post '/hootsup' do
+   post_id = params['post_id']
+   user_id = params['user_id']
+   client.query("INSERT INTO Hoots_Upvotes (post_id, user_id) VALUES (#{post_id}, #{user_id})")
+   client.query("UPDATE Hoots SET hootloot = hootloot + 1 WHERE id = #{post_id}")
+   poster_id = client.query("SELECT * FROM Hoots WHERE id = #{post_id}").first['user_id']
+   client.query("UPDATE Users SET hootloot = hootloot + 2 WHERE id = #{poster_id}")
+end
+
+post '/hootsdown' do
+   post_id = params['post_id']
+   user_id = params['user_id']
+   client.query("INSERT INTO Hoots_Downvotes (post_id, user_id) VALUES (#{post_id}, #{user_id})")
+   client.query("UPDATE Hoots SET hootloot = hootloot - 1 WHERE id = #{post_id}")
+   poster_id = client.query("SELECT * FROM Hoots WHERE id = #{post_id}").first['user_id']
+   client.query("UPDATE Users SET hootloot = hootloot - 1 WHERE id = #{poster_id}")
+end
+
 # example usage
 # /comments?postid=1
 get '/comments' do
