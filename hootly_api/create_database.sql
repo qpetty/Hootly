@@ -3,7 +3,7 @@ use hootly;
 
 CREATE TABLE Users (
    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-   karma INT NOT NULL DEFAULT 100
+   hootloot INT NOT NULL DEFAULT 100
 );
 
 

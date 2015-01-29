@@ -15,9 +15,12 @@ post '/user' do
    "success"
 end
 
+get '/hootloot' do
+end
+
 # example usage
 # /clamors?lat=1.4&long=4.3
-get '/hoot' do
+get '/hoots' do
    lat = params['lat']
    long = params['long']
    posts = client.query("select * from posts limit 50")
@@ -30,10 +33,9 @@ end
 
 # post info
 # userid, an image, a caption
-post '/hoot' do
+post '/hoots' do
    userid = params['userid']
    caption = params['caption']
-   #caption = client.escape(caption)
    timestamp = Time.now.to_i
    lat = params["lat"]
    long = params["long"]
@@ -101,4 +103,16 @@ post '/comments' do
 
    client.query("INSERT INTO Comments (user_id, post_id, comment_text) VALUES (#{user_id}, #{post_id}, #{text})")
    "success"
+end
+
+post '/commentsup' do
+   comment_id = params['comment_id']
+   user_id = params['user_id']
+   client.query("INSERT INTO Comments_Upvotes (comment_id, user_id) VALUES (#{comment_id}, #{user_id})")
+end
+
+post '/commentsdown' do
+   comment_id = params['comment_id']
+   user_id = params['user_id']
+   client.query("INSERT INTO Comments_Downvotes (comment_id, user_id) VALUES (#{comment_id}, #{user_id})")
 end
