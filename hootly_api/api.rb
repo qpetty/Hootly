@@ -10,12 +10,15 @@ get '/' do
 end
 
 post '/user' do
-   userid = params['userid']
-   client.query("INSERT INTO Users (id) values (#{userid})")
+   user_id = params['user_id']
+   client.query("INSERT INTO Users (id) values (#{user_id})")
    "success"
 end
 
 get '/hootloot' do
+   user_id = params['user_id']
+   hootloot = client.query("SELECT hootloot FROM Users where id = #{user_id}")
+   hootloot.first['hootloot'].to_json
 end
 
 # example usage
@@ -67,20 +70,7 @@ get '/comments' do
       comment_id = comment["id"]
       comment_text = comment["comment_text"]
 
-      upvotes = client.query("select sum(vote) as votes from Comments_Upvotes where comment_id = #{comment_id}")
-      downvotes = client.query("select sum(vote) as votes from Comments_Downvotes where comment_id = #{comment_id}")
-
-      up = upvotes.first["votes"]
-      if up.nil?
-         up = 0
-      end
-
-      down = downvotes.first["votes"]
-      if down.nil?
-         down = 0
-      end
-
-      score = up - down
+      score = comment["hootloot"]
 
       user_upvote = client.query("select sum(vote) as votes from Comments_Upvotes where comment_id = #{comment_id} and user_id = #{requester_user_id}")
       user_downvote = client.query("select sum(vote) as votes from Comments_Downvotes where comment_id = #{comment_id} and user_id = #{requester_user_id}")
@@ -109,10 +99,16 @@ post '/commentsup' do
    comment_id = params['comment_id']
    user_id = params['user_id']
    client.query("INSERT INTO Comments_Upvotes (comment_id, user_id) VALUES (#{comment_id}, #{user_id})")
+   client.query("UPDATE Comments SET hootloot = hootloot + 1 WHERE id = #{comment_id}")
+   poster_id = client.query("SELECT * FROM Comments WHERE id = #{comment_id}").first['user_id']
+   client.query("UPDATE Users SET hootloot = hootloot + 2 WHERE id = #{poster_id}")
 end
 
 post '/commentsdown' do
    comment_id = params['comment_id']
    user_id = params['user_id']
    client.query("INSERT INTO Comments_Downvotes (comment_id, user_id) VALUES (#{comment_id}, #{user_id})")
+   client.query("UPDATE Comments SET hootloot = hootloot - 1 WHERE id = #{comment_id}")
+   poster_id = client.query("SELECT * FROM Comments WHERE comment_id = #{comment_id}").first['user_id']
+   client.query("UPDATE Users SET hootloot = hootloot - 1 WHERE id = #{poster_id}")
 end
