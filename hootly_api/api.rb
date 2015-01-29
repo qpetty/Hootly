@@ -16,9 +16,11 @@ post '/user' do
 end
 
 get '/hootloot' do
+   data = {}
    user_id = params['user_id']
    hootloot = client.query("SELECT hootloot FROM Users where id = #{user_id}")
-   hootloot.first['hootloot'].to_json
+   data['hootloot'] = hootloot.first['hootloot']
+   data.to_json
 end
 
 # example usage
