@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="j9G-h5-IrQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="j9G-h5-IrQ">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -45,7 +45,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8zO-Ee-Hj4" id="w3s-Bh-Hp5">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="T0S-ov-DP0">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="T0S-ov-DP0">
                                                     <rect key="frame" x="0.0" y="0.0" width="600" height="338"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="200" id="DiD-GN-8of"/>
@@ -113,78 +113,38 @@
                                                                 <constraint firstAttribute="width" constant="50" id="1rB-eE-wB5"/>
                                                                 <constraint firstAttribute="centerX" secondItem="Bi1-q1-pAT" secondAttribute="centerX" id="S7j-eK-L89"/>
                                                                 <constraint firstItem="07Q-4B-K5q" firstAttribute="top" secondItem="Bi1-q1-pAT" secondAttribute="bottom" id="Z64-r1-5eJ"/>
-                                                                <constraint firstItem="Bi1-q1-pAT" firstAttribute="top" secondItem="utx-GR-gxu" secondAttribute="top" id="ajT-u2-NoR"/>
                                                                 <constraint firstAttribute="height" constant="50" id="bAw-GR-8gb"/>
                                                                 <constraint firstAttribute="centerX" secondItem="07Q-4B-K5q" secondAttribute="centerX" id="dKe-As-uuA"/>
                                                                 <constraint firstAttribute="centerX" secondItem="SXY-UM-wFe" secondAttribute="centerX" id="iXy-5Y-8M2"/>
-                                                                <constraint firstAttribute="bottom" secondItem="SXY-UM-wFe" secondAttribute="bottom" id="jxg-sK-Ap0"/>
                                                                 <constraint firstItem="SXY-UM-wFe" firstAttribute="top" secondItem="07Q-4B-K5q" secondAttribute="bottom" id="mKi-VY-5j7"/>
                                                                 <constraint firstAttribute="centerY" secondItem="07Q-4B-K5q" secondAttribute="centerY" id="mzj-Jn-SCk"/>
                                                             </constraints>
-                                                            <variation key="default">
-                                                                <mask key="constraints">
-                                                                    <exclude reference="ajT-u2-NoR"/>
-                                                                    <exclude reference="jxg-sK-Ap0"/>
-                                                                </mask>
-                                                            </variation>
                                                         </view>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="trailing" secondItem="utx-GR-gxu" secondAttribute="trailing" constant="8" id="3X6-3g-EGv"/>
-                                                        <constraint firstItem="bbX-85-HoI" firstAttribute="leading" secondItem="hN2-gI-E2E" secondAttribute="leading" constant="8" id="4aH-ra-aGQ"/>
-                                                        <constraint firstItem="utx-GR-gxu" firstAttribute="top" secondItem="hN2-gI-E2E" secondAttribute="top" id="4mo-sK-eFy"/>
                                                         <constraint firstItem="Wfu-SD-QM0" firstAttribute="leading" secondItem="d93-ag-Ejt" secondAttribute="trailing" constant="16" id="94v-qM-P1V"/>
-                                                        <constraint firstItem="bbX-85-HoI" firstAttribute="height" secondItem="d93-ag-Ejt" secondAttribute="height" id="A36-Yp-vjd"/>
-                                                        <constraint firstAttribute="trailing" secondItem="utx-GR-gxu" secondAttribute="trailing" constant="16" id="D0s-M1-cCR"/>
                                                         <constraint firstAttribute="centerY" secondItem="utx-GR-gxu" secondAttribute="centerY" id="ECH-Rz-vyk"/>
-                                                        <constraint firstAttribute="height" constant="80" id="FxP-nF-dvP"/>
                                                         <constraint firstItem="d93-ag-Ejt" firstAttribute="leading" secondItem="bbX-85-HoI" secondAttribute="trailing" constant="8" id="G0u-JH-oQ1"/>
                                                         <constraint firstItem="bbX-85-HoI" firstAttribute="leading" secondItem="MAj-o9-f3m" secondAttribute="leading" id="GFo-9B-62W"/>
                                                         <constraint firstAttribute="bottom" secondItem="d93-ag-Ejt" secondAttribute="bottom" constant="8" id="ZFL-7Z-jNr"/>
                                                         <constraint firstItem="MAj-o9-f3m" firstAttribute="leading" secondItem="hN2-gI-E2E" secondAttribute="leading" constant="16" id="eFN-bh-z0G"/>
                                                         <constraint firstItem="MAj-o9-f3m" firstAttribute="top" secondItem="hN2-gI-E2E" secondAttribute="top" constant="16" id="g7m-T2-Awe"/>
-                                                        <constraint firstAttribute="trailing" secondItem="utx-GR-gxu" secondAttribute="trailing" id="nx0-Il-2OO"/>
-                                                        <constraint firstItem="utx-GR-gxu" firstAttribute="height" secondItem="hN2-gI-E2E" secondAttribute="height" id="pVJ-cE-gzH"/>
                                                         <constraint firstAttribute="bottom" secondItem="Wfu-SD-QM0" secondAttribute="bottom" constant="8" id="tYS-1O-yEl"/>
-                                                        <constraint firstAttribute="centerY" secondItem="utx-GR-gxu" secondAttribute="centerY" id="wTz-ag-Cqc"/>
                                                         <constraint firstAttribute="bottom" secondItem="bbX-85-HoI" secondAttribute="bottom" constant="8" id="xES-zc-74n"/>
                                                     </constraints>
-                                                    <variation key="default">
-                                                        <mask key="constraints">
-                                                            <exclude reference="FxP-nF-dvP"/>
-                                                            <exclude reference="4aH-ra-aGQ"/>
-                                                            <exclude reference="A36-Yp-vjd"/>
-                                                            <exclude reference="4mo-sK-eFy"/>
-                                                            <exclude reference="D0s-M1-cCR"/>
-                                                            <exclude reference="nx0-Il-2OO"/>
-                                                            <exclude reference="pVJ-cE-gzH"/>
-                                                            <exclude reference="wTz-ag-Cqc"/>
-                                                        </mask>
-                                                    </variation>
                                                 </view>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="hN2-gI-E2E" firstAttribute="top" secondItem="T0S-ov-DP0" secondAttribute="bottom" id="Cmm-go-E9P"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="T0S-ov-DP0" secondAttribute="trailing" id="OoZ-fs-EG5"/>
                                                 <constraint firstAttribute="trailing" secondItem="hN2-gI-E2E" secondAttribute="trailing" id="PdS-D8-TQi"/>
                                                 <constraint firstItem="hN2-gI-E2E" firstAttribute="leading" secondItem="w3s-Bh-Hp5" secondAttribute="leading" id="RnU-RP-UbX"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="hN2-gI-E2E" secondAttribute="bottom" id="ShM-X5-z2x"/>
-                                                <constraint firstItem="T0S-ov-DP0" firstAttribute="top" secondItem="w3s-Bh-Hp5" secondAttribute="topMargin" id="btO-RB-tGO"/>
                                                 <constraint firstItem="T0S-ov-DP0" firstAttribute="leading" secondItem="w3s-Bh-Hp5" secondAttribute="leading" id="hXx-ww-MMy"/>
-                                                <constraint firstItem="utx-GR-gxu" firstAttribute="top" secondItem="T0S-ov-DP0" secondAttribute="bottom" id="mND-qX-OVv"/>
-                                                <constraint firstItem="T0S-ov-DP0" firstAttribute="leading" secondItem="w3s-Bh-Hp5" secondAttribute="leadingMargin" id="oKf-1Z-U5d"/>
                                                 <constraint firstAttribute="trailing" secondItem="T0S-ov-DP0" secondAttribute="trailing" id="qkj-j3-0GB"/>
                                                 <constraint firstItem="T0S-ov-DP0" firstAttribute="top" secondItem="w3s-Bh-Hp5" secondAttribute="top" id="qta-AL-BKH"/>
                                             </constraints>
-                                            <variation key="default">
-                                                <mask key="constraints">
-                                                    <exclude reference="OoZ-fs-EG5"/>
-                                                    <exclude reference="btO-RB-tGO"/>
-                                                    <exclude reference="oKf-1Z-U5d"/>
-                                                    <exclude reference="mND-qX-OVv"/>
-                                                </mask>
-                                            </variation>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="comment" destination="MAj-o9-f3m" id="OmZ-Xe-SK0"/>
