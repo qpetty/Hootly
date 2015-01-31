@@ -152,6 +152,7 @@
                                             <outlet property="rating" destination="07Q-4B-K5q" id="qdq-oO-Paq"/>
                                             <outlet property="replies" destination="d93-ag-Ejt" id="y9D-aU-zir"/>
                                             <outlet property="time" destination="Wfu-SD-QM0" id="Euh-8X-IVN"/>
+                                            <segue destination="bVX-S0-grA" kind="show" id="1cR-Kn-WEv"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -183,6 +184,37 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="305" y="370"/>
+        </scene>
+        <!--Single Hoot View Controller-->
+        <scene sceneID="ODn-yz-P9n">
+            <objects>
+                <viewController id="bVX-S0-grA" customClass="SingleHootViewController" customModule="Hootly" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="IaO-mB-7YL"/>
+                        <viewControllerLayoutGuide type="bottom" id="T7b-7o-R7V"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="EL9-fv-4C7">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9T9-um-Onb">
+                                <rect key="frame" x="82" y="86" width="265" height="265"/>
+                            </imageView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="t7K-rG-kYY">
+                                <rect key="frame" x="181" y="306" width="300" height="300"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="commentTable" destination="t7K-rG-kYY" id="Xwi-Sw-YD1"/>
+                        <outlet property="photo" destination="9T9-um-Onb" id="dkW-IX-SVi"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="J8N-fI-wav" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1097" y="370"/>
         </scene>
     </scenes>
 </document>

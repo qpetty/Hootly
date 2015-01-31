@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var feedTableView: UITableView!
     
     var sampleData: [Hoot] = []
@@ -51,6 +51,14 @@ class ViewController: UIViewController, UITableViewDataSource {
         cell.setHoot(sampleData[indexPath.row])
         
         return cell
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let dest = segue.destinationViewController as SingleHootViewController
+        let cell = sender as HootCell
+        dest.hoot = cell.hoot
+        
+        feedTableView.deselectRowAtIndexPath(feedTableView.indexPathForSelectedRow()!, animated: true)
     }
 }
 

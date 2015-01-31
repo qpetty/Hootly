@@ -16,7 +16,10 @@ class HootCell: UITableViewCell {
     @IBOutlet weak var replies: UILabel!
     @IBOutlet weak var time: UILabel!
     
+    var hoot: Hoot?
+    
     func setHoot(singleHoot: Hoot) {
+        hoot = singleHoot
         photo.image = singleHoot.photo
         comment.text = singleHoot.comment
         rating.text = "\(singleHoot.rating)"
