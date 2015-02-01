@@ -199,7 +199,7 @@
                     <navigationItem key="navigationItem" id="iKZ-f4-5EH">
                         <nil key="title"/>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="zUZ-fE-DFJ">
-                            <rect key="frame" x="97.5" y="7" width="180" height="30"/>
+                            <rect key="frame" x="98" y="7" width="180" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="New"/>
