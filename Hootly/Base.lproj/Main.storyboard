@@ -13,6 +13,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="g37-Dh-PZE">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.55294117647058827" green="0.73333333333333328" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="86e-Xq-cmc"/>
@@ -55,7 +56,7 @@
                                                     <rect key="frame" x="0.0" y="338" width="600" height="74"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="# replies" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d93-ag-Ejt">
-                                                            <rect key="frame" x="143" y="58" width="44" height="14"/>
+                                                            <rect key="frame" x="145" y="58" width="44" height="14"/>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                             <nil key="highlightedColor"/>
@@ -107,11 +108,11 @@
                                                             </constraints>
                                                         </view>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Comments" translatesAutoresizingMaskIntoConstraints="NO" id="bbX-85-HoI" userLabel="imgComment">
-                                                            <rect key="frame" x="121" y="58" width="14" height="14"/>
+                                                            <rect key="frame" x="121" y="56" width="16" height="16"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="bbX-85-HoI" secondAttribute="height" multiplier="1:1" id="G7Z-7J-iM4"/>
-                                                                <constraint firstAttribute="width" constant="14" id="Jxq-wf-GYd"/>
-                                                                <constraint firstAttribute="height" constant="14" id="wXF-lj-Hng"/>
+                                                                <constraint firstAttribute="width" constant="16" id="Jxq-wf-GYd"/>
+                                                                <constraint firstAttribute="height" constant="16" id="wXF-lj-Hng"/>
                                                             </constraints>
                                                         </imageView>
                                                     </subviews>
@@ -175,7 +176,18 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" id="iKZ-f4-5EH"/>
+                    <navigationItem key="navigationItem" id="iKZ-f4-5EH">
+                        <nil key="title"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="zUZ-fE-DFJ">
+                            <rect key="frame" x="210" y="7" width="180" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="New"/>
+                                <segment title="Hot"/>
+                            </segments>
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </segmentedControl>
+                    </navigationItem>
                     <connections>
                         <outlet property="feedTableView" destination="Khf-uz-pHN" id="WNe-63-lka"/>
                     </connections>
