@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import MobileCoreServices
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     @IBOutlet weak var feedTableView: UITableView!
     
     var sampleData: [Hoot] = []
@@ -89,7 +90,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             
             feedTableView.deselectRowAtIndexPath(feedTableView.indexPathForSelectedRow()!, animated: true)
         case "Camera":
-            println("camera appearing")
+            let dest = segue.destinationViewController as UIImagePickerController
+            dest.delegate = self
+            dest.sourceType = .Camera
+            //dest.sourceType = .SavedPhotosAlbum
+            dest.mediaTypes = [kUTTypeImage]
         default:
             println("unrecognized segue")
         }

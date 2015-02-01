@@ -226,10 +226,10 @@
             </objects>
             <point key="canvasLocation" x="305" y="370"/>
         </scene>
-        <!--View Controller-->
+        <!--Image Picker Controller-->
         <scene sceneID="dSj-ge-iOk">
             <objects>
-                <viewController id="QTY-sV-F5D" sceneMemberID="viewController">
+                <viewController id="QTY-sV-F5D" customClass="UIImagePickerController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="GKJ-8t-rDw"/>
                         <viewControllerLayoutGuide type="bottom" id="FY8-jL-Kv4"/>
