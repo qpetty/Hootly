@@ -13,6 +13,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     var sampleData: [Hoot] = []
     
+    let CELL_HEIGHT = 80.0 as CGFloat
+    
     override init() {
         super.init()
         self.makeSampleData()
@@ -57,6 +59,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // Dispose of any resources that can be recreated.
     }
 
+    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return self.view.frame.size.width + CELL_HEIGHT
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return self.view.frame.size.width + CELL_HEIGHT
+    }
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sampleData.count
     }
