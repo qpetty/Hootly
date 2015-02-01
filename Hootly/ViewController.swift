@@ -45,6 +45,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
             
             feedTableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Fade)
+            feedTableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: true)
         } else {
             println("Expected UISegementdControl")
         }
@@ -80,11 +81,18 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let dest = segue.destinationViewController as SingleHootViewController
-        let cell = sender as HootCell
-        dest.hoot = cell.hoot
-        
-        feedTableView.deselectRowAtIndexPath(feedTableView.indexPathForSelectedRow()!, animated: true)
+        switch segue.identifier! {
+        case "DetailHoot":
+            let dest = segue.destinationViewController as SingleHootViewController
+            let cell = sender as HootCell
+            dest.hoot = cell.hoot
+            
+            feedTableView.deselectRowAtIndexPath(feedTableView.indexPathForSelectedRow()!, animated: true)
+        case "Camera":
+            println("camera appearing")
+        default:
+            println("unrecognized segue")
+        }
     }
 }
 
