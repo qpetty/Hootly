@@ -296,4 +296,5 @@
         <image name="Time" width="22" height="22"/>
         <image name="Upvote" width="22" height="22"/>
     </resources>
+    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
