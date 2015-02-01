@@ -24,14 +24,28 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func makeSampleData() {
-        var sample = Hoot(userID: "Brandon", photo: UIImage(named: "hoot1"), comment: "This is a long comment", replies: 5, time: "10", rating: 8)
+        var sample = Hoot(userID: "Brandon", photo: UIImage(named: "hoot1"), comment: "This is a long comment", replies: 5, time: "1", rating: 8)
         sampleData.append(sample)
         
         sample = Hoot(userID: "Krisna", photo: UIImage(named: "hoot2"), comment: "This is a longer comment", replies: 5, time: "10", rating: 8)
         sampleData.append(sample)
+        
+        sampleData.sort {$0.time < $1.time}
     }
     
     @IBAction func sortList(sender: AnyObject) {
+        if let segment = sender as? UISegmentedControl {
+            switch segment.selectedSegmentIndex {
+            case 1:
+                sampleData.sort {$0.time > $1.time}
+            default:
+                sampleData.sort {$0.time < $1.time}
+            }
+            
+            feedTableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Fade)
+        } else {
+            println("Expected UISegementdControl")
+        }
     }
     override func viewDidLoad() {
         super.viewDidLoad()
