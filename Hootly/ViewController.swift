@@ -83,11 +83,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func imagePickerController(picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
         let vc = storyboard?.instantiateViewControllerWithIdentifier("NewHoot") as NewHootViewController
-        //navigationController?.pushViewController(vc, animated: false)
-        
         vc.image = image
         
-        //dismissViewControllerAnimated(true, completion: nil)
         dismissViewControllerAnimated(true, completion: { () -> Void in
             self.presentViewController(vc, animated: true, completion: nil)
         })
@@ -106,18 +103,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             dest.hoot = cell.hoot
             
             feedTableView.deselectRowAtIndexPath(feedTableView.indexPathForSelectedRow()!, animated: true)
+            
         case "Camera":
-            let dest = segue.destinationViewController as UIImagePickerController
+            let dest = segue.destinationViewController as SquareImagePickerController
             dest.delegate = self
             dest.sourceType = .Camera
             dest.allowsEditing = false
             dest.mediaTypes = [kUTTypeImage]
             
-            var view = UIView()
             var width = self.view.frame.size.width
-            view.backgroundColor = UIColor.greenColor()
-            view.frame = CGRect(x: 0, y: 80, width: width, height: width)
-            dest.cameraOverlayView = view
+            dest.imageRect = NSValue(CGSize: CGSize(width: width, height: width))
         default:
             println("unrecognized segue")
         }
