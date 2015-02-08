@@ -27,7 +27,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func makeSampleData() {
-        var sample = Hoot(userID: "Brandon", photo: UIImage(named: "hoot1"), comment: "This is a long comment", replies: 5, time: "1", rating: 8)
+        var sample = Hoot(userID: "Brandon", photo: UIImage(named: "hoot1"), comment: "This is a super duper super optimus prime long comment", replies: 5, time: "1", rating: 8)
         sampleData.append(sample)
         
         sample = Hoot(userID: "Krisna", photo: UIImage(named: "hoot2"), comment: "This is a longer comment", replies: 5, time: "10", rating: 8)

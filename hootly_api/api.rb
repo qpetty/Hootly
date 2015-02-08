@@ -25,8 +25,18 @@ get '/hootloot' do
    data.to_json
 end
 
-# example usage
-# /clamors?lat=1.4&long=4.3
+get '/myhoots' do
+   user_id = params['user_id']
+   comments = client.query("SELECT post_id FROM Comments WHERE user_id = #{user_id}")
+
+   post_ids = []
+   comments.each do |comment|
+      post_ids.push(comment["post_id"])
+   end
+
+   post_ids = post_ids.to_set
+end
+
 get '/hoots' do
    lat = params['lat']
    long = params['long']
@@ -112,8 +122,9 @@ post '/comments' do
    post_id = params['post_id']
    text = params['text']
    user_id = params['user_id']
+   timestamp = Time.now.to_i
 
-   client.query("INSERT INTO Comments (user_id, post_id, comment_text) VALUES (#{user_id}, #{post_id}, #{text})")
+   client.query("INSERT INTO Comments (user_id, post_id, comment_text, timestamp) VALUES (#{user_id}, #{post_id}, #{text}, #{timestamp})")
    "success"
 end
 

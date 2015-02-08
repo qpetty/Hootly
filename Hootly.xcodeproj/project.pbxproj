@@ -19,6 +19,7 @@
 		5A94E31B1A74987900CA1CB8 /* Hoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A94E31A1A74987900CA1CB8 /* Hoot.swift */; };
 		5A94E31D1A749F6600CA1CB8 /* HootCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A94E31C1A749F6600CA1CB8 /* HootCell.swift */; };
 		5A97686A1A88086E00229E7E /* NewHootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9768691A88086E00229E7E /* NewHootViewController.swift */; };
+		D12280BE1A87F2F100CDDFB8 /* CommentFormView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D12280BD1A87F2F100CDDFB8 /* CommentFormView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 		5A94E31A1A74987900CA1CB8 /* Hoot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hoot.swift; sourceTree = "<group>"; };
 		5A94E31C1A749F6600CA1CB8 /* HootCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HootCell.swift; sourceTree = "<group>"; };
 		5A9768691A88086E00229E7E /* NewHootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewHootViewController.swift; sourceTree = "<group>"; };
+		D12280BD1A87F2F100CDDFB8 /* CommentFormView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentFormView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 				5A94E2FE1A74940300CA1CB8 /* Main.storyboard */,
 				5A37D1941A7DD7EB006AAC65 /* CommentView.swift */,
 				5A37D1921A7DD60D006AAC65 /* CommentView.xib */,
+				D12280BD1A87F2F100CDDFB8 /* CommentFormView.xib */,
 				5A94E3011A74940300CA1CB8 /* Images.xcassets */,
 				5A94E3031A74940300CA1CB8 /* LaunchScreen.xib */,
 				5A94E2F81A74940300CA1CB8 /* Supporting Files */,
@@ -211,6 +214,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A94E3001A74940300CA1CB8 /* Main.storyboard in Resources */,
+				D12280BE1A87F2F100CDDFB8 /* CommentFormView.xib in Resources */,
 				5A94E3051A74940300CA1CB8 /* LaunchScreen.xib in Resources */,
 				5A37D1931A7DD60D006AAC65 /* CommentView.xib in Resources */,
 				5A94E3021A74940300CA1CB8 /* Images.xcassets in Resources */,

@@ -38,6 +38,7 @@ CREATE TABLE Comments (
    user_id INT NOT NULL,
    post_id INT NOT NULL,
    hootloot INT NOT NULL DEFAULT 0,
+   timestamp INT(11) NOT NULL,
    comment_text CHAR(160) NOT NULL
 );
 

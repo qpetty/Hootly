@@ -18,20 +18,14 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="72"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="# replies" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uu0-4A-8c8">
-                    <rect key="frame" x="160" y="49" width="44" height="13.5"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="# replies" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uu0-4A-8c8">
+                    <rect key="frame" x="160" y="49" width="44" height="14"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                     <color key="textColor" red="0.7725490196" green="0.81960784310000001" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Description: Can be a few lines I guess, just add more into here" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YdQ-GE-upc">
-                    <rect key="frame" x="8" y="8" width="534" height="14.5"/>
-                    <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                    <color key="textColor" red="0.30588235289999999" green="0.32156862749999998" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Submission Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h7o-8W-r5m">
-                    <rect key="frame" x="32" y="49" width="88.5" height="13.5"/>
+                    <rect key="frame" x="40" y="49" width="89" height="14"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                     <color key="textColor" red="0.7725490196" green="0.81960784310000001" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
@@ -70,24 +64,31 @@
                         <constraint firstAttribute="centerY" secondItem="F11-WE-RS1" secondAttribute="centerY" id="wSO-qB-vfm"/>
                     </constraints>
                 </view>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Time" translatesAutoresizingMaskIntoConstraints="NO" id="e6g-SU-sZz" userLabel="imgComment">
-                    <rect key="frame" x="8" y="48" width="16" height="16"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="16" id="9LQ-Eu-3X2"/>
-                        <constraint firstAttribute="width" secondItem="e6g-SU-sZz" secondAttribute="height" multiplier="1:1" id="cJz-gU-DCT"/>
-                    </constraints>
-                </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Comments" translatesAutoresizingMaskIntoConstraints="NO" id="bhI-fG-5sh" userLabel="imgComment">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Comments" translatesAutoresizingMaskIntoConstraints="NO" id="bhI-fG-5sh" userLabel="imgComment">
                     <rect key="frame" x="136" y="48" width="16" height="16"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="bhI-fG-5sh" secondAttribute="height" multiplier="1:1" id="ELo-8z-Uvb"/>
                         <constraint firstAttribute="width" constant="16" id="iOa-5f-8fp"/>
                     </constraints>
                 </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description: Can be a few lines I guess, just add more into here" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YdQ-GE-upc">
+                    <rect key="frame" x="16" y="8" width="526" height="32"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                    <color key="textColor" red="0.30588235289999999" green="0.32156862749999998" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Time" translatesAutoresizingMaskIntoConstraints="NO" id="e6g-SU-sZz" userLabel="imgComment">
+                    <rect key="frame" x="16" y="48" width="16" height="16"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="16" id="9LQ-Eu-3X2"/>
+                        <constraint firstAttribute="width" secondItem="e6g-SU-sZz" secondAttribute="height" multiplier="1:1" id="cJz-gU-DCT"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="bhI-fG-5sh" firstAttribute="leading" secondItem="h7o-8W-r5m" secondAttribute="trailing" constant="16" id="4hL-38-Or6"/>
+                <constraint firstItem="e6g-SU-sZz" firstAttribute="leading" secondItem="YdQ-GE-upc" secondAttribute="leading" id="57U-nO-nZ3"/>
                 <constraint firstItem="h7o-8W-r5m" firstAttribute="centerY" secondItem="e6g-SU-sZz" secondAttribute="centerY" id="Bar-dG-twX"/>
                 <constraint firstItem="bhI-fG-5sh" firstAttribute="centerY" secondItem="Uu0-4A-8c8" secondAttribute="centerY" id="BhG-z5-2b4"/>
                 <constraint firstItem="bhI-fG-5sh" firstAttribute="centerY" secondItem="h7o-8W-r5m" secondAttribute="centerY" id="Mp0-vh-oLs"/>
@@ -96,7 +97,7 @@
                 <constraint firstItem="h7o-8W-r5m" firstAttribute="leading" secondItem="e6g-SU-sZz" secondAttribute="trailing" constant="8" id="WkN-bT-7wB"/>
                 <constraint firstAttribute="centerY" secondItem="AcE-uO-Nb6" secondAttribute="centerY" id="Zgd-PH-wRj"/>
                 <constraint firstItem="Uu0-4A-8c8" firstAttribute="leading" secondItem="bhI-fG-5sh" secondAttribute="trailing" constant="8" id="bTC-gU-7yl"/>
-                <constraint firstItem="YdQ-GE-upc" firstAttribute="leading" secondItem="Y1j-Fc-qbi" secondAttribute="leading" constant="8" id="ext-Ui-gn7"/>
+                <constraint firstItem="YdQ-GE-upc" firstAttribute="leading" secondItem="Y1j-Fc-qbi" secondAttribute="leading" constant="16" id="ext-Ui-gn7"/>
                 <constraint firstAttribute="bottom" secondItem="e6g-SU-sZz" secondAttribute="bottom" constant="8" id="psa-Wq-raA"/>
                 <constraint firstItem="e6g-SU-sZz" firstAttribute="leading" secondItem="Y1j-Fc-qbi" secondAttribute="leading" constant="8" id="wYw-4b-JaF"/>
                 <constraint firstItem="bhI-fG-5sh" firstAttribute="top" relation="greaterThanOrEqual" secondItem="YdQ-GE-upc" secondAttribute="bottom" constant="8" id="xlu-Pe-YNX"/>
@@ -106,6 +107,11 @@
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="wYw-4b-JaF"/>
+                </mask>
+            </variation>
             <point key="canvasLocation" x="304" y="382"/>
         </view>
     </objects>
