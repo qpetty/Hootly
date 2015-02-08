@@ -81,6 +81,23 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return cell
     }
     
+    func imagePickerController(picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
+        let vc = storyboard?.instantiateViewControllerWithIdentifier("NewHoot") as NewHootViewController
+        //navigationController?.pushViewController(vc, animated: false)
+        
+        vc.image = image
+        
+        //dismissViewControllerAnimated(true, completion: nil)
+        dismissViewControllerAnimated(true, completion: { () -> Void in
+            self.presentViewController(vc, animated: true, completion: nil)
+        })
+    }
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        println("nothing picked")
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segue.identifier! {
         case "DetailHoot":
@@ -93,8 +110,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let dest = segue.destinationViewController as UIImagePickerController
             dest.delegate = self
             dest.sourceType = .Camera
-            //dest.sourceType = .SavedPhotosAlbum
+            dest.allowsEditing = false
             dest.mediaTypes = [kUTTypeImage]
+            
+            var view = UIView()
+            var width = self.view.frame.size.width
+            view.backgroundColor = UIColor.greenColor()
+            view.frame = CGRect(x: 0, y: 80, width: width, height: width)
+            dest.cameraOverlayView = view
         default:
             println("unrecognized segue")
         }

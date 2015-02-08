@@ -132,6 +132,45 @@
             </objects>
             <point key="canvasLocation" x="305" y="370"/>
         </scene>
+        <!--New Hoot View Controller-->
+        <scene sceneID="GKD-Uk-uXU">
+            <objects>
+                <viewController storyboardIdentifier="NewHoot" useStoryboardIdentifierAsRestorationIdentifier="YES" id="CYg-91-oxN" customClass="NewHootViewController" customModule="Hootly" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="4Rv-Vb-4A7"/>
+                        <viewControllerLayoutGuide type="bottom" id="pQH-Hl-EFa"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="zso-Wy-2Ja">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="afP-l1-k0X">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hiy-Sd-2ze">
+                                <rect key="frame" x="16" y="20" width="46" height="30"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="closeModal:" destination="CYg-91-oxN" eventType="touchUpInside" id="sgf-24-4qg"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Hiy-Sd-2ze" firstAttribute="leading" secondItem="zso-Wy-2Ja" secondAttribute="leadingMargin" id="Lv9-ZD-1Ms"/>
+                            <constraint firstItem="Hiy-Sd-2ze" firstAttribute="top" secondItem="4Rv-Vb-4A7" secondAttribute="bottom" id="Q4h-dh-kQB"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="capturedImageView" destination="afP-l1-k0X" id="ciV-E2-tuu"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4ZY-pH-xh1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="187" y="-492"/>
+        </scene>
         <!--Image Picker Controller-->
         <scene sceneID="dSj-ge-iOk">
             <objects>
