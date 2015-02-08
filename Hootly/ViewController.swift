@@ -105,14 +105,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             feedTableView.deselectRowAtIndexPath(feedTableView.indexPathForSelectedRow()!, animated: true)
             
         case "Camera":
-            let dest = segue.destinationViewController as SquareImagePickerController
+            let dest = segue.destinationViewController as UIImagePickerController
             dest.delegate = self
             dest.sourceType = .Camera
-            dest.allowsEditing = false
+            dest.allowsEditing = true
             dest.mediaTypes = [kUTTypeImage]
             
-            var width = self.view.frame.size.width
-            dest.imageRect = NSValue(CGSize: CGSize(width: width, height: width))
         default:
             println("unrecognized segue")
         }

@@ -19,8 +19,6 @@
 		5A94E31B1A74987900CA1CB8 /* Hoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A94E31A1A74987900CA1CB8 /* Hoot.swift */; };
 		5A94E31D1A749F6600CA1CB8 /* HootCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A94E31C1A749F6600CA1CB8 /* HootCell.swift */; };
 		5A97686A1A88086E00229E7E /* NewHootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9768691A88086E00229E7E /* NewHootViewController.swift */; };
-		5A97686C1A88159000229E7E /* CameraOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A97686B1A88159000229E7E /* CameraOverlayView.swift */; };
-		5A97686E1A881DC100229E7E /* SquareImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A97686D1A881DC100229E7E /* SquareImagePickerViewController.swift */; };
 		D12280BE1A87F2F100CDDFB8 /* CommentFormView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D12280BD1A87F2F100CDDFB8 /* CommentFormView.xib */; };
 /* End PBXBuildFile section */
 
@@ -51,8 +49,6 @@
 		5A94E31A1A74987900CA1CB8 /* Hoot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hoot.swift; sourceTree = "<group>"; };
 		5A94E31C1A749F6600CA1CB8 /* HootCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HootCell.swift; sourceTree = "<group>"; };
 		5A9768691A88086E00229E7E /* NewHootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewHootViewController.swift; sourceTree = "<group>"; };
-		5A97686B1A88159000229E7E /* CameraOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraOverlayView.swift; sourceTree = "<group>"; };
-		5A97686D1A881DC100229E7E /* SquareImagePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquareImagePickerViewController.swift; sourceTree = "<group>"; };
 		D12280BD1A87F2F100CDDFB8 /* CommentFormView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentFormView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -98,8 +94,6 @@
 				5A94E2FA1A74940300CA1CB8 /* AppDelegate.swift */,
 				5A94E2FC1A74940300CA1CB8 /* ViewController.swift */,
 				5A9768691A88086E00229E7E /* NewHootViewController.swift */,
-				5A97686D1A881DC100229E7E /* SquareImagePickerViewController.swift */,
-				5A97686B1A88159000229E7E /* CameraOverlayView.swift */,
 				5A37D1891A7D9170006AAC65 /* SingleHootViewController.swift */,
 				5A94E31A1A74987900CA1CB8 /* Hoot.swift */,
 				5A94E31C1A749F6600CA1CB8 /* HootCell.swift */,
@@ -242,10 +236,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5A97686C1A88159000229E7E /* CameraOverlayView.swift in Sources */,
 				5A37D1951A7DD7EB006AAC65 /* CommentView.swift in Sources */,
 				5A94E2FD1A74940300CA1CB8 /* ViewController.swift in Sources */,
-				5A97686E1A881DC100229E7E /* SquareImagePickerViewController.swift in Sources */,
 				5A94E31B1A74987900CA1CB8 /* Hoot.swift in Sources */,
 				5A37D18A1A7D9170006AAC65 /* SingleHootViewController.swift in Sources */,
 				5A97686A1A88086E00229E7E /* NewHootViewController.swift in Sources */,

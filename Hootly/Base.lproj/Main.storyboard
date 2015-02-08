@@ -199,10 +199,10 @@
             </objects>
             <point key="canvasLocation" x="242.5" y="-436.5"/>
         </scene>
-        <!--Square Image Picker Controller-->
+        <!--Image Picker Controller-->
         <scene sceneID="dSj-ge-iOk">
             <objects>
-                <viewController id="QTY-sV-F5D" customClass="SquareImagePickerController" customModule="Hootly" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="QTY-sV-F5D" customClass="UIImagePickerController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="GKJ-8t-rDw"/>
                         <viewControllerLayoutGuide type="bottom" id="FY8-jL-Kv4"/>
@@ -245,7 +245,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="c9Y-SX-sUT" id="BNZ-c2-jEy">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jG8-Jh-1dN" customClass="CommentView" customModule="Hootly" customModuleProvider="target">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jG8-Jh-1dN" customClass="CommentView" customModule="Hootly" customModuleProvider="target">
                                                     <rect key="frame" x="8" y="8" width="359" height="28"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
