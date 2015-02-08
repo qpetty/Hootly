@@ -14,7 +14,7 @@ CREATE TABLE Hoots (
    hoot_text CHAR(160) NOT NULL,
    hootloot INT NOT NULL DEFAULT 0,
    timestamp INT(11) NOT NULL,
-   active BOOL DEFAULT 1,
+   active BOOL NOT NULL DEFAULT 1,
    latitude FLOAT NOT NULL,
    longitude FLOAT NOT NULL
 );
@@ -39,6 +39,7 @@ CREATE TABLE Comments (
    post_id INT NOT NULL,
    hootloot INT NOT NULL DEFAULT 0,
    timestamp INT(11) NOT NULL,
+   active BOOL DEFAULT 1,
    comment_text CHAR(160) NOT NULL
 );
 
