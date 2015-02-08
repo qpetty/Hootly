@@ -18,6 +18,8 @@
 		5A94E3111A74940300CA1CB8 /* HootlyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A94E3101A74940300CA1CB8 /* HootlyTests.swift */; };
 		5A94E31B1A74987900CA1CB8 /* Hoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A94E31A1A74987900CA1CB8 /* Hoot.swift */; };
 		5A94E31D1A749F6600CA1CB8 /* HootCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A94E31C1A749F6600CA1CB8 /* HootCell.swift */; };
+		5A97686A1A88086E00229E7E /* NewHootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9768691A88086E00229E7E /* NewHootViewController.swift */; };
+		5A9768701A88262D00229E7E /* CommentFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A97686F1A88262D00229E7E /* CommentFormView.swift */; };
 		D12280BE1A87F2F100CDDFB8 /* CommentFormView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D12280BD1A87F2F100CDDFB8 /* CommentFormView.xib */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +49,8 @@
 		5A94E3101A74940300CA1CB8 /* HootlyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HootlyTests.swift; sourceTree = "<group>"; };
 		5A94E31A1A74987900CA1CB8 /* Hoot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hoot.swift; sourceTree = "<group>"; };
 		5A94E31C1A749F6600CA1CB8 /* HootCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HootCell.swift; sourceTree = "<group>"; };
+		5A9768691A88086E00229E7E /* NewHootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewHootViewController.swift; sourceTree = "<group>"; };
+		5A97686F1A88262D00229E7E /* CommentFormView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentFormView.swift; sourceTree = "<group>"; };
 		D12280BD1A87F2F100CDDFB8 /* CommentFormView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentFormView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -91,12 +95,14 @@
 			children = (
 				5A94E2FA1A74940300CA1CB8 /* AppDelegate.swift */,
 				5A94E2FC1A74940300CA1CB8 /* ViewController.swift */,
+				5A9768691A88086E00229E7E /* NewHootViewController.swift */,
 				5A37D1891A7D9170006AAC65 /* SingleHootViewController.swift */,
 				5A94E31A1A74987900CA1CB8 /* Hoot.swift */,
 				5A94E31C1A749F6600CA1CB8 /* HootCell.swift */,
 				5A94E2FE1A74940300CA1CB8 /* Main.storyboard */,
 				5A37D1941A7DD7EB006AAC65 /* CommentView.swift */,
 				5A37D1921A7DD60D006AAC65 /* CommentView.xib */,
+				5A97686F1A88262D00229E7E /* CommentFormView.swift */,
 				D12280BD1A87F2F100CDDFB8 /* CommentFormView.xib */,
 				5A94E3011A74940300CA1CB8 /* Images.xcassets */,
 				5A94E3031A74940300CA1CB8 /* LaunchScreen.xib */,
@@ -179,6 +185,7 @@
 				TargetAttributes = {
 					5A94E2F41A74940300CA1CB8 = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = 8TCDK8463J;
 					};
 					5A94E3091A74940300CA1CB8 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -234,8 +241,10 @@
 			files = (
 				5A37D1951A7DD7EB006AAC65 /* CommentView.swift in Sources */,
 				5A94E2FD1A74940300CA1CB8 /* ViewController.swift in Sources */,
+				5A9768701A88262D00229E7E /* CommentFormView.swift in Sources */,
 				5A94E31B1A74987900CA1CB8 /* Hoot.swift in Sources */,
 				5A37D18A1A7D9170006AAC65 /* SingleHootViewController.swift in Sources */,
+				5A97686A1A88086E00229E7E /* NewHootViewController.swift in Sources */,
 				5A94E2FB1A74940300CA1CB8 /* AppDelegate.swift in Sources */,
 				5A94E31D1A749F6600CA1CB8 /* HootCell.swift in Sources */,
 			);

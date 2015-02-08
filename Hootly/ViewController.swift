@@ -81,6 +81,20 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return cell
     }
     
+    func imagePickerController(picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
+        let vc = storyboard?.instantiateViewControllerWithIdentifier("NewHoot") as NewHootViewController
+        vc.image = image
+        
+        dismissViewControllerAnimated(true, completion: { () -> Void in
+            self.presentViewController(vc, animated: true, completion: nil)
+        })
+    }
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        println("nothing picked")
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segue.identifier! {
         case "DetailHoot":
@@ -89,12 +103,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             dest.hoot = cell.hoot
             
             feedTableView.deselectRowAtIndexPath(feedTableView.indexPathForSelectedRow()!, animated: true)
+            
         case "Camera":
             let dest = segue.destinationViewController as UIImagePickerController
             dest.delegate = self
             dest.sourceType = .Camera
-            //dest.sourceType = .SavedPhotosAlbum
+            dest.allowsEditing = true
             dest.mediaTypes = [kUTTypeImage]
+            
         default:
             println("unrecognized segue")
         }
