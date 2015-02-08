@@ -100,7 +100,7 @@
                 <constraint firstItem="YdQ-GE-upc" firstAttribute="leading" secondItem="Y1j-Fc-qbi" secondAttribute="leading" constant="16" id="ext-Ui-gn7"/>
                 <constraint firstAttribute="bottom" secondItem="e6g-SU-sZz" secondAttribute="bottom" constant="8" id="psa-Wq-raA"/>
                 <constraint firstItem="e6g-SU-sZz" firstAttribute="leading" secondItem="Y1j-Fc-qbi" secondAttribute="leading" constant="8" id="wYw-4b-JaF"/>
-                <constraint firstItem="bhI-fG-5sh" firstAttribute="top" secondItem="YdQ-GE-upc" secondAttribute="bottom" constant="8" id="xlu-Pe-YNX"/>
+                <constraint firstItem="bhI-fG-5sh" firstAttribute="top" relation="greaterThanOrEqual" secondItem="YdQ-GE-upc" secondAttribute="bottom" constant="8" id="xlu-Pe-YNX"/>
                 <constraint firstAttribute="trailing" secondItem="AcE-uO-Nb6" secondAttribute="trailing" id="yw5-oC-DcP"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
