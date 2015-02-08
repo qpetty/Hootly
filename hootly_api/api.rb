@@ -34,24 +34,58 @@ get '/myhoots' do
       post_ids.push(comment["post_id"])
    end
 
+   posts = client.query("SELECT id FROM Hoots WHERE user_id = #{user_id}")
+
+   posts.each do |post|
+      post_ids.push(posts["id"])
+   end
    post_ids = post_ids.to_set
+   post_ids.to_json
+end
+
+get '/hoot' do
+   post_id = params["post_id"]
+   post = client.query("SELECT * FROM Hoots where id = #{post_id} and active = true")
+   post = post.first
+   post_return = {}
+
+   post_return["image_path"] = post["image_path"]
+   post_return["hoot_text"] = post["hoot_text"]
+   post_return["hootloot"] = post["hootloot"]
+
+   post_return.to_json
 end
 
 get '/hoots' do
    lat = params['lat']
    long = params['long']
-   posts = client.query("select * from posts limit 50")
+   #posts = client.query("select * from Hoots limit 50 where active = true")
+   posts = client.query("SELECT *, (3659 * acos( cos( radians( #{lat}) ) *
+                        cos ( radians( latitude ) ) *
+                        cos (radians(longitude) -
+                        radians (#{long}) ) +
+                        sin ( radians( #{lat} ) ) *
+                        sin ( radians( latitude ) ) ) ) as distance
+                        FROM Hoots
+                        WHERE active = true
+                        HAVING distance < 1.5
+                        ORDER BY hootloot
+                        LIMIT 50")
+   posts_return = {}
    posts.each do |post|
-      p post["id"]
+      id = post["id"].to_s
+      posts_return[id] = {}
+      posts_return[id]["image_path"] = post["image_path"]
+      posts_return[id]["hoot_text"] = post["hoot_text"]
+      posts_return[id]["hootloot"] = post["hootloot"]
    end
-   #posts.first.to_json unless posts.nil?
-   posts
+   posts_return.to_json
 end
 
 # post info
 # userid, an image, a caption
 post '/hoots' do
-   user_id = params['user_id']
+   user_id = params["user_id"]
    caption = params['caption']
    timestamp = Time.now.to_i
    lat = params["lat"]
@@ -67,9 +101,7 @@ post '/hoots' do
         f.write(params['image'][:tempfile].read)
    end
 
-   client.query("INSERT INTO Hoots (user_id, caption, timestamp, image_path, latitude, longitude)
-                VALUES ( #{user_id}, #{caption}, #{timestamp}, #{img_path_quotes}, #{lat}, #{long} )")
-   "success\n"
+   client.query("INSERT INTO Hoots (user_id, hoot_text, timestamp, image_path, latitude, longitude) VALUES ( #{user_id}, #{caption}, #{timestamp}, #{img_path_quotes}, #{lat}, #{long} )")
 end
 
 post '/hootsup' do
@@ -95,7 +127,7 @@ end
 get '/comments' do
    comments_return = {}
    post_id = params['post_id']
-   comments = client.query("select * from Comments where post_id = #{post_id}")
+   comments = client.query("select * from Comments where post_id = #{post_id} and active = true")
    requester_user_id = params["user_id"]
    comments.each do |comment|
       vote_dir = 0
@@ -144,4 +176,9 @@ post '/commentsdown' do
    client.query("UPDATE Comments SET hootloot = hootloot - 1 WHERE id = #{comment_id}")
    poster_id = client.query("SELECT * FROM Comments WHERE comment_id = #{comment_id}").first['user_id']
    client.query("UPDATE Users SET hootloot = hootloot - 1 WHERE id = #{poster_id}")
+end
+
+delete '/hoot' do
+   post_id = params['post_id']
+   client.query("Update Hoots SET active = false WHERE id = #{post_id}");
 end
