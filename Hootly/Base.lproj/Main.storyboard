@@ -105,7 +105,7 @@
                     <navigationItem key="navigationItem" id="iKZ-f4-5EH">
                         <nil key="title"/>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="zUZ-fE-DFJ">
-                            <rect key="frame" x="97.5" y="7" width="180" height="30"/>
+                            <rect key="frame" x="98" y="7" width="180" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="New"/>
@@ -141,16 +141,27 @@
                         <viewControllerLayoutGuide type="bottom" id="pQH-Hl-EFa"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="zso-Wy-2Ja">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="afP-l1-k0X">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="afP-l1-k0X">
+                                <rect key="frame" x="0.0" y="20" width="375" height="375"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="afP-l1-k0X" secondAttribute="height" multiplier="1:1" id="6Pr-kv-bAM"/>
+                                </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hiy-Sd-2ze">
-                                <rect key="frame" x="16" y="20" width="46" height="30"/>
-                                <state key="normal" title="Button">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ayi-Ju-paN">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="20"/>
+                                <color key="backgroundColor" red="0.60784316059999999" green="0.69803923369999998" blue="0.9215686917" alpha="1" colorSpace="deviceRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="bRM-Wf-uq8"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hiy-Sd-2ze">
+                                <rect key="frame" x="16" y="36" width="25" height="25"/>
+                                <state key="normal" backgroundImage="Cancel">
+                                    <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="closeModal:" destination="CYg-91-oxN" eventType="touchUpInside" id="sgf-24-4qg"/>
@@ -159,17 +170,34 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="afP-l1-k0X" firstAttribute="leading" secondItem="zso-Wy-2Ja" secondAttribute="leading" id="0bI-hp-m5b"/>
+                            <constraint firstItem="ayi-Ju-paN" firstAttribute="leading" secondItem="zso-Wy-2Ja" secondAttribute="leading" id="Iqe-Rl-dwp"/>
                             <constraint firstItem="Hiy-Sd-2ze" firstAttribute="leading" secondItem="zso-Wy-2Ja" secondAttribute="leadingMargin" id="Lv9-ZD-1Ms"/>
+                            <constraint firstItem="ayi-Ju-paN" firstAttribute="top" secondItem="zso-Wy-2Ja" secondAttribute="top" id="P35-DR-1fN"/>
+                            <constraint firstAttribute="trailing" secondItem="afP-l1-k0X" secondAttribute="trailing" id="PLo-Ta-c0Y"/>
                             <constraint firstItem="Hiy-Sd-2ze" firstAttribute="top" secondItem="4Rv-Vb-4A7" secondAttribute="bottom" id="Q4h-dh-kQB"/>
+                            <constraint firstItem="Hiy-Sd-2ze" firstAttribute="top" secondItem="ayi-Ju-paN" secondAttribute="bottom" constant="16" id="UU6-hs-Rdw"/>
+                            <constraint firstItem="afP-l1-k0X" firstAttribute="top" secondItem="ayi-Ju-paN" secondAttribute="bottom" id="VEI-uT-XHF"/>
+                            <constraint firstAttribute="trailing" secondItem="ayi-Ju-paN" secondAttribute="trailing" id="gcr-zz-HfV"/>
+                            <constraint firstItem="afP-l1-k0X" firstAttribute="top" secondItem="zso-Wy-2Ja" secondAttribute="top" id="rwE-gf-ATB"/>
+                            <constraint firstItem="afP-l1-k0X" firstAttribute="top" secondItem="ayi-Ju-paN" secondAttribute="bottom" id="uaI-zC-6LP"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="VEI-uT-XHF"/>
+                                <exclude reference="rwE-gf-ATB"/>
+                                <exclude reference="Q4h-dh-kQB"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="capturedImageView" destination="afP-l1-k0X" id="ciV-E2-tuu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4ZY-pH-xh1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="187" y="-492"/>
+            <point key="canvasLocation" x="242.5" y="-436.5"/>
         </scene>
         <!--Square Image Picker Controller-->
         <scene sceneID="dSj-ge-iOk">
@@ -261,6 +289,7 @@
     </scenes>
     <resources>
         <image name="Camera" width="25" height="25"/>
+        <image name="Cancel" width="25" height="25"/>
     </resources>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
