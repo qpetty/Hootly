@@ -11,6 +11,7 @@ import UIKit
 
 class NewHootViewController: UIViewController {
     @IBOutlet weak var capturedImageView: UIImageView!
+    @IBOutlet weak var commentForm: CommentFormView!
     var image: UIImage?;
     
     @IBAction func closeModal(sender: AnyObject) {
@@ -20,5 +21,11 @@ class NewHootViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         capturedImageView.image = image
+        
+        commentForm.textField.becomeFirstResponder()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        commentForm.textField.resignFirstResponder()
     }
 }

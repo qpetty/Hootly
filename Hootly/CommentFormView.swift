@@ -12,6 +12,9 @@ import UIKit
 class CommentFormView: UIView {
     var nibView: UIView?
     
+    @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var submitButton: UIButton!
+    
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         loadNib()
