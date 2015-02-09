@@ -168,7 +168,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dgV-Wy-pd2" customClass="CommentFormView" customModule="Hootly" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="397" width="375" height="60"/>
+                                <rect key="frame" x="0.0" y="607" width="375" height="60"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="6z5-3K-Mvh"/>
@@ -178,14 +178,15 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="afP-l1-k0X" firstAttribute="leading" secondItem="zso-Wy-2Ja" secondAttribute="leading" id="0bI-hp-m5b"/>
+                            <constraint firstItem="dgV-Wy-pd2" firstAttribute="top" relation="lessThanOrEqual" secondItem="zso-Wy-2Ja" secondAttribute="topMargin" constant="395" id="ANp-0x-GgR"/>
                             <constraint firstItem="ayi-Ju-paN" firstAttribute="leading" secondItem="zso-Wy-2Ja" secondAttribute="leading" id="Iqe-Rl-dwp"/>
-                            <constraint firstItem="dgV-Wy-pd2" firstAttribute="top" secondItem="afP-l1-k0X" secondAttribute="bottom" constant="2" id="L2L-8U-bYa"/>
                             <constraint firstItem="Hiy-Sd-2ze" firstAttribute="leading" secondItem="zso-Wy-2Ja" secondAttribute="leadingMargin" id="Lv9-ZD-1Ms"/>
+                            <constraint firstItem="pQH-Hl-EFa" firstAttribute="top" secondItem="dgV-Wy-pd2" secondAttribute="bottom" id="O7x-Wc-HWd"/>
                             <constraint firstItem="ayi-Ju-paN" firstAttribute="top" secondItem="zso-Wy-2Ja" secondAttribute="top" id="P35-DR-1fN"/>
                             <constraint firstAttribute="trailing" secondItem="afP-l1-k0X" secondAttribute="trailing" id="PLo-Ta-c0Y"/>
                             <constraint firstItem="Hiy-Sd-2ze" firstAttribute="top" secondItem="4Rv-Vb-4A7" secondAttribute="bottom" id="Q4h-dh-kQB"/>
                             <constraint firstItem="Hiy-Sd-2ze" firstAttribute="top" secondItem="ayi-Ju-paN" secondAttribute="bottom" constant="16" id="UU6-hs-Rdw"/>
-                            <constraint firstAttribute="trailing" secondItem="dgV-Wy-pd2" secondAttribute="trailing" id="VDA-oH-PpA"/>
+                            <constraint firstItem="dgV-Wy-pd2" firstAttribute="trailing" secondItem="zso-Wy-2Ja" secondAttribute="trailing" id="VDA-oH-PpA"/>
                             <constraint firstItem="afP-l1-k0X" firstAttribute="top" secondItem="ayi-Ju-paN" secondAttribute="bottom" id="VEI-uT-XHF"/>
                             <constraint firstAttribute="trailing" secondItem="ayi-Ju-paN" secondAttribute="trailing" id="gcr-zz-HfV"/>
                             <constraint firstItem="dgV-Wy-pd2" firstAttribute="leading" secondItem="zso-Wy-2Ja" secondAttribute="leading" id="hbF-cD-4Jp"/>
@@ -197,12 +198,14 @@
                                 <exclude reference="VEI-uT-XHF"/>
                                 <exclude reference="rwE-gf-ATB"/>
                                 <exclude reference="Q4h-dh-kQB"/>
+                                <exclude reference="ANp-0x-GgR"/>
                             </mask>
                         </variation>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="capturedImageView" destination="afP-l1-k0X" id="ciV-E2-tuu"/>
+                        <outlet property="commentForm" destination="dgV-Wy-pd2" id="sKe-Kh-Kxg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4ZY-pH-xh1" userLabel="First Responder" sceneMemberID="firstResponder"/>
