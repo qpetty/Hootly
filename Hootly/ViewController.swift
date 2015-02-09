@@ -109,6 +109,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             dest.delegate = self
             dest.sourceType = .Camera
             dest.allowsEditing = true
+            dest.cameraFlashMode = .Off
             dest.mediaTypes = [kUTTypeImage]
             
         default:
