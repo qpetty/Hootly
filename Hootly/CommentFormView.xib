@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="40"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="1000" text="Hoot your Hoot!" translatesAutoresizingMaskIntoConstraints="NO" id="PKz-2d-U9P">
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="1000" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PKz-2d-U9P" customClass="SZTextView">
                     <rect key="frame" x="8" y="8" width="488" height="24"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <color key="textColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -39,13 +39,6 @@
                         </mask>
                     </variation>
                 </button>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="1000" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PKz-2d-U9P" customClass="SZTextView">
-                    <rect key="frame" x="8" y="8" width="520" height="24"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <color key="textColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
-                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                </textView>
             </subviews>
             <color key="backgroundColor" red="0.77254901960784317" green="0.81960784313725488" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
