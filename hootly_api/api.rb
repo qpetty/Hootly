@@ -13,6 +13,7 @@ end
 
 post '/user' do
    user_id = params['user_id']
+   user_id = client.escape(user_id)
    client.query("INSERT INTO Users (id) values (#{user_id})")
    "success"
 end
@@ -20,6 +21,7 @@ end
 get '/hootloot' do
    data = {}
    user_id = params['user_id']
+   user_id = client.escape(user_id)
    hootloot = client.query("SELECT hootloot FROM Users where id = #{user_id}")
    data['hootloot'] = hootloot.first['hootloot']
    data.to_json
@@ -27,6 +29,7 @@ end
 
 get '/myhoots' do
    user_id = params['user_id']
+   user_id = client.escape(user_id)
    comments = client.query("SELECT post_id FROM Comments WHERE user_id = #{user_id}")
 
    post_ids = []
@@ -45,6 +48,7 @@ end
 
 get '/hoot' do
    post_id = params["post_id"]
+   post_id = client.escape(post_id)
    post = client.query("SELECT * FROM Hoots where id = #{post_id} and active = true")
    post = post.first
    post_return = {}
@@ -59,6 +63,8 @@ end
 get '/hoots' do
    lat = params['lat']
    long = params['long']
+   lat = client.escape(lat)
+   long = client.escape(long)
    #posts = client.query("select * from Hoots limit 50 where active = true")
    posts = client.query("SELECT *, (3659 * acos( cos( radians( #{lat}) ) *
                         cos ( radians( latitude ) ) *
@@ -83,13 +89,20 @@ get '/hoots' do
 end
 
 # post info
-# userid, an image, a caption
+# userid, an image, a hoot_text
 post '/hoots' do
    user_id = params["user_id"]
-   caption = params['caption']
+   hoot_text = params['hoot_text']
    timestamp = Time.now.to_i
    lat = params["lat"]
    long = params["long"]
+
+   user_id = client.escape(user_id)
+   hoot_text = client.escape(hoot_text)
+   hoot_text = '"' + hoot_text + '"'
+
+   lat = client.escape(lat)
+   long = client.escape(long)
 
    # determine an image path here
    file_type = ".png"
@@ -101,12 +114,15 @@ post '/hoots' do
         f.write(params['image'][:tempfile].read)
    end
 
-   client.query("INSERT INTO Hoots (user_id, hoot_text, timestamp, image_path, latitude, longitude) VALUES ( #{user_id}, #{caption}, #{timestamp}, #{img_path_quotes}, #{lat}, #{long} )")
+   client.query("INSERT INTO Hoots (user_id, hoot_text, timestamp, image_path, latitude, longitude) VALUES ( #{user_id}, #{hoot_text}, #{timestamp}, #{img_path_quotes}, #{lat}, #{long} )")
 end
 
 post '/hootsup' do
    post_id = params['post_id']
    user_id = params['user_id']
+   post_id = client.escape(post_id)
+   user_id = client.escape(user_id)
+
    client.query("INSERT INTO Hoots_Upvotes (post_id, user_id) VALUES (#{post_id}, #{user_id})")
    client.query("UPDATE Hoots SET hootloot = hootloot + 1 WHERE id = #{post_id}")
    poster_id = client.query("SELECT * FROM Hoots WHERE id = #{post_id}").first['user_id']
@@ -116,6 +132,9 @@ end
 post '/hootsdown' do
    post_id = params['post_id']
    user_id = params['user_id']
+   post_id = client.escape(post_id)
+   user_id = client.escape(user_id)
+
    client.query("INSERT INTO Hoots_Downvotes (post_id, user_id) VALUES (#{post_id}, #{user_id})")
    client.query("UPDATE Hoots SET hootloot = hootloot - 1 WHERE id = #{post_id}")
    poster_id = client.query("SELECT * FROM Hoots WHERE id = #{post_id}").first['user_id']
@@ -127,6 +146,8 @@ end
 get '/comments' do
    comments_return = {}
    post_id = params['post_id']
+   post_id = client.escape(post_id)
+
    comments = client.query("select * from Comments where post_id = #{post_id} and active = true")
    requester_user_id = params["user_id"]
    comments.each do |comment|
@@ -154,6 +175,12 @@ post '/comments' do
    post_id = params['post_id']
    text = params['text']
    user_id = params['user_id']
+
+   post_id = client.escape(post_id)
+   text = client.escape(text)
+   text = '"' + text + '"'
+   user_id = client.escape(user_id)
+
    timestamp = Time.now.to_i
 
    client.query("INSERT INTO Comments (user_id, post_id, comment_text, timestamp) VALUES (#{user_id}, #{post_id}, #{text}, #{timestamp})")
@@ -163,6 +190,9 @@ end
 post '/commentsup' do
    comment_id = params['comment_id']
    user_id = params['user_id']
+   comment_id = client.escape(comment_id)
+   user_id = client.escape(user_id)
+
    client.query("INSERT INTO Comments_Upvotes (comment_id, user_id) VALUES (#{comment_id}, #{user_id})")
    client.query("UPDATE Comments SET hootloot = hootloot + 1 WHERE id = #{comment_id}")
    poster_id = client.query("SELECT * FROM Comments WHERE id = #{comment_id}").first['user_id']
@@ -172,6 +202,9 @@ end
 post '/commentsdown' do
    comment_id = params['comment_id']
    user_id = params['user_id']
+   comment_id = client.escpae(comment_id)
+   user_id = client.escape(user_id)
+
    client.query("INSERT INTO Comments_Downvotes (comment_id, user_id) VALUES (#{comment_id}, #{user_id})")
    client.query("UPDATE Comments SET hootloot = hootloot - 1 WHERE id = #{comment_id}")
    poster_id = client.query("SELECT * FROM Comments WHERE comment_id = #{comment_id}").first['user_id']
@@ -180,5 +213,7 @@ end
 
 delete '/hoot' do
    post_id = params['post_id']
+   post_id = client.escape(post_id)
+
    client.query("Update Hoots SET active = false WHERE id = #{post_id}");
 end
