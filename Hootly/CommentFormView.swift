@@ -32,6 +32,9 @@ class CommentFormView: UIView {
 
         submitButton.layer.borderWidth = 1.0
         submitButton.layer.borderColor = UIColor.whiteColor().CGColor
+        submitButton.layer.cornerRadius = 4.0
+        
+        textField.layer.cornerRadius = 4.0
     }
     
     override func layoutSubviews() {
