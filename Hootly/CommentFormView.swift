@@ -28,8 +28,10 @@ class CommentFormView: UIView {
     func loadNib() {
         nibView = NSBundle.mainBundle().loadNibNamed("CommentFormView", owner: self, options: nil)[0] as? UIView
         self.addSubview(nibView!)
-        
         textField.placeholder = "Hoot your Hoot!";
+
+        submitButton.layer.borderWidth = 1.0
+        submitButton.layer.borderColor = UIColor.whiteColor().CGColor
     }
     
     override func layoutSubviews() {
