@@ -171,7 +171,7 @@
                                 <rect key="frame" x="0.0" y="607" width="375" height="60"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="6z5-3K-Mvh"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="6z5-3K-Mvh"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -259,7 +259,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="c9Y-SX-sUT" id="BNZ-c2-jEy">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jG8-Jh-1dN" customClass="CommentView" customModule="Hootly" customModuleProvider="target">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jG8-Jh-1dN" customClass="CommentView" customModule="Hootly" customModuleProvider="target">
                                                     <rect key="frame" x="8" y="8" width="359" height="28"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
