@@ -18,18 +18,26 @@
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="1000" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PKz-2d-U9P" customClass="SZTextView">
                     <rect key="frame" x="8" y="8" width="496" height="24"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="EY2-cX-eeT"/>
+                    </constraints>
                     <color key="textColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="EY2-cX-eeT"/>
+                        </mask>
+                    </variation>
                 </textView>
                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vzk-ga-r35">
-                    <rect key="frame" x="512" y="0.0" width="80" height="40"/>
+                    <rect key="frame" x="512" y="2" width="80" height="36"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="80" id="0dN-Is-bB8"/>
                         <constraint firstAttribute="width" relation="lessThanOrEqual" constant="40" id="awl-tc-inm"/>
                     </constraints>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                    <inset key="contentEdgeInsets" minX="16" minY="10" maxX="16" maxY="10"/>
+                    <inset key="contentEdgeInsets" minX="16" minY="8" maxX="16" maxY="8"/>
                     <state key="normal" title="Hoot!">
                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -41,7 +49,7 @@
                     </variation>
                 </button>
             </subviews>
-            <color key="backgroundColor" red="0.77254901960784317" green="0.81960784313725488" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" red="0.23921568627450981" green="0.25490196078431371" blue="0.27058823529411763" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="PKz-2d-U9P" secondAttribute="bottom" constant="8" id="0FM-bz-JsD"/>
                 <constraint firstAttribute="trailing" secondItem="Vzk-ga-r35" secondAttribute="trailing" constant="8" id="E1b-Bt-VMp"/>
