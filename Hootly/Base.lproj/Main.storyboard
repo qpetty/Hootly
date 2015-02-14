@@ -167,11 +167,11 @@
                                     <action selector="closeModal:" destination="CYg-91-oxN" eventType="touchUpInside" id="sgf-24-4qg"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dgV-Wy-pd2" customClass="CommentFormView" customModule="Hootly" customModuleProvider="target">
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dgV-Wy-pd2" customClass="CommentFormView" customModule="Hootly" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="607" width="375" height="60"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="6z5-3K-Mvh"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="6z5-3K-Mvh"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -190,6 +190,7 @@
                             <constraint firstItem="afP-l1-k0X" firstAttribute="top" secondItem="ayi-Ju-paN" secondAttribute="bottom" id="VEI-uT-XHF"/>
                             <constraint firstAttribute="trailing" secondItem="ayi-Ju-paN" secondAttribute="trailing" id="gcr-zz-HfV"/>
                             <constraint firstItem="dgV-Wy-pd2" firstAttribute="leading" secondItem="zso-Wy-2Ja" secondAttribute="leading" id="hbF-cD-4Jp"/>
+                            <constraint firstItem="dgV-Wy-pd2" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ayi-Ju-paN" secondAttribute="bottom" id="oRz-vN-K24"/>
                             <constraint firstItem="afP-l1-k0X" firstAttribute="top" secondItem="zso-Wy-2Ja" secondAttribute="top" id="rwE-gf-ATB"/>
                             <constraint firstItem="afP-l1-k0X" firstAttribute="top" secondItem="ayi-Ju-paN" secondAttribute="bottom" id="uaI-zC-6LP"/>
                         </constraints>
@@ -258,7 +259,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="c9Y-SX-sUT" id="BNZ-c2-jEy">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jG8-Jh-1dN" customClass="CommentView" customModule="Hootly" customModuleProvider="target">
+                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jG8-Jh-1dN" customClass="CommentView" customModule="Hootly" customModuleProvider="target">
                                                     <rect key="frame" x="8" y="8" width="359" height="28"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
