@@ -11,11 +11,13 @@ get '/' do
    "hello world"
 end
 
-post '/user' do
-   user_id = params['user_id']
-   user_id = client.escape(user_id)
-   client.query("INSERT INTO Users (id) values (#{user_id})")
-   "success"
+post '/newuser' do
+   timestamp = Time.now.to_i
+   suffix = (0...32).map { (65 + rand(26)).chr }.join
+   user_id = timestamp.to_s + suffix
+
+   client.query("INSERT INTO Users (id) values (#{'"' + user_id + '"'})")
+   return {"user_id" => user_id}.to_json
 end
 
 get '/hootloot' do
@@ -65,7 +67,6 @@ get '/hoots' do
    long = params['long']
    lat = client.escape(lat)
    long = client.escape(long)
-   #posts = client.query("select * from Hoots limit 50 where active = true")
    posts = client.query("SELECT *, (3659 * acos( cos( radians( #{lat}) ) *
                         cos ( radians( latitude ) ) *
                         cos (radians(longitude) -
