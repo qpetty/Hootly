@@ -8,6 +8,7 @@
 
 import UIKit
 import MobileCoreServices
+import CoreData
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     @IBOutlet weak var feedTableView: UITableView!
@@ -48,12 +49,28 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             feedTableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Fade)
             feedTableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: true)
         } else {
-            println("Expected UISegementdControl")
+            println("Expected UISegementedControl")
         }
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        if let managedObjectContext = appDelegate.managedObjectContext {
+            println(managedObjectContext)
+            
+            let newItem = NSEntityDescription.insertNewObjectForEntityForName("HootItem", inManagedObjectContext: managedObjectContext) as HootItem
+            
+            newItem.name = "Wrote Core Data Tutorial"
+            
+            
+            let fetchRequest = NSFetchRequest(entityName: "HootItem")
+            if let fetchResults = managedObjectContext.executeFetchRequest(fetchRequest, error: nil) as? [HootItem] {
+                
+                println(fetchResults[0].name)
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
