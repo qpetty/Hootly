@@ -13,7 +13,7 @@
 		5A61AB1C1A900D2A00B06495 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A61AB1B1A900D2A00B06495 /* CoreData.framework */; };
 		5A61AB201A900E6400B06495 /* Hootly.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5A61AB1E1A900E6400B06495 /* Hootly.xcdatamodeld */; };
 		5A61AB2E1A9012E000B06495 /* HootComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A61AB2D1A9012E000B06495 /* HootComment.swift */; };
-		5A61AB301A9012E100B06495 /* HootItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A61AB2F1A9012E100B06495 /* HootItem.swift */; };
+		5A61AB321A90171800B06495 /* HootItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A61AB311A90171800B06495 /* HootItem.swift */; };
 		5A94E2FB1A74940300CA1CB8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A94E2FA1A74940300CA1CB8 /* AppDelegate.swift */; };
 		5A94E2FD1A74940300CA1CB8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A94E2FC1A74940300CA1CB8 /* ViewController.swift */; };
 		5A94E3001A74940300CA1CB8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A94E2FE1A74940300CA1CB8 /* Main.storyboard */; };
@@ -45,7 +45,7 @@
 		5A61AB1B1A900D2A00B06495 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		5A61AB1F1A900E6400B06495 /* Hootly.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Hootly.xcdatamodel; sourceTree = "<group>"; };
 		5A61AB2D1A9012E000B06495 /* HootComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HootComment.swift; sourceTree = "<group>"; };
-		5A61AB2F1A9012E100B06495 /* HootItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HootItem.swift; sourceTree = "<group>"; };
+		5A61AB311A90171800B06495 /* HootItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HootItem.swift; sourceTree = "<group>"; };
 		5A94E2F51A74940300CA1CB8 /* Hootly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hootly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A94E2F91A74940300CA1CB8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5A94E2FA1A74940300CA1CB8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -128,7 +128,7 @@
 				D12280BD1A87F2F100CDDFB8 /* CommentFormView.xib */,
 				5A9768751A88493000229E7E /* Outside Code */,
 				5A61AB1E1A900E6400B06495 /* Hootly.xcdatamodeld */,
-				5A61AB2F1A9012E100B06495 /* HootItem.swift */,
+				5A61AB311A90171800B06495 /* HootItem.swift */,
 				5A61AB2D1A9012E000B06495 /* HootComment.swift */,
 				5A94E3011A74940300CA1CB8 /* Images.xcassets */,
 				5A94E3031A74940300CA1CB8 /* LaunchScreen.xib */,
@@ -281,7 +281,7 @@
 				5A9768701A88262D00229E7E /* CommentFormView.swift in Sources */,
 				5A94E31B1A74987900CA1CB8 /* Hoot.swift in Sources */,
 				5A61AB201A900E6400B06495 /* Hootly.xcdatamodeld in Sources */,
-				5A61AB301A9012E100B06495 /* HootItem.swift in Sources */,
+				5A61AB321A90171800B06495 /* HootItem.swift in Sources */,
 				5A37D18A1A7D9170006AAC65 /* SingleHootViewController.swift in Sources */,
 				5A9768741A88492B00229E7E /* SZTextView.m in Sources */,
 				5A97686A1A88086E00229E7E /* NewHootViewController.swift in Sources */,

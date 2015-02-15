@@ -12,6 +12,9 @@ import CoreData
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     @IBOutlet weak var feedTableView: UITableView!
+    var fetchedResultsController: NSFetchedResultsController?
+    var managedObjectContext:NSManagedObjectContext?
+    
     
     var sampleData: [Hoot] = []
     
@@ -57,19 +60,46 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // Do any additional setup after loading the view, typically from a nib.
         
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-        if let managedObjectContext = appDelegate.managedObjectContext {
+        managedObjectContext = appDelegate.managedObjectContext
+        if (managedObjectContext != nil) {
             println(managedObjectContext)
             
-            let newItem = NSEntityDescription.insertNewObjectForEntityForName("HootItem", inManagedObjectContext: managedObjectContext) as HootItem
+            var newItem = NSEntityDescription.insertNewObjectForEntityForName("HootItem", inManagedObjectContext: managedObjectContext!) as HootItem
             
-            newItem.name = "Wrote Core Data Tutorial"
+            newItem.userID = "Brandon"
+            newItem.comment = "This is a super duper super optimus prime long comment"
+            newItem.replies = 5
+            newItem.time = NSDate()
+            newItem.rating = 8
             
+            newItem = NSEntityDescription.insertNewObjectForEntityForName("HootItem", inManagedObjectContext: managedObjectContext!) as HootItem
             
+            newItem.userID = "Krisna"
+            newItem.comment = "This is a longer comment"
+            newItem.replies = 5
+            newItem.time = NSDate()
+            newItem.rating = 8
+            
+            let fetchReq = NSFetchRequest(entityName: "HootItem")
+            let sortDes = NSSortDescriptor(key: "time", ascending: true)
+            fetchReq.sortDescriptors = [sortDes]
+            
+            fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchReq, managedObjectContext: managedObjectContext!, sectionNameKeyPath: nil, cacheName: nil)
+            
+            if fetchedResultsController?.performFetch(nil) == false {
+                println("fetch failed")
+            } else {
+                println("fetch succeded")
+            }
+            
+            /*
             let fetchRequest = NSFetchRequest(entityName: "HootItem")
             if let fetchResults = managedObjectContext.executeFetchRequest(fetchRequest, error: nil) as? [HootItem] {
                 
-                println(fetchResults[0].name)
+                NSLog("results size: %lu, userID %@", fetchResults.count, fetchResults[0].userID)
+                //println(fetchResults[0].userID)
             }
+            */
         }
     }
 
@@ -87,13 +117,23 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sampleData.count
+        if fetchedResultsController?.sections?.count > 0 {
+            if let singleSection = fetchedResultsController?.sections?[section] as? NSFetchedResultsSectionInfo {
+                return singleSection.numberOfObjects
+            } else {
+                return 0
+            }
+        } else {
+            return 0
+        }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = feedTableView.dequeueReusableCellWithIdentifier("Hoot", forIndexPath: indexPath) as HootCell
         
-        cell.setHoot(sampleData[indexPath.row])
+        if let singleHoot = fetchedResultsController?.objectAtIndexPath(indexPath) as? HootItem {
+            cell.setHoot(singleHoot)
+        }
         
         return cell
     }
@@ -117,7 +157,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         case "DetailHoot":
             let dest = segue.destinationViewController as SingleHootViewController
             let cell = sender as HootCell
-            dest.hoot = cell.hoot
+            //dest.hoot = cell.hoot
             
             feedTableView.deselectRowAtIndexPath(feedTableView.indexPathForSelectedRow()!, animated: true)
             

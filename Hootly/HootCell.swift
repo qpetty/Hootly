@@ -13,14 +13,14 @@ class HootCell: UITableViewCell {
     @IBOutlet weak var photo: UIImageView!
     @IBOutlet weak var commentView: CommentView!
     
-    var hoot: Hoot?
+    var hoot: HootItem?
     
-    func setHoot(singleHoot: Hoot) {
+    func setHoot(singleHoot: HootItem) {
         hoot = singleHoot
-        photo.image = singleHoot.photo
+        //photo.image = singleHoot.photo
         commentView.comment.text = singleHoot.comment
         commentView.rating.text = "\(singleHoot.rating)"
         commentView.replies.text = "\(singleHoot.replies) replies"
-        commentView.time.text = singleHoot.time + "m"
+        //commentView.time.text = singleHoot.time + "m"
     }
 }
