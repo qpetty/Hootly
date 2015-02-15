@@ -30,11 +30,8 @@ class CommentFormView: UIView {
         self.addSubview(nibView!)
         textField.placeholder = "Hoot your Hoot!";
 
-        submitButton.layer.borderWidth = 1.0
-        submitButton.layer.borderColor = UIColor.whiteColor().CGColor
+        submitButton.layer.backgroundColor = UIColor(red: 127/255, green: 168/255, blue: 215/255, alpha: 1.0).CGColor
         submitButton.layer.cornerRadius = 4.0
-        
-        textField.layer.cornerRadius = 4.0
         
     }
     
