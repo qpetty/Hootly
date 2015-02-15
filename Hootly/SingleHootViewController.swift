@@ -16,7 +16,7 @@ class SingleHootViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var commentTable: UITableView!
     
     override func viewWillAppear(animated: Bool) {
-        photo.image = hoot?.photo
+        //photo.image = hoot?.photo
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {

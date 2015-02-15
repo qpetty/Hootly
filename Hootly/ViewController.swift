@@ -22,31 +22,19 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override init() {
         super.init()
-        self.makeSampleData()
     }
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.makeSampleData()
-    }
-    
-    func makeSampleData() {
-        var sample = Hoot(userID: "Brandon", photo: UIImage(named: "hoot1"), comment: "This is a super duper super optimus prime long comment", replies: 5, time: "1", rating: 8)
-        sampleData.append(sample)
-        
-        sample = Hoot(userID: "Krisna", photo: UIImage(named: "hoot2"), comment: "This is a longer comment", replies: 5, time: "10", rating: 8)
-        sampleData.append(sample)
-        
-        sampleData.sort {$0.time < $1.time}
     }
     
     @IBAction func sortList(sender: AnyObject) {
         if let segment = sender as? UISegmentedControl {
             switch segment.selectedSegmentIndex {
             case 1:
-                sampleData.sort {$0.time > $1.time}
+                println("Sort another way")
             default:
-                sampleData.sort {$0.time < $1.time}
+                println("Sort one way")
             }
             
             feedTableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Fade)
@@ -64,7 +52,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         if (managedObjectContext != nil) {
             println(managedObjectContext)
             
-            var newItem = NSEntityDescription.insertNewObjectForEntityForName("HootItem", inManagedObjectContext: managedObjectContext!) as HootItem
+            var newItem = NSEntityDescription.insertNewObjectForEntityForName("Hoot", inManagedObjectContext: managedObjectContext!) as Hoot
             
             newItem.userID = "Brandon"
             newItem.comment = "This is a super duper super optimus prime long comment"
@@ -72,7 +60,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             newItem.time = NSDate()
             newItem.rating = 8
             
-            newItem = NSEntityDescription.insertNewObjectForEntityForName("HootItem", inManagedObjectContext: managedObjectContext!) as HootItem
+            newItem = NSEntityDescription.insertNewObjectForEntityForName("Hoot", inManagedObjectContext: managedObjectContext!) as Hoot
             
             newItem.userID = "Krisna"
             newItem.comment = "This is a longer comment"
@@ -80,7 +68,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             newItem.time = NSDate()
             newItem.rating = 8
             
-            let fetchReq = NSFetchRequest(entityName: "HootItem")
+            let fetchReq = NSFetchRequest(entityName: "Hoot")
             let sortDes = NSSortDescriptor(key: "time", ascending: true)
             fetchReq.sortDescriptors = [sortDes]
             
@@ -93,7 +81,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
             
             /*
-            let fetchRequest = NSFetchRequest(entityName: "HootItem")
+            let fetchRequest = NSFetchRequest(entityName: "Hoot")
             if let fetchResults = managedObjectContext.executeFetchRequest(fetchRequest, error: nil) as? [HootItem] {
                 
                 NSLog("results size: %lu, userID %@", fetchResults.count, fetchResults[0].userID)
@@ -131,7 +119,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = feedTableView.dequeueReusableCellWithIdentifier("Hoot", forIndexPath: indexPath) as HootCell
         
-        if let singleHoot = fetchedResultsController?.objectAtIndexPath(indexPath) as? HootItem {
+        if let singleHoot = fetchedResultsController?.objectAtIndexPath(indexPath) as? Hoot {
             cell.setHoot(singleHoot)
         }
         
@@ -157,7 +145,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         case "DetailHoot":
             let dest = segue.destinationViewController as SingleHootViewController
             let cell = sender as HootCell
-            //dest.hoot = cell.hoot
+            dest.hoot = cell.hoot
             
             feedTableView.deselectRowAtIndexPath(feedTableView.indexPathForSelectedRow()!, animated: true)
             

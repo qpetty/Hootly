@@ -13,9 +13,9 @@ class HootCell: UITableViewCell {
     @IBOutlet weak var photo: UIImageView!
     @IBOutlet weak var commentView: CommentView!
     
-    var hoot: HootItem?
+    var hoot: Hoot?
     
-    func setHoot(singleHoot: HootItem) {
+    func setHoot(singleHoot: Hoot) {
         hoot = singleHoot
         //photo.image = singleHoot.photo
         commentView.comment.text = singleHoot.comment
