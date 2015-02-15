@@ -11,12 +11,13 @@ import UIKit
 
 class SingleHootViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var hoot: Hoot?
+    var hootImage: UIImage?
     
     @IBOutlet weak var photo: UIImageView!
     @IBOutlet weak var commentTable: UITableView!
     
     override func viewWillAppear(animated: Bool) {
-        //photo.image = hoot?.photo
+        photo.image = hootImage
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {

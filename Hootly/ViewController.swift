@@ -145,6 +145,7 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
             let dest = segue.destinationViewController as SingleHootViewController
             let cell = sender as HootCell
             dest.hoot = cell.hoot
+            dest.hootImage = cell.photo?.image
             
             tableView.deselectRowAtIndexPath(tableView.indexPathForSelectedRow()!, animated: true)
             
