@@ -13,10 +13,7 @@ import CoreData
 class ViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     var fetchedResultsController: NSFetchedResultsController?
     var managedObjectContext:NSManagedObjectContext?
-    
-    
-    var sampleData: [Hoot] = []
-    
+
     let CELL_HEIGHT = 80.0 as CGFloat
     
     override init() {
@@ -80,18 +77,19 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
             } else {
                 println("fetch succeded")
             }
-            
-            /*
-            let fetchRequest = NSFetchRequest(entityName: "Hoot")
-            if let fetchResults = managedObjectContext.executeFetchRequest(fetchRequest, error: nil) as? [HootItem] {
-                
-                NSLog("results size: %lu, userID %@", fetchResults.count, fetchResults[0].userID)
-                //println(fetchResults[0].userID)
-            }
-            */
         }
+        
+        refreshControl = UIRefreshControl()
+        refreshControl?.backgroundColor = UIColor.purpleColor()
+        refreshControl?.tintColor = UIColor.whiteColor()
+        
+        refreshControl?.addTarget(self, action: "fetchMoreHoots", forControlEvents: .ValueChanged)
     }
 
+    func fetchMoreHoots() {
+        refreshControl?.endRefreshing()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
