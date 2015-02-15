@@ -59,6 +59,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             newItem.replies = 5
             newItem.time = NSDate()
             newItem.rating = 8
+            newItem.photoURL = NSBundle.mainBundle().URLForResource("hoot1", withExtension: "png")!
             
             newItem = NSEntityDescription.insertNewObjectForEntityForName("Hoot", inManagedObjectContext: managedObjectContext!) as Hoot
             
@@ -67,6 +68,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             newItem.replies = 5
             newItem.time = NSDate()
             newItem.rating = 8
+            newItem.photoURL = NSBundle.mainBundle().URLForResource("hoot2", withExtension: "png")!
             
             let fetchReq = NSFetchRequest(entityName: "Hoot")
             let sortDes = NSSortDescriptor(key: "time", ascending: true)

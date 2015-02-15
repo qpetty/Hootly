@@ -18,5 +18,6 @@ class Hoot: NSManagedObject {
     @NSManaged var time: NSDate
     @NSManaged var rating: NSNumber
     @NSManaged var replies: NSNumber
+    @NSManaged var photoURL: AnyObject
 
 }

@@ -17,10 +17,22 @@ class HootCell: UITableViewCell {
     
     func setHoot(singleHoot: Hoot) {
         hoot = singleHoot
-        //photo.image = singleHoot.photo
+        if let imageURL = singleHoot.photoURL as? NSURL {
+            photo.image = UIImage(data: NSData(contentsOfURL: imageURL)!)
+        }
+        
         commentView.comment.text = singleHoot.comment
         commentView.rating.text = "\(singleHoot.rating)"
         commentView.replies.text = "\(singleHoot.replies) replies"
-        //commentView.time.text = singleHoot.time + "m"
+        
+        let elapsedTime = NSDate().timeIntervalSinceDate(singleHoot.time)
+
+        let formatter = NSDateComponentsFormatter()
+        formatter.unitsStyle = .Abbreviated
+        
+        let components = NSDateComponents()
+        components.second = Int(elapsedTime)
+
+        commentView.time.text = formatter.stringFromDateComponents(components)
     }
 }
