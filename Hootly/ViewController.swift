@@ -10,8 +10,7 @@ import UIKit
 import MobileCoreServices
 import CoreData
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-    @IBOutlet weak var feedTableView: UITableView!
+class ViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     var fetchedResultsController: NSFetchedResultsController?
     var managedObjectContext:NSManagedObjectContext?
     
@@ -37,8 +36,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 println("Sort one way")
             }
             
-            feedTableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Fade)
-            feedTableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: true)
+            tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Fade)
+            tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: true)
         } else {
             println("Expected UISegementedControl")
         }
@@ -98,15 +97,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // Dispose of any resources that can be recreated.
     }
 
-    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return self.view.frame.size.width + CELL_HEIGHT
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return self.view.frame.size.width + CELL_HEIGHT
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if fetchedResultsController?.sections?.count > 0 {
             if let singleSection = fetchedResultsController?.sections?[section] as? NSFetchedResultsSectionInfo {
                 return singleSection.numberOfObjects
@@ -118,8 +117,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = feedTableView.dequeueReusableCellWithIdentifier("Hoot", forIndexPath: indexPath) as HootCell
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("Hoot", forIndexPath: indexPath) as HootCell
         
         if let singleHoot = fetchedResultsController?.objectAtIndexPath(indexPath) as? Hoot {
             cell.setHoot(singleHoot)
@@ -149,7 +148,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let cell = sender as HootCell
             dest.hoot = cell.hoot
             
-            feedTableView.deselectRowAtIndexPath(feedTableView.indexPathForSelectedRow()!, animated: true)
+            tableView.deselectRowAtIndexPath(tableView.indexPathForSelectedRow()!, animated: true)
             
         case "Camera":
             let dest = segue.destinationViewController as UIImagePickerController
