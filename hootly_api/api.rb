@@ -141,6 +141,11 @@ get '/hoots' do
       end
 
       cur_post["requester_vote"] = vote_dir
+
+      num_comments = 0
+
+      num_comments = client.query("SELECT count(*) as num_comments FROM Comments WHERE post_id = #{id} and active = true").first["num_comments"]
+      cur_post["num_comments"] = num_comments
       posts_return.push(cur_post)
    end
    posts_return.to_json
