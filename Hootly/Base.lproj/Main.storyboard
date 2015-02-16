@@ -167,12 +167,13 @@
                                     <action selector="closeModal:" destination="CYg-91-oxN" eventType="touchUpInside" id="sgf-24-4qg"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dgV-Wy-pd2" customClass="CommentFormView" customModule="Hootly" customModuleProvider="target">
+                            <view contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dgV-Wy-pd2" customClass="CommentFormView" customModule="Hootly" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="637" width="375" height="30"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="tintColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="6z5-3K-Mvh"/>
+                                    <constraint firstAttribute="height" constant="30" placeholder="YES" id="q4t-al-RIx"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ly1-SZ-bbR" userLabel="Keyboard View">
@@ -248,7 +249,7 @@
                                 </constraints>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" sectionIndexMinimumDisplayRowCount="1" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="t7K-rG-kYY">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="476"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="506"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexTrackingBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -288,18 +289,19 @@
                                     <outlet property="delegate" destination="bVX-S0-grA" id="fFF-Ci-02l"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q6P-93-dTb" customClass="CommentFormView" customModule="Hootly" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="476" width="600" height="60"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="tintColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="cxb-MG-Vwh"/>
-                                </constraints>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hyy-ro-cxk" userLabel="Keyboard View">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" id="BCb-EN-lWK"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="q6P-93-dTb" customClass="CommentFormView" customModule="Hootly" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="506" width="600" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="9lY-Lp-61q"/>
+                                    <constraint firstAttribute="height" constant="30" placeholder="YES" id="ppo-Gk-ORa"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -322,7 +324,7 @@
                     </view>
                     <connections>
                         <outlet property="commentTable" destination="t7K-rG-kYY" id="Xwi-Sw-YD1"/>
-                        <outlet property="formHeight" destination="cxb-MG-Vwh" id="UUm-aG-gAC"/>
+                        <outlet property="formHeight" destination="9lY-Lp-61q" id="lsT-Bi-fNx"/>
                         <outlet property="keyboardHeight" destination="BCb-EN-lWK" id="Hdj-eK-7RL"/>
                         <outlet property="photo" destination="9T9-um-Onb" id="dkW-IX-SVi"/>
                     </connections>
