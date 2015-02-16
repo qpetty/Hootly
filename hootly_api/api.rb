@@ -48,14 +48,14 @@ get '/myhoots' do
    end
    post_ids = post_ids.to_set
 
-   posts_return = {}
+   posts_return = []
    post_ids.each do |post_id|
       post = client.query("SELECT * FROM Hoots WHERE id =#{post_id}").first
       id = post["id"]
-      posts_return[id] = {}
-      posts_return[id]["image_path"] = post["image_path"]
-      posts_return[id]["hoot_text"] = post["hoot_text"]
-      posts_return[id]["hootloot"] = post["hootloot"]
+      cur_post = {}
+      cur_post["image_path"] = post["image_path"]
+      cur_post["hoot_text"] = post["hoot_text"]
+      cur_post["hootloot"] = post["hootloot"]
       vote_dir = 0
       user_upvote = client.query("select sum(vote) as votes from Hoots_Upvotes where hoot_id = #{id} and user_id = '#{user_id}'")
       user_downvote = client.query("select sum(vote) as votes from Hoots_Downvotes where hoot_id = #{id} and user_id = '#{user_id}'")
@@ -66,7 +66,8 @@ get '/myhoots' do
          vote_dir = -1
       end
 
-      posts_return[id]["requester_vote"] = vote_dir
+      cur_post["requester_vote"] = vote_dir
+      posts_return.push(cur_post)
    end
    posts_return.to_json
 end
@@ -120,13 +121,15 @@ get '/hoots' do
                         HAVING distance < 1.5
                         ORDER BY hootloot
                         LIMIT 50")
-   posts_return = {}
+   posts_return = []
    posts.each do |post|
       id = post["id"].to_s
-      posts_return[id] = {}
-      posts_return[id]["image_path"] = post["image_path"]
-      posts_return[id]["hoot_text"] = post["hoot_text"]
-      posts_return[id]["hootloot"] = post["hootloot"]
+      cur_post = {}
+      cur_post["id"] = post["id"]
+      cur_post["image_path"] = post["image_path"]
+      cur_post["hoot_text"] = post["hoot_text"]
+      cur_post["hootloot"] = post["hootloot"]
+      cur_post["timestamp"] = post["timestamp"]
       vote_dir = 0
       user_upvote = client.query("select sum(vote) as votes from Hoots_Upvotes where hoot_id = #{id} and user_id = '#{user_id}'")
       user_downvote = client.query("select sum(vote) as votes from Hoots_Downvotes where hoot_id = #{id} and user_id = '#{user_id}'")
@@ -137,7 +140,13 @@ get '/hoots' do
          vote_dir = -1
       end
 
-      posts_return[id]["requester_vote"] = vote_dir
+      cur_post["requester_vote"] = vote_dir
+
+      num_comments = 0
+
+      num_comments = client.query("SELECT count(*) as num_comments FROM Comments WHERE post_id = #{id} and active = true").first["num_comments"]
+      cur_post["num_comments"] = num_comments
+      posts_return.push(cur_post)
    end
    posts_return.to_json
 end
@@ -201,7 +210,7 @@ end
 # example usage
 # /comments?postid=1
 get '/comments' do
-   comments_return = {}
+   comments_return = []
    post_id = params['post_id']
    post_id = client.escape(post_id)
 
@@ -223,7 +232,7 @@ get '/comments' do
       if !user_downvote.first['votes'].nil?
          vote_dir = -1
       end
-      comments_return[comment_id] = { "comment_id" => comment_id, "comment_text" => comment_text, "score" => score, "requester_vote" => vote_dir }
+      comments_return.push({ "comment_id" => comment_id, "comment_text" => comment_text, "score" => score, "requester_vote" => vote_dir })
    end
 
    comments_return.to_json
