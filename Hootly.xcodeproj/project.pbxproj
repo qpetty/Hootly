@@ -27,6 +27,7 @@
 		5A9768701A88262D00229E7E /* CommentFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A97686F1A88262D00229E7E /* CommentFormView.swift */; };
 		5A9768741A88492B00229E7E /* SZTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9768731A88492B00229E7E /* SZTextView.m */; };
 		D12280BE1A87F2F100CDDFB8 /* CommentFormView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D12280BD1A87F2F100CDDFB8 /* CommentFormView.xib */; };
+		D1839CBB1A9192FA00C87B19 /* LocationPrompt.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1839CBA1A9192FA00C87B19 /* LocationPrompt.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,7 @@
 		5A9768721A88492B00229E7E /* SZTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZTextView.h; sourceTree = "<group>"; };
 		5A9768731A88492B00229E7E /* SZTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZTextView.m; sourceTree = "<group>"; };
 		D12280BD1A87F2F100CDDFB8 /* CommentFormView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentFormView.xib; sourceTree = "<group>"; };
+		D1839CBA1A9192FA00C87B19 /* LocationPrompt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationPrompt.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +125,7 @@
 				5A37D1891A7D9170006AAC65 /* SingleHootViewController.swift */,
 				5A94E31C1A749F6600CA1CB8 /* HootCell.swift */,
 				5A94E2FE1A74940300CA1CB8 /* Main.storyboard */,
+				D1839CBA1A9192FA00C87B19 /* LocationPrompt.swift */,
 				5A37D1941A7DD7EB006AAC65 /* CommentView.swift */,
 				5A37D1921A7DD60D006AAC65 /* CommentView.xib */,
 				5A97686F1A88262D00229E7E /* CommentFormView.swift */,
@@ -290,6 +293,7 @@
 				5A9768741A88492B00229E7E /* SZTextView.m in Sources */,
 				5A97686A1A88086E00229E7E /* NewHootViewController.swift in Sources */,
 				5A94E2FB1A74940300CA1CB8 /* AppDelegate.swift in Sources */,
+				D1839CBB1A9192FA00C87B19 /* LocationPrompt.swift in Sources */,
 				5A94E31D1A749F6600CA1CB8 /* HootCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

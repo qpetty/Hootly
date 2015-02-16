@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="j9G-h5-IrQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="bh7-L1-lZw">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -23,10 +23,10 @@
             </objects>
             <point key="canvasLocation" x="-485" y="347"/>
         </scene>
-        <!--View Controller-->
+        <!--Location Prompt-->
         <scene sceneID="V66-Pd-ffM">
             <objects>
-                <viewController id="bh7-L1-lZw" sceneMemberID="viewController">
+                <viewController id="bh7-L1-lZw" customClass="LocationPrompt" customModule="Hootly" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7Cj-zG-ipg"/>
                         <viewControllerLayoutGuide type="bottom" id="01Q-iu-2a0"/>
@@ -35,49 +35,98 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hoot the Hoot!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EV8-IW-Yrc">
-                                <rect key="frame" x="16" y="154" width="343" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Allow Hootly access to your location?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SXJ-Ci-pyW">
+                                <rect key="frame" x="16" y="520" width="343" height="20"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="deviceRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="HootlyIcon" translatesAutoresizingMaskIntoConstraints="NO" id="I90-3Q-o5D">
-                                <rect key="frame" x="157" y="86" width="60" height="60"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Don't worry! We won't share your location with anyone. This is just how Hootly works!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="19c-6c-VPg">
-                                <rect key="frame" x="55" y="241" width="265" height="61"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                                <color key="textColor" red="0.77254901960784317" green="0.81960784313725488" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="So, can Hootly access your location?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SXJ-Ci-pyW">
-                                <rect key="frame" x="41" y="361" width="292" height="41"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0RV-t0-BEb">
-                                <rect key="frame" x="41" y="496" width="292" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0RV-t0-BEb">
+                                <rect key="frame" x="16" y="555" width="343" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="eyd-Ma-ypn"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <state key="normal" title="Yes, let's Hoot!">
+                                    <color key="titleColor" red="0.46666666666666667" green="0.54509803921568623" blue="0.87450980392156863" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WGU-eZ-tmy">
-                                <rect key="frame" x="41" y="551" width="292" height="30"/>
-                                <state key="normal" title="No, I don't want to Hoot.">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hootly needs your location to place your Hoots and find other Hoots around you." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n1I-ph-dcZ">
-                                <rect key="frame" x="26" y="183" width="322" height="63"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hootly needs access to your location in order to place your Hoots and find other Hoots around you!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n1I-ph-dcZ">
+                                <rect key="frame" x="16" y="163" width="343" height="36"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WGU-eZ-tmy">
+                                <rect key="frame" x="16" y="607" width="343" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="79V-ks-qr1"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                <inset key="contentEdgeInsets" minX="0.0" minY="8" maxX="0.0" maxY="8"/>
+                                <state key="normal" title="No, I don't want to Hoot.">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Hootly!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EV8-IW-Yrc">
+                                <rect key="frame" x="79" y="124" width="217" height="29"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="deviceRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't worry! We won't share your location with anyone. This is just how Hootly works!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="19c-6c-VPg">
+                                <rect key="frame" x="36" y="204" width="303" height="31"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                <color key="textColor" red="0.94117647058823528" green="0.94117647058823528" blue="0.94117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HootlyIcon" translatesAutoresizingMaskIntoConstraints="NO" id="I90-3Q-o5D">
+                                <rect key="frame" x="157" y="64" width="60" height="60"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.60784316059999999" green="0.69803923369999998" blue="0.9215686917" alpha="1" colorSpace="deviceRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="19c-6c-VPg" secondAttribute="trailing" constant="20" id="12U-ov-oru"/>
+                            <constraint firstItem="WGU-eZ-tmy" firstAttribute="leading" secondItem="H3M-F0-e8v" secondAttribute="leadingMargin" id="2OC-y8-jbC"/>
+                            <constraint firstItem="n1I-ph-dcZ" firstAttribute="top" secondItem="EV8-IW-Yrc" secondAttribute="bottom" constant="10" id="7HX-E2-VCX"/>
+                            <constraint firstItem="SXJ-Ci-pyW" firstAttribute="top" secondItem="19c-6c-VPg" secondAttribute="bottom" constant="238" id="CaV-lg-3xc"/>
+                            <constraint firstItem="WGU-eZ-tmy" firstAttribute="trailing" secondItem="H3M-F0-e8v" secondAttribute="trailingMargin" id="ChU-vh-kS1"/>
+                            <constraint firstItem="SXJ-Ci-pyW" firstAttribute="centerX" secondItem="0RV-t0-BEb" secondAttribute="centerX" id="Dfw-0V-ZRA"/>
+                            <constraint firstItem="WGU-eZ-tmy" firstAttribute="top" secondItem="0RV-t0-BEb" secondAttribute="bottom" constant="8" id="Elg-9B-oPk"/>
+                            <constraint firstItem="I90-3Q-o5D" firstAttribute="top" secondItem="7Cj-zG-ipg" secondAttribute="bottom" constant="44" id="Gxe-es-e44"/>
+                            <constraint firstItem="SXJ-Ci-pyW" firstAttribute="top" secondItem="19c-6c-VPg" secondAttribute="bottom" constant="50" id="ITH-sc-dYX"/>
+                            <constraint firstItem="0RV-t0-BEb" firstAttribute="trailing" secondItem="H3M-F0-e8v" secondAttribute="trailingMargin" id="Lqw-Ix-b1i"/>
+                            <constraint firstItem="19c-6c-VPg" firstAttribute="leading" secondItem="H3M-F0-e8v" secondAttribute="leadingMargin" constant="20" id="N5u-ag-Jya"/>
+                            <constraint firstItem="n1I-ph-dcZ" firstAttribute="leading" secondItem="H3M-F0-e8v" secondAttribute="leadingMargin" id="Qps-fG-iLT"/>
+                            <constraint firstItem="0RV-t0-BEb" firstAttribute="top" secondItem="SXJ-Ci-pyW" secondAttribute="bottom" constant="15" id="Vj9-Ia-p74"/>
+                            <constraint firstItem="19c-6c-VPg" firstAttribute="centerX" secondItem="SXJ-Ci-pyW" secondAttribute="centerX" id="XKk-BY-nqA"/>
+                            <constraint firstItem="19c-6c-VPg" firstAttribute="top" secondItem="n1I-ph-dcZ" secondAttribute="bottom" constant="5" id="YbL-Gr-tpG"/>
+                            <constraint firstItem="WGU-eZ-tmy" firstAttribute="centerX" secondItem="0RV-t0-BEb" secondAttribute="centerX" id="Yzc-JQ-osd"/>
+                            <constraint firstItem="0RV-t0-BEb" firstAttribute="leading" secondItem="H3M-F0-e8v" secondAttribute="leadingMargin" id="dtD-dm-edL"/>
+                            <constraint firstItem="n1I-ph-dcZ" firstAttribute="trailing" secondItem="H3M-F0-e8v" secondAttribute="trailingMargin" id="fP3-ep-yUD"/>
+                            <constraint firstItem="I90-3Q-o5D" firstAttribute="top" secondItem="7Cj-zG-ipg" secondAttribute="bottom" constant="50" id="g1K-Ed-TMl"/>
+                            <constraint firstItem="EV8-IW-Yrc" firstAttribute="top" secondItem="I90-3Q-o5D" secondAttribute="bottom" id="gLz-40-2t1"/>
+                            <constraint firstItem="EV8-IW-Yrc" firstAttribute="centerX" secondItem="I90-3Q-o5D" secondAttribute="centerX" constant="0.5" id="jGj-jD-lUS"/>
+                            <constraint firstItem="19c-6c-VPg" firstAttribute="centerX" secondItem="n1I-ph-dcZ" secondAttribute="centerX" id="l7q-nX-F27"/>
+                            <constraint firstItem="SXJ-Ci-pyW" firstAttribute="trailing" secondItem="H3M-F0-e8v" secondAttribute="trailingMargin" id="qXB-1f-I1I"/>
+                            <constraint firstAttribute="centerX" secondItem="I90-3Q-o5D" secondAttribute="centerX" constant="0.5" id="sMu-dS-jBy"/>
+                            <constraint firstItem="01Q-iu-2a0" firstAttribute="top" secondItem="WGU-eZ-tmy" secondAttribute="bottom" constant="16" id="vYe-up-IcG"/>
+                            <constraint firstItem="SXJ-Ci-pyW" firstAttribute="leading" secondItem="H3M-F0-e8v" secondAttribute="leadingMargin" id="w25-jC-s3q"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="g1K-Ed-TMl"/>
+                                <exclude reference="CaV-lg-3xc"/>
+                                <exclude reference="ITH-sc-dYX"/>
+                            </mask>
+                        </variation>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="acceptLocationButton" destination="0RV-t0-BEb" id="koE-76-zvF"/>
+                        <outlet property="declineLocationButton" destination="WGU-eZ-tmy" id="9BE-GN-HIh"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="raC-k0-4h9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
