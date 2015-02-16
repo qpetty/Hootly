@@ -167,47 +167,44 @@
                                     <action selector="closeModal:" destination="CYg-91-oxN" eventType="touchUpInside" id="sgf-24-4qg"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dgV-Wy-pd2" customClass="CommentFormView" customModule="Hootly" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="607" width="375" height="60"/>
+                            <view contentMode="scaleToFill" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dgV-Wy-pd2" customClass="CommentFormView" customModule="Hootly" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="637" width="375" height="30"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="tintColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="6z5-3K-Mvh"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ly1-SZ-bbR" userLabel="Keyboard View">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" id="1Om-5c-Xdp"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="afP-l1-k0X" firstAttribute="leading" secondItem="zso-Wy-2Ja" secondAttribute="leading" id="0bI-hp-m5b"/>
-                            <constraint firstItem="dgV-Wy-pd2" firstAttribute="top" relation="lessThanOrEqual" secondItem="zso-Wy-2Ja" secondAttribute="topMargin" constant="395" id="ANp-0x-GgR"/>
+                            <constraint firstItem="ly1-SZ-bbR" firstAttribute="leading" secondItem="zso-Wy-2Ja" secondAttribute="leading" id="5Nq-tj-KTU"/>
                             <constraint firstItem="ayi-Ju-paN" firstAttribute="leading" secondItem="zso-Wy-2Ja" secondAttribute="leading" id="Iqe-Rl-dwp"/>
                             <constraint firstItem="Hiy-Sd-2ze" firstAttribute="leading" secondItem="zso-Wy-2Ja" secondAttribute="leadingMargin" id="Lv9-ZD-1Ms"/>
-                            <constraint firstItem="pQH-Hl-EFa" firstAttribute="top" secondItem="dgV-Wy-pd2" secondAttribute="bottom" id="O7x-Wc-HWd"/>
                             <constraint firstItem="ayi-Ju-paN" firstAttribute="top" secondItem="zso-Wy-2Ja" secondAttribute="top" id="P35-DR-1fN"/>
                             <constraint firstAttribute="trailing" secondItem="afP-l1-k0X" secondAttribute="trailing" id="PLo-Ta-c0Y"/>
-                            <constraint firstItem="Hiy-Sd-2ze" firstAttribute="top" secondItem="4Rv-Vb-4A7" secondAttribute="bottom" id="Q4h-dh-kQB"/>
                             <constraint firstItem="Hiy-Sd-2ze" firstAttribute="top" secondItem="ayi-Ju-paN" secondAttribute="bottom" constant="16" id="UU6-hs-Rdw"/>
                             <constraint firstItem="dgV-Wy-pd2" firstAttribute="trailing" secondItem="zso-Wy-2Ja" secondAttribute="trailing" id="VDA-oH-PpA"/>
-                            <constraint firstItem="afP-l1-k0X" firstAttribute="top" secondItem="ayi-Ju-paN" secondAttribute="bottom" id="VEI-uT-XHF"/>
                             <constraint firstAttribute="trailing" secondItem="ayi-Ju-paN" secondAttribute="trailing" id="gcr-zz-HfV"/>
                             <constraint firstItem="dgV-Wy-pd2" firstAttribute="leading" secondItem="zso-Wy-2Ja" secondAttribute="leading" id="hbF-cD-4Jp"/>
-                            <constraint firstItem="dgV-Wy-pd2" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ayi-Ju-paN" secondAttribute="bottom" id="oRz-vN-K24"/>
-                            <constraint firstItem="afP-l1-k0X" firstAttribute="top" secondItem="zso-Wy-2Ja" secondAttribute="top" id="rwE-gf-ATB"/>
+                            <constraint firstItem="pQH-Hl-EFa" firstAttribute="top" secondItem="ly1-SZ-bbR" secondAttribute="bottom" id="lax-f9-72o"/>
+                            <constraint firstItem="ly1-SZ-bbR" firstAttribute="top" secondItem="dgV-Wy-pd2" secondAttribute="bottom" id="rzc-4I-NZV"/>
                             <constraint firstItem="afP-l1-k0X" firstAttribute="top" secondItem="ayi-Ju-paN" secondAttribute="bottom" id="uaI-zC-6LP"/>
+                            <constraint firstAttribute="trailing" secondItem="ly1-SZ-bbR" secondAttribute="trailing" id="vGf-Kq-oJX"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="VEI-uT-XHF"/>
-                                <exclude reference="rwE-gf-ATB"/>
-                                <exclude reference="Q4h-dh-kQB"/>
-                                <exclude reference="ANp-0x-GgR"/>
-                            </mask>
-                        </variation>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="capturedImageView" destination="afP-l1-k0X" id="ciV-E2-tuu"/>
                         <outlet property="commentForm" destination="dgV-Wy-pd2" id="sKe-Kh-Kxg"/>
+                        <outlet property="keyboardHeight" destination="1Om-5c-Xdp" id="4GZ-fv-0Kz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4ZY-pH-xh1" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -53,9 +53,6 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
         fetchResultsFromCoreData(true)
         
         refreshControl = UIRefreshControl()
-        refreshControl?.backgroundColor = UIColor.purpleColor()
-        refreshControl?.tintColor = UIColor.whiteColor()
-        
         refreshControl?.addTarget(self, action: "fetchMoreHoots", forControlEvents: .ValueChanged)
     }
 
