@@ -47,7 +47,7 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        photo.alpha = 1 - (scrollView.contentOffset.y / view.frame.size.width)
+        photo.alpha = 1 - (scrollView.contentOffset.y / view.frame.size.width) * 0.5
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
