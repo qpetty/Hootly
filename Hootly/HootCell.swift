@@ -31,7 +31,16 @@ class HootCell: UITableViewCell {
         formatter.unitsStyle = .Abbreviated
         
         let components = NSDateComponents()
-        components.second = Int(elapsedTime)
+        
+        if elapsedTime / (3600 * 24) > 1 {
+            components.day = Int(elapsedTime / (3600 * 24))
+        } else if elapsedTime / 3600 > 1 {
+            components.hour = Int(elapsedTime / 3600)
+        } else if elapsedTime / 60 > 1 {
+            components.minute = Int(elapsedTime / 60)
+        } else {
+            components.second = Int(elapsedTime)
+        }
 
         commentView.time.text = formatter.stringFromDateComponents(components)
     }

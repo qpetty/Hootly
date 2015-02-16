@@ -28,9 +28,10 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
         if let segment = sender as? UISegmentedControl {
             switch segment.selectedSegmentIndex {
             case 1:
-                println("Sort another way")
+                fetchResultsFromCoreData(false)
             default:
                 println("Sort one way")
+                fetchResultsFromCoreData(true)
             }
             
             tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Fade)
@@ -39,6 +40,7 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
             println("Expected UISegementedControl")
         }
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -48,6 +50,8 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
         
         makeSampleData()
         
+        fetchResultsFromCoreData(true)
+        
         refreshControl = UIRefreshControl()
         refreshControl?.backgroundColor = UIColor.purpleColor()
         refreshControl?.tintColor = UIColor.whiteColor()
@@ -55,6 +59,27 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
         refreshControl?.addTarget(self, action: "fetchMoreHoots", forControlEvents: .ValueChanged)
     }
 
+    func fetchResultsFromCoreData(sortedByDate: Bool) {
+        let fetchReq = NSFetchRequest(entityName: "Hoot")
+        
+        if sortedByDate == true {
+            let sortDes = NSSortDescriptor(key: "time", ascending: true)
+            fetchReq.sortDescriptors = [sortDes]
+        } else {
+            let sortDes = NSSortDescriptor(key: "rating", ascending: false)
+            fetchReq.sortDescriptors = [sortDes]
+        }
+        
+        
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchReq, managedObjectContext: managedObjectContext!, sectionNameKeyPath: nil, cacheName: nil)
+        
+        if fetchedResultsController?.performFetch(nil) == false {
+            println("fetch failed")
+        } else {
+            println("fetch succeded")
+        }
+    }
+    
     func makeSampleData() {
         if (managedObjectContext != nil) {
             println(managedObjectContext)
@@ -74,20 +99,9 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
             newItem.comment = "This is a longer comment"
             newItem.replies = 5
             newItem.time = NSDate()
-            newItem.rating = 8
+            newItem.rating = 9
             newItem.photoURL = NSBundle.mainBundle().URLForResource("hoot2", withExtension: "png")!
             
-            let fetchReq = NSFetchRequest(entityName: "Hoot")
-            let sortDes = NSSortDescriptor(key: "time", ascending: true)
-            fetchReq.sortDescriptors = [sortDes]
-            
-            fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchReq, managedObjectContext: managedObjectContext!, sectionNameKeyPath: nil, cacheName: nil)
-            
-            if fetchedResultsController?.performFetch(nil) == false {
-                println("fetch failed")
-            } else {
-                println("fetch succeded")
-            }
         }
     }
     
