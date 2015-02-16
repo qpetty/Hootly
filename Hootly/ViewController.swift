@@ -45,6 +45,17 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
         
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         managedObjectContext = appDelegate.managedObjectContext
+        
+        makeSampleData()
+        
+        refreshControl = UIRefreshControl()
+        refreshControl?.backgroundColor = UIColor.purpleColor()
+        refreshControl?.tintColor = UIColor.whiteColor()
+        
+        refreshControl?.addTarget(self, action: "fetchMoreHoots", forControlEvents: .ValueChanged)
+    }
+
+    func makeSampleData() {
         if (managedObjectContext != nil) {
             println(managedObjectContext)
             
@@ -52,7 +63,7 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
             
             newItem.userID = "Brandon"
             newItem.comment = "This is a super duper super optimus prime long comment"
-            newItem.replies = 5
+            newItem.replies = 2
             newItem.time = NSDate()
             newItem.rating = 8
             newItem.photoURL = NSBundle.mainBundle().URLForResource("hoot1", withExtension: "png")!
@@ -78,14 +89,8 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
                 println("fetch succeded")
             }
         }
-        
-        refreshControl = UIRefreshControl()
-        refreshControl?.backgroundColor = UIColor.purpleColor()
-        refreshControl?.tintColor = UIColor.whiteColor()
-        
-        refreshControl?.addTarget(self, action: "fetchMoreHoots", forControlEvents: .ValueChanged)
     }
-
+    
     func fetchMoreHoots() {
         refreshControl?.endRefreshing()
     }
