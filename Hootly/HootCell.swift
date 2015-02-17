@@ -17,8 +17,12 @@ class HootCell: UITableViewCell {
     
     func setHoot(singleHoot: Hoot) {
         hoot = singleHoot
+        
+        photo.image = nil
         if let imageURL = singleHoot.photoURL as? NSURL {
-            photo.image = UIImage(data: NSData(contentsOfURL: imageURL)!)
+            if let urlContents = NSData(contentsOfURL: imageURL) {
+                photo.image = UIImage(data: urlContents)
+            }
         }
         
         commentView.comment.text = singleHoot.comment

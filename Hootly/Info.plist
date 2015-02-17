@@ -43,5 +43,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>Production URL</key>
+	<string>http://www.anappnooneneeds.com</string>
 </dict>
 </plist>

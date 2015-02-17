@@ -13,7 +13,7 @@ import CoreData
 
 class Hoot: NSManagedObject {
 
-    @NSManaged var userID: String
+    @NSManaged var id: NSNumber
     @NSManaged var comment: String
     @NSManaged var time: NSDate
     @NSManaged var rating: NSNumber

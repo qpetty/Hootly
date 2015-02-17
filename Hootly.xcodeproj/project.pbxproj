@@ -16,6 +16,7 @@
 		5A61AB3A1A9034EB00B06495 /* hoot1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A61AB391A9034EB00B06495 /* hoot1.png */; };
 		5A61AB3C1A9034F300B06495 /* hoot2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A61AB3B1A9034F300B06495 /* hoot2.png */; };
 		5A61AB3E1A90364500B06495 /* Hoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A61AB3D1A90364500B06495 /* Hoot.swift */; };
+		5A8248101A92B4630055E334 /* HootAPIToCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A82480F1A92B4630055E334 /* HootAPIToCoreData.swift */; };
 		5A94E2FB1A74940300CA1CB8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A94E2FA1A74940300CA1CB8 /* AppDelegate.swift */; };
 		5A94E2FD1A74940300CA1CB8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A94E2FC1A74940300CA1CB8 /* ViewController.swift */; };
 		5A94E3001A74940300CA1CB8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A94E2FE1A74940300CA1CB8 /* Main.storyboard */; };
@@ -50,6 +51,7 @@
 		5A61AB391A9034EB00B06495 /* hoot1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hoot1.png; sourceTree = "<group>"; };
 		5A61AB3B1A9034F300B06495 /* hoot2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hoot2.png; sourceTree = "<group>"; };
 		5A61AB3D1A90364500B06495 /* Hoot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hoot.swift; sourceTree = "<group>"; };
+		5A82480F1A92B4630055E334 /* HootAPIToCoreData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HootAPIToCoreData.swift; sourceTree = "<group>"; };
 		5A94E2F51A74940300CA1CB8 /* Hootly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hootly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A94E2F91A74940300CA1CB8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5A94E2FA1A74940300CA1CB8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 				5A97686F1A88262D00229E7E /* CommentFormView.swift */,
 				D12280BD1A87F2F100CDDFB8 /* CommentFormView.xib */,
 				5A9768751A88493000229E7E /* Outside Code */,
+				5A82480F1A92B4630055E334 /* HootAPIToCoreData.swift */,
 				5A61AB1E1A900E6400B06495 /* Hootly.xcdatamodeld */,
 				5A61AB3D1A90364500B06495 /* Hoot.swift */,
 				5A61AB2D1A9012E000B06495 /* HootComment.swift */,
@@ -295,6 +298,7 @@
 				5A94E2FB1A74940300CA1CB8 /* AppDelegate.swift in Sources */,
 				D1839CBB1A9192FA00C87B19 /* LocationPrompt.swift in Sources */,
 				5A94E31D1A749F6600CA1CB8 /* HootCell.swift in Sources */,
+				5A8248101A92B4630055E334 /* HootAPIToCoreData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

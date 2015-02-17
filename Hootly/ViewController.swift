@@ -30,7 +30,6 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
             case 1:
                 fetchResultsFromCoreData(false)
             default:
-                println("Sort one way")
                 fetchResultsFromCoreData(true)
             }
             
@@ -48,14 +47,29 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         managedObjectContext = appDelegate.managedObjectContext
         
-        makeSampleData()
-        
-        fetchResultsFromCoreData(true)
-        
         refreshControl = UIRefreshControl()
-        refreshControl?.addTarget(self, action: "fetchMoreHoots", forControlEvents: .ValueChanged)
+        refreshControl?.addTarget(self, action: "refreshAndFetchData", forControlEvents: .ValueChanged)
+        
+        refreshControl?.beginRefreshing()
+        refreshAndFetchData()
+        tableView.setContentOffset(CGPoint(x: 0, y: -refreshControl!.frame.size.height), animated: true)
     }
-
+    
+    func refreshAndFetchData() {
+        HootAPIToCoreData.getHoots { (addedHoots: Int) -> (Void) in
+            self.fetchResultsFromCoreData(true)
+            
+            if addedHoots == 0 {
+                self.makeSampleData()
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Fade)
+                self.refreshControl?.endRefreshing()
+            })
+        }
+    }
+    
     func fetchResultsFromCoreData(sortedByDate: Bool) {
         let fetchReq = NSFetchRequest(entityName: "Hoot")
         
@@ -73,7 +87,7 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
         if fetchedResultsController?.performFetch(nil) == false {
             println("fetch failed")
         } else {
-            println("fetch succeded")
+            println("fetch succeeded")
         }
     }
     
@@ -83,7 +97,7 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
             
             var newItem = NSEntityDescription.insertNewObjectForEntityForName("Hoot", inManagedObjectContext: managedObjectContext!) as Hoot
             
-            newItem.userID = "Brandon"
+            newItem.id = 2
             newItem.comment = "This is a super duper super optimus prime long comment"
             newItem.replies = 2
             newItem.time = NSDate()
@@ -92,18 +106,15 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
             
             newItem = NSEntityDescription.insertNewObjectForEntityForName("Hoot", inManagedObjectContext: managedObjectContext!) as Hoot
             
-            newItem.userID = "Krisna"
+            newItem.id = 7
             newItem.comment = "This is a longer comment"
             newItem.replies = 5
             newItem.time = NSDate()
             newItem.rating = 9
             newItem.photoURL = NSBundle.mainBundle().URLForResource("hoot2", withExtension: "png")!
             
+            managedObjectContext?.save(nil)
         }
-    }
-    
-    func fetchMoreHoots() {
-        refreshControl?.endRefreshing()
     }
     
     override func didReceiveMemoryWarning() {
