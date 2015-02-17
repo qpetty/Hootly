@@ -51,15 +51,7 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
 
         let filledSpace = width + hoot!.replies.doubleValue * CELL_HEIGHT
         
-        var singleView: UIView
-        if filledSpace < height {
-            singleView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: height - filledSpace))
-        } else {
-            singleView = UIView(frame: CGRect.zeroRect)
-        }
-        
-        singleView.backgroundColor = UIColor.whiteColor()
-        commentTable.tableFooterView = singleView
+        commentTable.tableFooterView = UIView(frame: CGRect.zeroRect)
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {

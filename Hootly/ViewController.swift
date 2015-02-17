@@ -59,6 +59,7 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
         HootAPIToCoreData.getHoots { (addedHoots: Int) -> (Void) in
             self.fetchResultsFromCoreData(true)
             
+            //Just for testing, should remove this along with pictures for final release
             if addedHoots == 0 {
                 self.makeSampleData()
             }
@@ -87,7 +88,7 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
         if fetchedResultsController?.performFetch(nil) == false {
             println("fetch failed")
         } else {
-            println("fetch succeeded")
+            println("fetch succeeded: ordered by time -> \(sortedByDate)")
         }
     }
     
