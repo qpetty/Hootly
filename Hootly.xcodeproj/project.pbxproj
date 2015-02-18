@@ -27,6 +27,7 @@
 		5A97686A1A88086E00229E7E /* NewHootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9768691A88086E00229E7E /* NewHootViewController.swift */; };
 		5A9768701A88262D00229E7E /* CommentFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A97686F1A88262D00229E7E /* CommentFormView.swift */; };
 		5A9768741A88492B00229E7E /* SZTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9768731A88492B00229E7E /* SZTextView.m */; };
+		5AAFBE161A9446D5009003B9 /* Hoot+ImageForTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAFBE151A9446D5009003B9 /* Hoot+ImageForTableView.swift */; };
 		D12280BE1A87F2F100CDDFB8 /* CommentFormView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D12280BD1A87F2F100CDDFB8 /* CommentFormView.xib */; };
 		D1839CBB1A9192FA00C87B19 /* LocationPrompt.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1839CBA1A9192FA00C87B19 /* LocationPrompt.swift */; };
 /* End PBXBuildFile section */
@@ -68,6 +69,7 @@
 		5A9768711A88492A00229E7E /* Hootly-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Hootly-Bridging-Header.h"; sourceTree = "<group>"; };
 		5A9768721A88492B00229E7E /* SZTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZTextView.h; sourceTree = "<group>"; };
 		5A9768731A88492B00229E7E /* SZTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZTextView.m; sourceTree = "<group>"; };
+		5AAFBE151A9446D5009003B9 /* Hoot+ImageForTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Hoot+ImageForTableView.swift"; sourceTree = "<group>"; };
 		D12280BD1A87F2F100CDDFB8 /* CommentFormView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentFormView.xib; sourceTree = "<group>"; };
 		D1839CBA1A9192FA00C87B19 /* LocationPrompt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationPrompt.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -136,6 +138,7 @@
 				5A82480F1A92B4630055E334 /* HootAPIToCoreData.swift */,
 				5A61AB1E1A900E6400B06495 /* Hootly.xcdatamodeld */,
 				5A61AB3D1A90364500B06495 /* Hoot.swift */,
+				5AAFBE151A9446D5009003B9 /* Hoot+ImageForTableView.swift */,
 				5A61AB2D1A9012E000B06495 /* HootComment.swift */,
 				5A94E3011A74940300CA1CB8 /* Images.xcassets */,
 				5A94E3031A74940300CA1CB8 /* LaunchScreen.xib */,
@@ -293,6 +296,7 @@
 				5A61AB3E1A90364500B06495 /* Hoot.swift in Sources */,
 				5A61AB201A900E6400B06495 /* Hootly.xcdatamodeld in Sources */,
 				5A37D18A1A7D9170006AAC65 /* SingleHootViewController.swift in Sources */,
+				5AAFBE161A9446D5009003B9 /* Hoot+ImageForTableView.swift in Sources */,
 				5A9768741A88492B00229E7E /* SZTextView.m in Sources */,
 				5A97686A1A88086E00229E7E /* NewHootViewController.swift in Sources */,
 				5A94E2FB1A74940300CA1CB8 /* AppDelegate.swift in Sources */,

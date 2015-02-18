@@ -19,11 +19,10 @@ class HootCell: UITableViewCell {
         hoot = singleHoot
         
         photo.image = nil
-        if let imageURL = singleHoot.photoURL as? NSURL {
-            if let urlContents = NSData(contentsOfURL: imageURL) {
-                photo.image = UIImage(data: urlContents)
-            }
-        }
+        hoot?.fetchImage({ (image: UIImage) -> (Void) in
+            self.photo.image = image
+        })
+        
         
         commentView.comment.text = singleHoot.comment
         commentView.rating.text = "\(singleHoot.rating)"
