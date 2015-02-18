@@ -33,6 +33,13 @@ class HootAPIToCoreData {
         let request = NSURLRequest(URL: url)
         
         NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) { (response, data, error) -> Void in
+            
+            if (error != nil) {
+                NSLog("%@", error)
+                completed(0)
+                return
+            }
+            
             if var hootArray = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as? Array<Dictionary<String, AnyObject>>{
                 
                 //Make an Array of ids to then search through core data with
