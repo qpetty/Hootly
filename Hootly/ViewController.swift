@@ -57,12 +57,13 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
     
     func refreshAndFetchData() {
         HootAPIToCoreData.getHoots { (addedHoots: Int) -> (Void) in
-            self.fetchResultsFromCoreData(true)
-            
+
             //Just for testing, should remove this along with pictures for final release
             if addedHoots == 0 {
                 self.makeSampleData()
             }
+            
+            self.fetchResultsFromCoreData(true)
             
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Fade)
