@@ -15,35 +15,43 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
     
     @IBOutlet weak var photo: UIImageView!
     @IBOutlet weak var commentTable: UITableView!
+    @IBOutlet weak var keyboardHeight: NSLayoutConstraint!
+    @IBOutlet weak var formHeight: NSLayoutConstraint!
     
     let CELL_HEIGHT = 80.0 as Double
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         photo.image = hootImage
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboard:", name: UIKeyboardWillShowNotification, object: nil)
+    }
+    
+    func keyboard(aNotification: NSNotification) {
+
+        if let info = aNotification.userInfo {
+            
+            let keyboardFrame = (info[UIKeyboardFrameEndUserInfoKey] as NSValue).CGRectValue()
+            
+            keyboardHeight.constant = keyboardFrame.height
+            
+            UIView.animateWithDuration(0.1, animations: { () -> Void in
+                self.view.layoutIfNeeded()
+                let bottomOffset = CGPoint(x: 0, y: self.commentTable.contentSize.height - self.commentTable.bounds.size.height)
+                self.commentTable.setContentOffset(bottomOffset, animated: false)
+            })
+        }
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
         let width = Double(view.frame.size.width)
-        let height = Double(view.frame.size.height)
-        
-        photo.frame = CGRect(x: 0, y: 0, width: width, height: width)
-        
-        commentTable.frame = CGRect(x: 0.0, y: 0.0, width: width, height: height)
-        
+        let height = Double(view.frame.size.height - formHeight.constant)
+
         let filledSpace = width + hoot!.replies.doubleValue * CELL_HEIGHT
         
-        var singleView: UIView
-        if filledSpace < height {
-            singleView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: height - filledSpace))
-        } else {
-            singleView = UIView(frame: CGRect.zeroRect)
-        }
-        
-        singleView.backgroundColor = UIColor.whiteColor()
-        commentTable.tableFooterView = singleView
+        commentTable.tableFooterView = UIView(frame: CGRect.zeroRect)
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {

@@ -12,8 +12,9 @@ import UIKit
 class NewHootViewController: UIViewController {
     @IBOutlet weak var capturedImageView: UIImageView!
     @IBOutlet weak var commentForm: CommentFormView!
-    var image: UIImage?
+    @IBOutlet weak var keyboardHeight: NSLayoutConstraint!
     
+    var image: UIImage?
     var adjustingView: UIView?
     var bottomConstraint: NSLayoutConstraint?
     
@@ -36,19 +37,12 @@ class NewHootViewController: UIViewController {
     func moveTextFormUp(aNotification: NSNotification) {
         if let userInfo = aNotification.userInfo {
             
-            let kbSize = userInfo[UIKeyboardFrameBeginUserInfoKey]?.CGRectValue().size.height
+            let kbSize = (userInfo[UIKeyboardFrameEndUserInfoKey] as NSValue).CGRectValue().size.height
+            keyboardHeight.constant = kbSize
             
-            if let value = userInfo[UIKeyboardFrameBeginUserInfoKey] as? NSValue {
-                for con in commentForm.superview!.constraints(){
-                    if let n = con.secondItem as? CommentFormView {
-                        let constraint = con as NSLayoutConstraint
-                        constraint.constant = kbSize!
-                    }
-                    
-                }
-            }
-            
-            updateViewConstraints()
+            UIView.animateWithDuration(0.1, animations: { () -> Void in
+                self.view.layoutIfNeeded()
+            })
         }
     }
 }
