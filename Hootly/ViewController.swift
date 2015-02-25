@@ -10,7 +10,7 @@ import UIKit
 import MobileCoreServices
 import CoreData
 
-class ViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class ViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, NSFetchedResultsControllerDelegate {
     var fetchedResultsController: NSFetchedResultsController?
     var managedObjectContext:NSManagedObjectContext?
 
@@ -32,9 +32,6 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
             default:
                 fetchResultsFromCoreData(true)
             }
-            
-            tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Fade)
-            tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: true)
         } else {
             println("Expected UISegementedControl")
         }
@@ -51,11 +48,33 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
         refreshControl?.addTarget(self, action: "refreshAndFetchData", forControlEvents: .ValueChanged)
         
         refreshControl?.beginRefreshing()
+        self.fetchResultsFromCoreData(true)
         refreshAndFetchData()
         tableView.setContentOffset(CGPoint(x: 0, y: -refreshControl!.frame.size.height), animated: true)
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "managedObjectContextDidSave:", name: NSManagedObjectContextDidSaveNotification, object: nil)
+    }
+    
+    func managedObjectContextDidSave(aNotification: NSNotification) {
+        println("managed object context did save")
+        if(NSThread.isMainThread() == false) {
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.managedObjectContextDidSave(aNotification)
+            })
+        }
+
+        // if a context other than the main context has saved, merge the changes
+        if(aNotification.object as? NSManagedObjectContext != managedObjectContext) {
+            println("merging changes")
+            managedObjectContext?.mergeChangesFromContextDidSaveNotification(aNotification)
+        }
+    }
+    
     func refreshAndFetchData() {
+        //self.fetchResultsFromCoreData(true)
         HootAPIToCoreData.getHoots { (addedHoots: Int) -> (Void) in
 
             //Just for testing, should remove this along with pictures for final release
@@ -63,12 +82,8 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
                 self.makeSampleData()
             }
             
-            self.fetchResultsFromCoreData(true)
-            
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Fade)
-                self.refreshControl?.endRefreshing()
-            })
+            //self.fetchResultsFromCoreData(true)
+            self.refreshControl?.endRefreshing()
         }
     }
     
@@ -76,7 +91,7 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
         let fetchReq = NSFetchRequest(entityName: "Hoot")
         
         if sortedByDate == true {
-            let sortDes = NSSortDescriptor(key: "time", ascending: true)
+            let sortDes = NSSortDescriptor(key: "time", ascending: false)
             fetchReq.sortDescriptors = [sortDes]
         } else {
             let sortDes = NSSortDescriptor(key: "rating", ascending: false)
@@ -85,11 +100,18 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
         
         
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchReq, managedObjectContext: managedObjectContext!, sectionNameKeyPath: nil, cacheName: nil)
+        fetchedResultsController?.delegate = self
         
         if fetchedResultsController?.performFetch(nil) == false {
             println("fetch failed")
-        } else {
-            println("fetch succeeded: ordered by time -> \(sortedByDate)")
+            return
+        }
+        
+        println("fetch succeeded: ordered by time -> \(sortedByDate)")
+        tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Fade)
+        
+        if(tableView.numberOfRowsInSection(0) > 0) {
+            tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: true)
         }
     }
     
@@ -124,6 +146,46 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
         // Dispose of any resources that can be recreated.
     }
 
+    // MARK: - NSFetchedResultsControllerDelegate
+    
+    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+        println("called will change content")
+        tableView.beginUpdates()
+    }
+    
+    func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
+        switch type {
+        case .Insert:
+            tableView.insertSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
+        case .Delete:
+            tableView.deleteSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
+        default:
+            NSLog("Unknown NSFetchedResultsChangeType")
+        }
+    }
+    
+    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+        switch type {
+        case .Insert:
+            tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
+        case .Delete:
+            tableView.deleteRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
+//        case .Update:
+//            con
+        case .Move:
+            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+            tableView.insertRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+        default:
+            NSLog("Unknown NSFetchedResultsChangeType")
+        }
+    }
+    
+    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+        tableView.endUpdates()
+    }
+    
+    // MARK: - NSTableViewDelegate
+    
     override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return self.view.frame.size.width + CELL_HEIGHT
     }

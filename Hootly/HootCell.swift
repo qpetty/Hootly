@@ -23,28 +23,6 @@ class HootCell: UITableViewCell {
             self.photo.image = image
         })
         
-        
-        commentView.comment.text = singleHoot.comment
-        commentView.rating.text = "\(singleHoot.rating)"
-        commentView.replies.text = "\(singleHoot.replies) replies"
-        
-        let elapsedTime = NSDate().timeIntervalSinceDate(singleHoot.time)
-
-        let formatter = NSDateComponentsFormatter()
-        formatter.unitsStyle = .Abbreviated
-        
-        let components = NSDateComponents()
-        
-        if elapsedTime / (3600 * 24) > 1 {
-            components.day = Int(elapsedTime / (3600 * 24))
-        } else if elapsedTime / 3600 > 1 {
-            components.hour = Int(elapsedTime / 3600)
-        } else if elapsedTime / 60 > 1 {
-            components.minute = Int(elapsedTime / 60)
-        } else {
-            components.second = Int(elapsedTime)
-        }
-
-        commentView.time.text = formatter.stringFromDateComponents(components)
+        commentView.setValuesWithHoot(hoot!)
     }
 }
