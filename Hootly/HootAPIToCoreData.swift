@@ -41,6 +41,9 @@ class HootAPIToCoreData {
                 return
             }
             
+            var threadMOC = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
+            threadMOC.parentContext = self.managedObjectCon
+            
             if var hootArray = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as? Array<Dictionary<String, AnyObject>>{
                 
                 //Make an Array of ids to then search through core data with
@@ -60,7 +63,7 @@ class HootAPIToCoreData {
                 fetchReq.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
 
                 var fetchError: NSError?
-                let hootsToDelete = self.managedObjectCon.executeFetchRequest(fetchReq, error: &fetchError) as [Hoot]
+                let hootsToDelete = threadMOC.executeFetchRequest(fetchReq, error: &fetchError) as [Hoot]
                 
                 if let error = fetchError {
                     println("error exectuting fetch request for hoots to delete")
@@ -70,7 +73,7 @@ class HootAPIToCoreData {
 
                 //Delete old hoots
                 for singleHoot in hootsToDelete {
-                    self.managedObjectCon.deleteObject(singleHoot)
+                    threadMOC.deleteObject(singleHoot)
                 }
                 
                 
@@ -79,7 +82,7 @@ class HootAPIToCoreData {
                 fetchReq.predicate = NSPredicate(format: "(id IN %@)", idArray)
                 fetchReq.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
                 
-                let validHoots = self.managedObjectCon.executeFetchRequest(fetchReq, error: &fetchError) as [Hoot]
+                let validHoots = threadMOC.executeFetchRequest(fetchReq, error: &fetchError) as [Hoot]
                 
                 if let error = fetchError {
                     println("error exectuting fetch request for hoots to keep")
@@ -100,7 +103,7 @@ class HootAPIToCoreData {
                         
                         //Create new Hoot if we didnt find it
                         if foundExistingID == false {
-                            var newItem = NSEntityDescription.insertNewObjectForEntityForName("Hoot", inManagedObjectContext: self.managedObjectCon) as Hoot
+                            var newItem = NSEntityDescription.insertNewObjectForEntityForName("Hoot", inManagedObjectContext: threadMOC) as Hoot
                             newItem.id = id
                             newItem.time = NSDate(timeIntervalSince1970: singleHoot["timestamp"]! as NSTimeInterval)
                             newItem.comment = singleHoot["hoot_text"] as String
@@ -115,7 +118,7 @@ class HootAPIToCoreData {
                 }
                 
                 //Save after everything
-                self.managedObjectCon.save(&fetchError)
+                threadMOC.save(&fetchError)
                 
                 if let error = fetchError {
                     println("error saving context in getHoots()")
