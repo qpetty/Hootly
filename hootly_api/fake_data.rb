@@ -14,7 +14,7 @@ hoots = JSON.parse(result)
 p hoots
 
 hoots.each do |hoot|
-   `curl --form text="this is a comment" --form post_id=#{hoot[0]} --form user_id=#{user_id} http://www.anappnooneneeds.com/comments`
+   `curl --form text="this is a comment" --form post_id=#{hoot["id"]} --form user_id=#{user_id} http://www.anappnooneneeds.com/comments`
 end
 
 `curl --form comment_id=1 --form user_id=#{user_id} http://www.anappnooneneeds.com/commentsup`
