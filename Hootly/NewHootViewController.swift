@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class NewHootViewController: UIViewController {
+class NewHootViewController: UIViewController, CommentFormProtocol {
     @IBOutlet weak var capturedImageView: UIImageView!
     @IBOutlet weak var commentForm: CommentFormView!
     @IBOutlet weak var keyboardHeight: NSLayoutConstraint!
@@ -25,6 +25,7 @@ class NewHootViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         capturedImageView.image = image
+        commentForm.delegate = self
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "moveTextFormUp:", name: UIKeyboardWillShowNotification, object: nil)
         commentForm.textField.becomeFirstResponder()
@@ -32,6 +33,55 @@ class NewHootViewController: UIViewController {
     
     override func viewWillDisappear(animated: Bool) {
         commentForm.textField.resignFirstResponder()
+    }
+    
+    func commentToSubmit(comment: String) {
+        println(comment)
+        
+        var postBody = NSMutableData()
+        postBody.mp_setInteger(6, forKey: "user_id")
+        postBody.mp_setFloat(5.5, forKey: "lat")
+        postBody.mp_setFloat(5.5, forKey: "long")
+        postBody.mp_setString(comment, forKey: "hoot_text")
+        
+        //postBody.mp_setPNGImage(image, forKey: "image")
+        //postBody.mp_setJPEGImage(image, withQuality: 1.0, forKey: "image")
+        //postBody.mp_setJPEGImage(image, withQuality: 1.0, withFilename: "mutherfuckr", forKey: "image")
+        
+        if let hostString = NSBundle.mainBundle().objectForInfoDictionaryKey("Production URL") as? String {
+            var host = NSURL(string: hostString)!
+            var url = NSURL(string: "hoots", relativeToURL: host)!
+            
+            println("sending to \(url.absoluteString)")
+            
+            var request = NSMutableURLRequest(URL: url)
+            request.setValue(KIMultipartContentType, forHTTPHeaderField: "Content-Type")
+            request.setValue("curl/7.37.1", forHTTPHeaderField: "User-Agent")
+
+            request.HTTPMethod = "POST"
+            request.HTTPBody = postBody
+            
+            println("body: \(postBody.mp_stringRepresentation())")
+            println("sending request \(request.allHTTPHeaderFields)")
+            
+            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { (response, data, error) -> Void in
+                if (error != nil) {
+                    NSLog("%@", error)
+                    return
+                }
+                
+                println("response: \(response)")
+                
+                if let dataText = NSString(data: data, encoding: NSUTF8StringEncoding) {
+                    println("posted! response data: \(dataText)")
+                }
+                
+                self.dismissViewControllerAnimated(true, completion: nil)
+            })
+        } else {
+            println("could not construct URL in getHoots()")
+            return
+        }
     }
     
     func moveTextFormUp(aNotification: NSNotification) {
