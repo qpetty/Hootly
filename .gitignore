@@ -16,6 +16,10 @@ profile
 *.moved-aside
 DerivedData
 .idea/
-hootly_api/uploads/
 # Pods - for those of you who use CocoaPods
 Pods
+
+# API
+hootly_api/log
+hootly_api/tmp
+hootly_api/uploads/

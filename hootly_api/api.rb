@@ -161,6 +161,7 @@ class Hootly_API < Sinatra::Base
 	   lat = params["lat"]
 	   long = params["long"]
 
+           p user_id
 	   user_id = client.escape(user_id)
 	   hoot_text = client.escape(hoot_text)
 
@@ -209,7 +210,7 @@ class Hootly_API < Sinatra::Base
 	end
 
 	# example usage
-	# /comments?postid=1
+	# /comments?postid=1&user_id=1
 	get '/comments' do
 	   comments_return = []
 	   post_id = params['post_id']
@@ -222,6 +223,7 @@ class Hootly_API < Sinatra::Base
 	      vote_dir = 0
 	      comment_id = comment["id"]
 	      comment_text = comment["comment_text"]
+              comment_timestamp = comment["timestamp"]
 
 	      score = comment["hootloot"]
 
@@ -233,7 +235,7 @@ class Hootly_API < Sinatra::Base
 	      if !user_downvote.first['votes'].nil?
 		 vote_dir = -1
 	      end
-	      comments_return.push({ "comment_id" => comment_id, "comment_text" => comment_text, "score" => score, "requester_vote" => vote_dir })
+	      comments_return.push({ "comment_id" => comment_id, "comment_text" => comment_text, "score" => score, "requester_vote" => vote_dir, "timestamp" => comment_timestamp })
 	   end
 
 	   comments_return.to_json
