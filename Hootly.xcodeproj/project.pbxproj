@@ -28,6 +28,7 @@
 		5A9768701A88262D00229E7E /* CommentFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A97686F1A88262D00229E7E /* CommentFormView.swift */; };
 		5A9768741A88492B00229E7E /* SZTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9768731A88492B00229E7E /* SZTextView.m */; };
 		5AAFBE161A9446D5009003B9 /* Hoot+ImageForTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAFBE151A9446D5009003B9 /* Hoot+ImageForTableView.swift */; };
+		5ACCCE171A9D97F3000BD67C /* SingleCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACCCE161A9D97F3000BD67C /* SingleCommentCell.swift */; };
 		D12280BE1A87F2F100CDDFB8 /* CommentFormView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D12280BD1A87F2F100CDDFB8 /* CommentFormView.xib */; };
 		D1839CBB1A9192FA00C87B19 /* LocationPrompt.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1839CBA1A9192FA00C87B19 /* LocationPrompt.swift */; };
 /* End PBXBuildFile section */
@@ -70,6 +71,7 @@
 		5A9768721A88492B00229E7E /* SZTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZTextView.h; sourceTree = "<group>"; };
 		5A9768731A88492B00229E7E /* SZTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZTextView.m; sourceTree = "<group>"; };
 		5AAFBE151A9446D5009003B9 /* Hoot+ImageForTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Hoot+ImageForTableView.swift"; sourceTree = "<group>"; };
+		5ACCCE161A9D97F3000BD67C /* SingleCommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleCommentCell.swift; sourceTree = "<group>"; };
 		D12280BD1A87F2F100CDDFB8 /* CommentFormView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentFormView.xib; sourceTree = "<group>"; };
 		D1839CBA1A9192FA00C87B19 /* LocationPrompt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationPrompt.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -130,6 +132,7 @@
 				5A94E31C1A749F6600CA1CB8 /* HootCell.swift */,
 				5A94E2FE1A74940300CA1CB8 /* Main.storyboard */,
 				D1839CBA1A9192FA00C87B19 /* LocationPrompt.swift */,
+				5ACCCE161A9D97F3000BD67C /* SingleCommentCell.swift */,
 				5A37D1941A7DD7EB006AAC65 /* CommentView.swift */,
 				5A37D1921A7DD60D006AAC65 /* CommentView.xib */,
 				5A97686F1A88262D00229E7E /* CommentFormView.swift */,
@@ -291,6 +294,7 @@
 			files = (
 				5A37D1951A7DD7EB006AAC65 /* CommentView.swift in Sources */,
 				5A61AB2E1A9012E000B06495 /* HootComment.swift in Sources */,
+				5ACCCE171A9D97F3000BD67C /* SingleCommentCell.swift in Sources */,
 				5A94E2FD1A74940300CA1CB8 /* ViewController.swift in Sources */,
 				5A9768701A88262D00229E7E /* CommentFormView.swift in Sources */,
 				5A61AB3E1A90364500B06495 /* Hoot.swift in Sources */,

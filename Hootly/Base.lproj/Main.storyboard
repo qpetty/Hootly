@@ -176,7 +176,7 @@
                                     <constraint firstAttribute="height" constant="30" placeholder="YES" id="q4t-al-RIx"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ly1-SZ-bbR" userLabel="Keyboard View">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ly1-SZ-bbR" userLabel="Keyboard View">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" id="1Om-5c-Xdp"/>
@@ -264,7 +264,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="1" green="0.0" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CommentCell" id="c9Y-SX-sUT">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CommentCell" id="c9Y-SX-sUT" customClass="SingleCommentCell" customModule="Hootly" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="c9Y-SX-sUT" id="BNZ-c2-jEy">
@@ -282,6 +282,9 @@
                                                 <constraint firstAttribute="bottomMargin" secondItem="jG8-Jh-1dN" secondAttribute="bottom" id="cSX-7u-V9K"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="commentView" destination="jG8-Jh-1dN" id="9IG-iv-f4C"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -289,7 +292,7 @@
                                     <outlet property="delegate" destination="bVX-S0-grA" id="fFF-Ci-02l"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hyy-ro-cxk" userLabel="Keyboard View">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hyy-ro-cxk" userLabel="Keyboard View">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" id="BCb-EN-lWK"/>

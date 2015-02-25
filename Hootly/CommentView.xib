@@ -10,6 +10,7 @@
                 <outlet property="comment" destination="YdQ-GE-upc" id="KI1-xn-9Oa"/>
                 <outlet property="rating" destination="F11-WE-RS1" id="CUw-pX-kKi"/>
                 <outlet property="replies" destination="Uu0-4A-8c8" id="92i-0W-azQ"/>
+                <outlet property="repliesImage" destination="bhI-fG-5sh" id="jze-Pg-xcn"/>
                 <outlet property="time" destination="h7o-8W-r5m" id="2ax-p2-SGK"/>
             </connections>
         </placeholder>
@@ -64,7 +65,7 @@
                         <constraint firstAttribute="centerY" secondItem="F11-WE-RS1" secondAttribute="centerY" id="wSO-qB-vfm"/>
                     </constraints>
                 </view>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Comments" translatesAutoresizingMaskIntoConstraints="NO" id="bhI-fG-5sh" userLabel="imgComment">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Comments" translatesAutoresizingMaskIntoConstraints="NO" id="bhI-fG-5sh" userLabel="Replies Image">
                     <rect key="frame" x="136" y="48" width="16" height="16"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="bhI-fG-5sh" secondAttribute="height" multiplier="1:1" id="ELo-8z-Uvb"/>
@@ -77,7 +78,7 @@
                     <color key="textColor" red="0.30588235289999999" green="0.32156862749999998" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Time" translatesAutoresizingMaskIntoConstraints="NO" id="e6g-SU-sZz" userLabel="imgComment">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Time" translatesAutoresizingMaskIntoConstraints="NO" id="e6g-SU-sZz" userLabel="Time Image">
                     <rect key="frame" x="16" y="48" width="16" height="16"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="16" id="9LQ-Eu-3X2"/>

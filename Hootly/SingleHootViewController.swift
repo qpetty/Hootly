@@ -68,17 +68,25 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return hoot!.replies.integerValue + 1;
+        //Add one for the transparent cell and another for the hoot description
+        return hoot!.replies.integerValue + 1 + 1;
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
+        //Get the clear cell so that we can see the picture behind
         if indexPath.row == 0 {
             return commentTable.dequeueReusableCellWithIdentifier("Clear") as UITableViewCell
         }
         
-        let cell = commentTable.dequeueReusableCellWithIdentifier("CommentCell", forIndexPath: indexPath) as UITableViewCell
+        let cell = commentTable.dequeueReusableCellWithIdentifier("CommentCell", forIndexPath: indexPath) as SingleCommentCell
         
+        if indexPath.row == 1 {
+            cell.commentView.setValuesWithHoot(hoot!)
+            cell.commentView.showReplies(false)
+        }
+        
+        cell.commentView.showReplies(false)
         return cell
     }
 }
