@@ -7,12 +7,18 @@
         <attribute name="rating" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="replies" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="time" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="comments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="HootComment" inverseName="hoot" inverseEntity="HootComment" syncable="YES"/>
     </entity>
     <entity name="HootComment" representedClassName="HootComment" syncable="YES">
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="score" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="voted" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <relationship name="hoot" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Hoot" inverseName="comments" inverseEntity="Hoot" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Hoot" positionX="-54" positionY="-9" width="128" height="135"/>
-        <element name="HootComment" positionX="-36" positionY="18" width="128" height="60"/>
+        <element name="Hoot" positionX="-999" positionY="-774" width="128" height="148"/>
+        <element name="HootComment" positionX="-722" positionY="-774" width="128" height="133"/>
     </elements>
 </model>

@@ -16,19 +16,25 @@ class HootAPIToCoreData {
         return appDelegate.managedObjectContext!
     }
     
+    class var hostURL: NSURL? {
+        if let hostString = NSBundle.mainBundle().objectForInfoDictionaryKey("Production URL") as? String {
+            return NSURL(string: hostString)!
+        } else {
+            println("could not construct URL in getHoots()")
+            return nil
+        }
+    }
     
     class func getHoots(completed: (Int) -> (Void)) {
         var url: NSURL
-        var host: NSURL
         
-        if let hostString = NSBundle.mainBundle().objectForInfoDictionaryKey("Production URL") as? String {
-            host = NSURL(string: hostString)!
+        if let host = hostURL {
             url = NSURL(string: "hoots?lat=5&long=5&user_id=4", relativeToURL: host)!
         } else {
             println("could not construct URL in getHoots()")
             return
         }
-        
+
         NSLog("Fetching URL: %@", url)
         
         let request = NSURLRequest(URL: url)
@@ -110,7 +116,7 @@ class HootAPIToCoreData {
                             newItem.rating = singleHoot["hootloot"] as NSNumber
                             newItem.replies = singleHoot["num_comments"] as NSNumber
 
-                            if let tempPhotoURL = NSURL(string: singleHoot["image_path"] as String, relativeToURL: host) {
+                            if let tempPhotoURL = NSURL(string: singleHoot["image_path"] as String, relativeToURL: self.hostURL!) {
                                 newItem.photoURL = tempPhotoURL
                             }
                         }
