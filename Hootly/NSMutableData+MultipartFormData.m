@@ -5,7 +5,7 @@
 #import "NSMutableData+MultipartFormData.h"
 
 NSString *const KIMultipartBoundary = @"KIBoundary";
-NSString *const KIMultipartContentType = @"multipart/form-data; boundary=--KIBoundary";
+NSString *const KIMultipartContentType = @"multipart/form-data; boundary=KIBoundary";
 
 @implementation NSMutableData (MultipartFormData)
 

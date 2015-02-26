@@ -40,13 +40,16 @@ class NewHootViewController: UIViewController, CommentFormProtocol {
         
         var postBody = NSMutableData()
         postBody.mp_setInteger(6, forKey: "user_id")
-        postBody.mp_setFloat(5.5, forKey: "lat")
-        postBody.mp_setFloat(5.5, forKey: "long")
+        postBody.mp_setFloat(5, forKey: "lat")
+        postBody.mp_setFloat(5, forKey: "long")
         postBody.mp_setString(comment, forKey: "hoot_text")
-        
+
         //postBody.mp_setPNGImage(image, forKey: "image")
-        //postBody.mp_setJPEGImage(image, withQuality: 1.0, forKey: "image")
+        postBody.mp_setJPEGImage(image, withQuality: 1.0, forKey: "image")
         //postBody.mp_setJPEGImage(image, withQuality: 1.0, withFilename: "mutherfuckr", forKey: "image")
+        
+        let end = "--" + "KIBoundary" + "--" + "\r\n"
+        postBody.appendData(end.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!)
         
         if let hostString = NSBundle.mainBundle().objectForInfoDictionaryKey("Production URL") as? String {
             var host = NSURL(string: hostString)!
@@ -56,12 +59,10 @@ class NewHootViewController: UIViewController, CommentFormProtocol {
             
             var request = NSMutableURLRequest(URL: url)
             request.setValue(KIMultipartContentType, forHTTPHeaderField: "Content-Type")
-            request.setValue("curl/7.37.1", forHTTPHeaderField: "User-Agent")
-
             request.HTTPMethod = "POST"
             request.HTTPBody = postBody
             
-            println("body: \(postBody.mp_stringRepresentation())")
+            //println("body: \(postBody.mp_stringRepresentation())")
             println("sending request \(request.allHTTPHeaderFields)")
             
             NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { (response, data, error) -> Void in
