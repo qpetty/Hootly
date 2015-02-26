@@ -9,11 +9,16 @@
 import Foundation
 import UIKit
 
+protocol CommentFormProtocol: class {
+    func commentToSubmit(comment: String)
+}
+
 class CommentFormView: UIView {
     var nibView: UIView?
     
     @IBOutlet weak var textField: SZTextView!
     @IBOutlet weak var submitButton: UIButton!
+    weak var delegate: CommentFormProtocol?
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -37,5 +42,10 @@ class CommentFormView: UIView {
     
     override func layoutSubviews() {
         nibView!.frame = self.bounds
+    }
+    @IBAction func submitComment(sender: AnyObject) {
+        println("submitting comment")
+        
+        delegate?.commentToSubmit(textField.text)
     }
 }
