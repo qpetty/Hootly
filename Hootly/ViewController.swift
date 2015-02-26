@@ -55,7 +55,13 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+        //TODO: Might not be the best place for this but we'll try it here for a while
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "managedObjectContextDidSave:", name: NSManagedObjectContextDidSaveNotification, object: nil)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     func managedObjectContextDidSave(aNotification: NSNotification) {
@@ -149,7 +155,7 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
     // MARK: - NSFetchedResultsControllerDelegate
     
     func controllerWillChangeContent(controller: NSFetchedResultsController) {
-        println("called will change content")
+        //println("called will change content")
         tableView.beginUpdates()
     }
     
@@ -160,7 +166,7 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
         case .Delete:
             tableView.deleteSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
         default:
-            NSLog("Unknown NSFetchedResultsChangeType")
+            NSLog("Unknown NSFetchedResultsChangeType in ViewController")
         }
     }
     
@@ -176,7 +182,7 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
             tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
             tableView.insertRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
         default:
-            NSLog("Unknown NSFetchedResultsChangeType")
+            NSLog("Unknown NSFetchedResultsChangeType in ViewController")
         }
     }
     
@@ -237,6 +243,7 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
             let cell = sender as HootCell
             dest.hoot = cell.hoot
             dest.hootImage = cell.photo?.image
+            dest.hoot?.fetchComments()
             
             tableView.deselectRowAtIndexPath(tableView.indexPathForSelectedRow()!, animated: true)
             

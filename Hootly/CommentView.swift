@@ -57,6 +57,14 @@ class CommentView: UIView {
         showReplies(true)
     }
     
+    func setValuesWithComment(comment: HootComment) {
+        setCommentText(comment.text)
+        setRatingText(comment.score)
+        setTime(comment.time)
+        
+        showReplies(false)
+    }
+    
     func setReplyText(number: NSNumber) {
         replies.text = "\(number) replies"
     }
