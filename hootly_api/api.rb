@@ -155,13 +155,33 @@ class Hootly_API < Sinatra::Base
 	# post info
 	# userid, an image, a hoot_text
 	post '/hoots' do
+      error = ""
 	   user_id = params["user_id"]
 	   hoot_text = params['hoot_text']
 	   timestamp = Time.now.to_i
 	   lat = params["lat"]
 	   long = params["long"]
 
-           p user_id
+      if user_id.nil?
+         error = error + "User id is nil. "
+      end
+      if hoot_text.nil?
+         error = error + "Hoot text is nil. "
+      end
+      if timestamp.nil?
+         error = error + "Timestamp is nil. "
+      end
+      if lat.nil?
+         error = error + "Latitude is nil. "
+      end
+      if long.nil?
+         error = error + "Longitude is nil. "
+      end
+
+      if !error.empty?
+         return error
+      end
+
 	   user_id = client.escape(user_id)
 	   hoot_text = client.escape(hoot_text)
 
