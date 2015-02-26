@@ -74,7 +74,7 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
     func fetchResultsFromCoreData() {
         let fetchReq = NSFetchRequest(entityName: "HootComment")
         fetchReq.predicate = NSPredicate(format: "hoot == %@", hoot!)
-        fetchReq.sortDescriptors = [NSSortDescriptor(key: "time", ascending: false)]
+        fetchReq.sortDescriptors = [NSSortDescriptor(key: "time", ascending: true)]
         
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchReq, managedObjectContext: managedObjectContext!, sectionNameKeyPath: nil, cacheName: nil)
         fetchedResultsController?.delegate = self
@@ -88,15 +88,21 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
         //commentTable.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Fade)
     }
     
+    func mapResultsControllerIndexToTableViewIndex(index: NSIndexPath?) -> NSIndexPath? {
+        if let oldIndex = index {
+            return NSIndexPath(forRow: oldIndex.row + 2, inSection: oldIndex.section)
+        } else {
+            return nil
+        }
+    }
+    
     // MARK: - NSFetchedResultsControllerDelegate
     
     func controllerWillChangeContent(controller: NSFetchedResultsController) {
-        println("called will change content in single")
         commentTable.beginUpdates()
     }
     
     func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
-        println("called change section in single")
         switch type {
         case .Insert:
             commentTable.insertSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
@@ -112,29 +118,31 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
     }
     
     func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
-        println("called change object in single")
+        
+        let adjustedIndexPath = self.mapResultsControllerIndexToTableViewIndex(indexPath)
+        let adjustedNewIndexPath = self.mapResultsControllerIndexToTableViewIndex(newIndexPath)
+        
+        
         switch type {
         case .Insert:
-            commentTable.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
+            commentTable.insertRowsAtIndexPaths([adjustedNewIndexPath!], withRowAnimation: .Fade)
         case .Delete:
-            commentTable.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+            commentTable.deleteRowsAtIndexPaths([adjustedIndexPath!], withRowAnimation: .Fade)
         case .Update:
-            let newIndex = NSIndexPath(forRow: indexPath!.row + 2, inSection: indexPath!.section)
-            if let cell = commentTable.cellForRowAtIndexPath(newIndex) as? SingleCommentCell {
+            if let cell = commentTable.cellForRowAtIndexPath(adjustedIndexPath!) as? SingleCommentCell {
                 let comment = anObject as HootComment
                 cell.commentView.setValuesWithComment(comment)
-                println("loading \(newIndex.row)")
+                println("loading \(adjustedIndexPath!.row)")
             }
         case .Move:
-            commentTable.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
-            commentTable.insertRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+            commentTable.deleteRowsAtIndexPaths([adjustedIndexPath!], withRowAnimation: .Fade)
+            commentTable.insertRowsAtIndexPaths([adjustedIndexPath!], withRowAnimation: .Fade)
         default:
             NSLog("Unknown NSFetchedResultsChangeType in SingleHootViewController")
         }
     }
     
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
-        println("called did change in single")
         commentTable.endUpdates()
     }
     

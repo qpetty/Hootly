@@ -58,8 +58,8 @@ extension Hoot {
             if let value = singleComment["requester_vote"] as? NSNumber {
                 newComment.voted = value
             }
-            if let value = singleComment["time"] as? NSDate {
-                newComment.time = value
+            if let value = singleComment["timestamp"] as? NSNumber {
+                newComment.time = NSDate(timeIntervalSince1970: value as NSTimeInterval)
             } else {
                 newComment.time = NSDate()
             }
