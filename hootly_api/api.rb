@@ -177,9 +177,12 @@ class Hootly_API < Sinatra::Base
       if long.nil?
          error = error + "Longitude is nil. "
       end
+      if params['image'].nil?
+         error = error + "Image is nil. "
+      end
 
       if !error.empty?
-         return error
+         return ["error" => error].to_json
       end
 
 	   user_id = client.escape(user_id)
@@ -189,7 +192,7 @@ class Hootly_API < Sinatra::Base
 	   long = client.escape(long)
 
 	   # determine an image path here
-	   file_type = ".png"
+	   file_type = ".jpeg"
 	   imagepath = user_id.to_s + timestamp.to_s + file_type
 
 	   # This saves the image in the uploads directory
@@ -198,6 +201,7 @@ class Hootly_API < Sinatra::Base
 	   end
 
 	   client.query("INSERT INTO Hoots (user_id, hoot_text, timestamp, image_path, latitude, longitude) VALUES ( '#{user_id}', '#{hoot_text}', #{timestamp}, '#{imagepath}', #{lat}, #{long} )")
+           ["sucess"].to_json
 	end
 
 	post '/hootsup' do
