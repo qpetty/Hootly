@@ -4,10 +4,15 @@
 
 #import "NSMutableData+MultipartFormData.h"
 
-NSString *const KIMultipartBoundary = @"KIBoundary";
-NSString *const KIMultipartContentType = @"multipart/form-data; boundary=KIBoundary";
-
 @implementation NSMutableData (MultipartFormData)
+
+-(NSString *)KIMultipartContentType {
+    return [NSString stringWithFormat:@"multipart/form-data; boundary=%@", [self KIMultipartBoundary]];
+}
+
+-(NSString *)KIMultipartBoundary {
+    return @"KIBoundaryThatHopefullyNoOneWillEverUse";
+}
 
 # pragma mark - Foundation Objects
 
@@ -85,6 +90,10 @@ NSString *const KIMultipartContentType = @"multipart/form-data; boundary=KIBound
     [self mp_setData:imageData withFilename:filename forKey:key];
 }
 
+-(void)mp_prepareForRequest {
+    [self appendData:[[NSString stringWithFormat:@"--%@--\r\n", [self KIMultipartBoundary]] dataUsingEncoding:NSUTF8StringEncoding]];
+}
+
 # pragma mark - Helpers
 
 - (NSString *)mp_uniqueName {
@@ -92,7 +101,7 @@ NSString *const KIMultipartContentType = @"multipart/form-data; boundary=KIBound
 }
 
 - (void)mp_setBoundary {
-    [self appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", KIMultipartBoundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    [self appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", [self KIMultipartBoundary]] dataUsingEncoding:NSUTF8StringEncoding]];
 }
 
 - (void)mp_setOctetStreamContentType {

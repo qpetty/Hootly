@@ -2,11 +2,6 @@
 #import <UIKit/UIKit.h>
 
 /**
- *  This string must be set to the request's `Content-Type`.
- */
-extern NSString *const KIMultipartContentType;
-
-/**
  *  A category to build multipart/form-data -formatted `NSData`.
  *
  *      NSMutableData *body = [[NSMutableData alloc] init];
@@ -31,6 +26,12 @@ extern NSString *const KIMultipartContentType;
  *
  */
 @interface NSMutableData (MultipartFormData)
+
+/**
+ *  This string must be set to the request's `Content-Type`.
+ */
+
+@property (readonly) NSString *KIMultipartContentType;
 
 # pragma mark - Foundation Objects
 
@@ -103,6 +104,10 @@ extern NSString *const KIMultipartContentType;
 
 - (void)mp_setPNGImage:(UIImage *)image forKey:(NSString *)key;
 - (void)mp_setPNGImage:(UIImage *)image withFilename:(NSString *)filename forKey:(NSString *)key;
+
+# pragma mark - Formating Methods
+
+- (void)mp_prepareForRequest;
 
 # pragma mark - Debugging Utilities
 
