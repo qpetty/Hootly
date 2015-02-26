@@ -111,17 +111,28 @@ class Hootly_API < Sinatra::Base
 	   long = client.escape(long)
 	   user_id = client.escape(user_id)
 
-	   posts = client.query("SELECT *, (3659 * acos( cos( radians( #{lat}) ) *
-				cos ( radians( latitude ) ) *
-				cos (radians(longitude) -
-				radians (#{long}) ) +
-				sin ( radians( #{lat} ) ) *
-				sin ( radians( latitude ) ) ) ) as distance
-				FROM Hoots
-				WHERE active = true
-				HAVING distance < 1.5
-				ORDER BY hootloot
-				LIMIT 50")
+	   #posts = client.query("SELECT *, (3659 * acos( cos( radians( #{lat}) ) *
+		#		cos ( radians( latitude ) ) *
+		#		cos (radians(longitude) -
+		#		radians (#{long}) ) +
+		#		sin ( radians( #{lat} ) ) *
+		#		sin ( radians( latitude ) ) ) ) as distance
+		#		FROM Hoots
+		#		WHERE active = true
+		#		HAVING distance < 1.5
+		#		ORDER BY hootloot
+		#		LIMIT 50")
+      #
+      posts = client.query("SELECT *, (7926 *
+                                       asin( sqrt( pow(sin((latitude - #{lat})/2), 2) +
+                                                   cos(#{lat}) * cos(latitude) *
+                                                   pow(sin((longitude - #{long})/2), 2)))) as distance
+                            FROM Hoots
+                            WHERE active = true
+                            HAVING distance < 1.5
+                            ORDER BY timestamp DESC
+                            LIMIT 50")
+
 	   posts_return = []
 	   posts.each do |post|
 	      id = post["id"].to_s
