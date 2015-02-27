@@ -61,6 +61,7 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
     }
     
     override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     

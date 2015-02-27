@@ -10,11 +10,13 @@ import Foundation
 import UIKit
 import CoreData
 
-class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate {
+class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate, CommentFormProtocol {
     var hoot: Hoot?
     var hootImage: UIImage?
     var fetchedResultsController: NSFetchedResultsController?
     var managedObjectContext:NSManagedObjectContext?
+    
+    @IBOutlet weak var commentForm: CommentFormView!
     
     @IBOutlet weak var photo: UIImageView!
     @IBOutlet weak var commentTable: UITableView!
@@ -29,6 +31,8 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         managedObjectContext = appDelegate.managedObjectContext
         
+        commentForm.delegate = self
+        
         fetchResultsFromCoreData()
     }
     
@@ -38,6 +42,12 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
         
         commentTable.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Fade)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboard:", name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardAway:", name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     func keyboard(aNotification: NSNotification) {
@@ -47,6 +57,20 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
             let keyboardFrame = (info[UIKeyboardFrameEndUserInfoKey] as NSValue).CGRectValue()
             
             keyboardHeight.constant = keyboardFrame.height
+            
+            UIView.animateWithDuration(0.1, animations: { () -> Void in
+                self.view.layoutIfNeeded()
+                let bottomOffset = CGPoint(x: 0, y: self.commentTable.contentSize.height - self.commentTable.bounds.size.height)
+                self.commentTable.setContentOffset(bottomOffset, animated: false)
+            })
+        }
+    }
+    
+    func keyboardAway(aNotification: NSNotification) {
+        
+        if let info = aNotification.userInfo {
+            
+            keyboardHeight.constant = 0
             
             UIView.animateWithDuration(0.1, animations: { () -> Void in
                 self.view.layoutIfNeeded()
@@ -69,6 +93,13 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
         photo.alpha = 1 - (scrollView.contentOffset.y / view.frame.size.width) * 0.5
+    }
+    
+    func commentToSubmit(comment: String) {
+        HootAPIToCoreData.postComment(comment, hootID: 1) { (returnedInt) -> (Void) in
+            self.commentForm.textField.resignFirstResponder()
+            return
+        }
     }
     
     func fetchResultsFromCoreData() {

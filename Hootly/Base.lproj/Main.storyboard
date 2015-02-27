@@ -326,6 +326,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="commentForm" destination="q6P-93-dTb" id="xOz-DG-ag4"/>
                         <outlet property="commentTable" destination="t7K-rG-kYY" id="Xwi-Sw-YD1"/>
                         <outlet property="formHeight" destination="9lY-Lp-61q" id="lsT-Bi-fNx"/>
                         <outlet property="keyboardHeight" destination="BCb-EN-lWK" id="Hdj-eK-7RL"/>

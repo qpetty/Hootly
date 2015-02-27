@@ -137,4 +137,9 @@ class HootAPIToCoreData {
             }
         }
     }
+    
+    class func postComment(comment: String, hootID: Int, completed: (Int) -> (Void)) {
+        println(comment)
+        completed(2)
+    }
 }
