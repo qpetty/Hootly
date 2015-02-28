@@ -20,6 +20,6 @@ DerivedData
 Pods
 
 # API
-hootly_api/log
-hootly_api/tmp
+hootly_api/log/
+hootly_api/tmp/
 hootly_api/uploads/
