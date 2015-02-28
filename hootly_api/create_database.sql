@@ -3,7 +3,8 @@ use hootly;
 
 CREATE TABLE Users (
    id CHAR(42) NOT NULL PRIMARY KEY,
-   hootloot INT NOT NULL DEFAULT 100
+   hootloot INT NOT NULL DEFAULT 100,
+   device_token CHAR(64)
 );
 
 
