@@ -1,0 +1,1 @@
+0 */6 * * * /home/brandon/Hootly/hootly_api/keep_server_up.sh

@@ -112,9 +112,9 @@ class Hootly_API < Sinatra::Base
 	   user_id = client.escape(user_id)
 
       posts = client.query("SELECT *, (7926 *
-                                       asin( sqrt( pow(sin((latitude - #{lat})/2), 2) +
-                                                   cos(#{lat}) * cos(latitude) *
-                                                   pow(sin((longitude - #{long})/2), 2)))) as distance
+                                       asin( sqrt( pow(sin((radians(latitude) - radians(#{lat}))/2), 2) +
+                                                   cos(radians(#{lat})) * cos(radians(latitude)) *
+                                                   pow(sin((radians(longitude) - radians(#{long}))/2), 2)))) as distance
                             FROM Hoots
                             WHERE active = true
                             HAVING distance < 1.5
