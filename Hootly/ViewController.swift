@@ -176,7 +176,7 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
         case .Insert:
             tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
         case .Delete:
-            tableView.deleteRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
+            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
 //        case .Update:
 //            con
         case .Move:
