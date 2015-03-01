@@ -13,7 +13,7 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    let userIDStorageKey = "HootlyUserID"
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -27,8 +27,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.registerUserNotificationSettings( settings )
         application.registerForRemoteNotifications()
         
+        println("Hootly ID: \(hootlyID)")
+        
         return true
     }
+    
+    lazy var hootlyID: String? = {
+        var id: String? = nil
+        
+        let defaults = NSUserDefaults.standardUserDefaults()
+        
+        if let userIDData = defaults.dataForKey(self.userIDStorageKey) {
+            id = NSKeyedUnarchiver.unarchiveObjectWithData(userIDData) as? String
+        } else {
+            HootAPIToCoreData.getHootID { (id) -> (Void) in
+                if id != nil {
+                    let userIDData = NSKeyedArchiver.archivedDataWithRootObject(id!)
+                    defaults.setObject(userIDData, forKey: self.userIDStorageKey)
+                    println("Setting Hootly ID to: \(id)")
+                }
+            }
+        }
+
+        return id
+    }()
     
     func application( application: UIApplication!, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData! ) {
         
