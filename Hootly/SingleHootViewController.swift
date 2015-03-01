@@ -28,6 +28,9 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Change color of Navigation title to white
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
+        
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         managedObjectContext = appDelegate.managedObjectContext
         
