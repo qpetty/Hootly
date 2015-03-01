@@ -37,8 +37,8 @@
                     <rect key="frame" x="550" y="-4" width="50" height="80"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JFq-L0-VZu">
-                            <rect key="frame" x="14" y="54" width="22" height="22"/>
-                            <inset key="contentEdgeInsets" minX="-5" minY="-22" maxX="-5" maxY="-10"/>
+                            <rect key="frame" x="14" y="53" width="22" height="22"/>
+                            <inset key="contentEdgeInsets" minX="-20" minY="-25" maxX="-20" maxY="-10"/>
                             <state key="normal" backgroundImage="Downvote">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
@@ -53,8 +53,8 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hBI-5V-g4N">
-                            <rect key="frame" x="14" y="5" width="22" height="22"/>
-                            <inset key="contentEdgeInsets" minX="-5" minY="-10" maxX="-5" maxY="-22"/>
+                            <rect key="frame" x="14" y="6" width="22" height="22"/>
+                            <inset key="contentEdgeInsets" minX="-20" minY="-10" maxX="-20" maxY="-25"/>
                             <state key="normal" backgroundImage="Upvote">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
@@ -66,12 +66,12 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="50" id="0mv-9I-7AT"/>
-                        <constraint firstItem="JFq-L0-VZu" firstAttribute="top" secondItem="F11-WE-RS1" secondAttribute="bottom" constant="5" id="3hc-qv-CKG"/>
+                        <constraint firstItem="JFq-L0-VZu" firstAttribute="top" secondItem="F11-WE-RS1" secondAttribute="bottom" constant="4" id="3hc-qv-CKG"/>
                         <constraint firstAttribute="centerX" secondItem="JFq-L0-VZu" secondAttribute="centerX" id="BPl-9S-Zeq"/>
                         <constraint firstAttribute="centerX" secondItem="F11-WE-RS1" secondAttribute="centerX" id="frG-7d-1it"/>
                         <constraint firstAttribute="centerX" secondItem="hBI-5V-g4N" secondAttribute="centerX" id="uJ4-GE-lRb"/>
                         <constraint firstAttribute="height" constant="80" id="vfr-ks-uNX"/>
-                        <constraint firstItem="F11-WE-RS1" firstAttribute="top" secondItem="hBI-5V-g4N" secondAttribute="bottom" constant="5" id="w26-dO-jKT"/>
+                        <constraint firstItem="F11-WE-RS1" firstAttribute="top" secondItem="hBI-5V-g4N" secondAttribute="bottom" constant="4" id="w26-dO-jKT"/>
                         <constraint firstAttribute="centerY" secondItem="F11-WE-RS1" secondAttribute="centerY" id="wSO-qB-vfm"/>
                     </constraints>
                 </view>
