@@ -50,6 +50,11 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
+    private func scrollTableViewToBottom() {
+        let bottomOffset = CGPoint(x: 0, y: self.commentTable.contentSize.height - self.commentTable.bounds.size.height)
+        self.commentTable.setContentOffset(bottomOffset, animated: false)
+    }
+    
     func keyboard(aNotification: NSNotification) {
 
         if let info = aNotification.userInfo {
@@ -60,8 +65,7 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
             
             UIView.animateWithDuration(0.1, animations: { () -> Void in
                 self.view.layoutIfNeeded()
-                let bottomOffset = CGPoint(x: 0, y: self.commentTable.contentSize.height - self.commentTable.bounds.size.height)
-                self.commentTable.setContentOffset(bottomOffset, animated: false)
+                self.scrollTableViewToBottom()
             })
         }
     }
@@ -74,8 +78,7 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
             
             UIView.animateWithDuration(0.1, animations: { () -> Void in
                 self.view.layoutIfNeeded()
-                let bottomOffset = CGPoint(x: 0, y: self.commentTable.contentSize.height - self.commentTable.bounds.size.height)
-                self.commentTable.setContentOffset(bottomOffset, animated: false)
+                self.scrollTableViewToBottom()
             })
         }
     }
@@ -96,9 +99,16 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
     }
     
     func commentToSubmit(comment: String) {
-        HootAPIToCoreData.postComment(comment, hootID: 1) { (returnedInt) -> (Void) in
-            self.commentForm.textField.resignFirstResponder()
-            return
+        
+        HootAPIToCoreData.postComment(comment, hootID: hoot!.id.integerValue) { (success) -> (Void) in
+            if(success) {
+                self.hoot?.fetchComments({ (success) -> (Void) in
+                    println("new comment so maybe scroll to bottom here after animation")
+                })
+                self.commentForm.textField.resignFirstResponder()
+            } else {
+                println("failure")
+            }
         }
     }
     

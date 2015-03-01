@@ -103,6 +103,19 @@ class HootAPIToCoreData {
                         for oldHoot in validHoots {
                             if oldHoot.id == id {
                                 foundExistingID = true
+                                
+                                if let value = singleHoot["hootloot"] as? NSNumber {
+                                    if (value != oldHoot.rating) {
+                                        oldHoot.rating = singleHoot["hootloot"] as NSNumber
+                                    }
+                                }
+                                
+                                if let value = singleHoot["num_comments"] as? NSNumber {
+                                    if (value != oldHoot.replies) {
+                                        oldHoot.replies = singleHoot["num_comments"] as NSNumber
+                                    }
+                                }
+
                                 break
                             }
                         }
@@ -138,8 +151,75 @@ class HootAPIToCoreData {
         }
     }
     
-    class func postComment(comment: String, hootID: Int, completed: (Int) -> (Void)) {
-        println(comment)
-        completed(2)
+    class func postHoot(image: UIImage, comment: String, completed: (success: Bool) -> (Void)) {
+        var url: NSURL
+        
+        if let host = hostURL {
+            url = NSURL(string: "comments", relativeToURL: host)!
+        } else {
+            println("could not construct URL in getHoots()")
+            return
+        }
+        
+        let request = NSMutableURLRequest(URL: url)
+        request.HTTPMethod = "POST"
+        
+        var postBody = NSMutableData()
+        postBody.mp_setInteger(6, forKey: "user_id")
+        postBody.mp_setFloat(5, forKey: "lat")
+        postBody.mp_setFloat(5, forKey: "long")
+        postBody.mp_setString(comment, forKey: "hoot_text")
+        postBody.mp_setJPEGImage(image, withQuality: 1.0, forKey: "image")
+        
+        request.setValue(postBody.KIMultipartContentType, forHTTPHeaderField: "Content-Type")
+        postBody.mp_prepareForRequest()
+        request.HTTPBody = postBody
+        
+        self.genericURLConnectionFromRequest(request, completed: completed)
+    }
+    
+    class func postComment(comment: String, hootID: Int, completed: (success: Bool) -> (Void)) {
+        var url: NSURL
+        
+        if let host = hostURL {
+            url = NSURL(string: "comments", relativeToURL: host)!
+        } else {
+            println("could not construct URL in getHoots()")
+            return
+        }
+        
+        let request = NSMutableURLRequest(URL: url)
+        request.HTTPMethod = "POST"
+        
+        var postBody = NSMutableData()
+        postBody.mp_setInteger(6, forKey: "user_id")
+        postBody.mp_setInteger(Int32(hootID), forKey: "post_id")
+        postBody.mp_setString(comment, forKey: "text")
+        
+        request.setValue(postBody.KIMultipartContentType, forHTTPHeaderField: "Content-Type")
+        postBody.mp_prepareForRequest()
+        request.HTTPBody = postBody
+        
+        NSLog("Posting comment for hoot %d to URL: %@", hootID, url)
+        
+        self.genericURLConnectionFromRequest(request, completed: completed)
+    }
+    
+    // MARK: - Convienence Functions (I wish these could be private class methods)
+    
+    class func genericURLConnectionFromRequest(request: NSURLRequest, completed: (success: Bool) -> (Void)) {
+        
+        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) { (response, data, error) -> Void in
+            
+            if (error != nil) {
+                NSLog("%@", error)
+                completed(success: false)
+                return
+            }
+            
+            let str = NSString(data: data, encoding: NSUTF8StringEncoding)
+            NSLog("Response: %@", str!)
+            completed(success: true)
+        }
     }
 }

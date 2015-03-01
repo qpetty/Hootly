@@ -24,6 +24,24 @@ class Hootly_API < Sinatra::Base
 	   return {"user_id" => user_id}.to_json
 	end
 
+   post '/newtoken' do
+      token = params['token']
+      user_id = params['user_id']
+
+      error = ""
+      if token.nil?
+         error = error + "Token is nil. "
+      end
+      if user_id.nil?
+         error = error + "User ID is nil. "
+      end
+      if !error.empty?
+         return [error].to_json
+      end
+
+      client.query("UPDATE Users SET device_token = #{token} WHERE id = #{user_id}")
+   end
+
 	get '/hootloot' do
 	   data = {}
 	   user_id = params['user_id']

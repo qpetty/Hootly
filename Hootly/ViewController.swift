@@ -176,12 +176,13 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
         case .Insert:
             tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
         case .Delete:
-            tableView.deleteRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
-//        case .Update:
-//            con
+            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+        case .Update:
+            let cell = tableView.cellForRowAtIndexPath(indexPath!) as HootCell
+            cell.setHoot(cell.hoot!)
         case .Move:
             tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
-            tableView.insertRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+            tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
         default:
             NSLog("Unknown NSFetchedResultsChangeType in ViewController")
         }
@@ -244,7 +245,9 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
             let cell = sender as HootCell
             dest.hoot = cell.hoot
             dest.hootImage = cell.photo?.image
-            dest.hoot?.fetchComments()
+            dest.hoot?.fetchComments({ (success) -> (Void) in
+                //Can't pass in nil instead of a closure so we just won't do anything here
+            })
             
             tableView.deselectRowAtIndexPath(tableView.indexPathForSelectedRow()!, animated: true)
             
