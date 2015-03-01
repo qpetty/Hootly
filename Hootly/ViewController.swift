@@ -244,7 +244,9 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
             let cell = sender as HootCell
             dest.hoot = cell.hoot
             dest.hootImage = cell.photo?.image
-            dest.hoot?.fetchComments()
+            dest.hoot?.fetchComments({ (success) -> (Void) in
+                //Can't pass in nil instead of a closure so we just won't do anything here
+            })
             
             tableView.deselectRowAtIndexPath(tableView.indexPathForSelectedRow()!, animated: true)
             

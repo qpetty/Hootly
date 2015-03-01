@@ -37,46 +37,14 @@ class NewHootViewController: UIViewController, CommentFormProtocol {
     
     func commentToSubmit(comment: String) {
         
-        var postBody = NSMutableData()
-        postBody.mp_setInteger(6, forKey: "user_id")
-        postBody.mp_setFloat(5, forKey: "lat")
-        postBody.mp_setFloat(5, forKey: "long")
-        postBody.mp_setString(comment, forKey: "hoot_text")
-        postBody.mp_setJPEGImage(image, withQuality: 1.0, forKey: "image")
-        
-        postBody.mp_prepareForRequest()
-        
-        if let hostString = NSBundle.mainBundle().objectForInfoDictionaryKey("Production URL") as? String {
-            var host = NSURL(string: hostString)!
-            var url = NSURL(string: "hoots", relativeToURL: host)!
-            
-            println("sending \(comment) to \(url.absoluteString)")
-            
-            var request = NSMutableURLRequest(URL: url)
-            request.HTTPMethod = "POST"
-            
-            request.setValue(postBody.KIMultipartContentType, forHTTPHeaderField: "Content-Type")
-            postBody.mp_prepareForRequest()
-            request.HTTPBody = postBody
-            
-            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { (response, data, error) -> Void in
-                if (error != nil) {
-                    NSLog("%@", error)
-                    return
-                }
-                
-                println("response: \(response)")
-                
-                if let dataText = NSString(data: data, encoding: NSUTF8StringEncoding) {
-                    println("posted! response data: \(dataText)")
-                }
-                
+        HootAPIToCoreData.postHoot(image!, comment: comment) { (success) -> (Void) in
+            if(success) {
                 self.dismissViewControllerAnimated(true, completion: nil)
-            })
-        } else {
-            println("could not construct URL in getHoots()")
-            return
+            } else {
+                println("couldnt submit this hoot")
+            }
         }
+        
     }
     
     func moveTextFormUp(aNotification: NSNotification) {
