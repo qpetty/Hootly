@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    apns (1.0.0)
     json (1.8.2)
     kgio (2.9.3)
     mysql2 (0.3.18)
@@ -22,6 +23,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  apns
   json
   mysql2
   sinatra

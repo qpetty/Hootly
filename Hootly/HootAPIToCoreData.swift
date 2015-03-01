@@ -155,7 +155,7 @@ class HootAPIToCoreData {
         var url: NSURL
         
         if let host = hostURL {
-            url = NSURL(string: "comments", relativeToURL: host)!
+            url = NSURL(string: "hoots", relativeToURL: host)!
         } else {
             println("could not construct URL in getHoots()")
             return
@@ -174,6 +174,8 @@ class HootAPIToCoreData {
         request.setValue(postBody.KIMultipartContentType, forHTTPHeaderField: "Content-Type")
         postBody.mp_prepareForRequest()
         request.HTTPBody = postBody
+        
+        NSLog("Posting hoot to URL: %@", url)
         
         self.genericURLConnectionFromRequest(request, completed: completed)
     }

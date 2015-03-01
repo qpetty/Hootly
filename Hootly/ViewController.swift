@@ -81,16 +81,9 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
     }
     
     func refreshAndFetchData() {
-        //self.fetchResultsFromCoreData(true)
         HootAPIToCoreData.getHoots { (addedHoots: Int) -> (Void) in
-
-            //Just for testing, should remove this along with pictures for final release
-            if addedHoots == 0 {
-                self.makeSampleData()
-            }
-            
-            //self.fetchResultsFromCoreData(true)
             self.refreshControl?.endRefreshing()
+            return
         }
     }
     
@@ -119,32 +112,6 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
         
         if(tableView.numberOfRowsInSection(0) > 0) {
             tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: true)
-        }
-    }
-    
-    func makeSampleData() {
-        if (managedObjectContext != nil) {
-            println(managedObjectContext)
-            
-            var newItem = NSEntityDescription.insertNewObjectForEntityForName("Hoot", inManagedObjectContext: managedObjectContext!) as Hoot
-            
-            newItem.id = 2
-            newItem.comment = "This is a super duper super optimus prime long comment"
-            newItem.replies = 2
-            newItem.time = NSDate()
-            newItem.rating = 8
-            newItem.photoURL = NSBundle.mainBundle().URLForResource("hoot1", withExtension: "png")!
-            
-            newItem = NSEntityDescription.insertNewObjectForEntityForName("Hoot", inManagedObjectContext: managedObjectContext!) as Hoot
-            
-            newItem.id = 7
-            newItem.comment = "This is a longer comment"
-            newItem.replies = 5
-            newItem.time = NSDate()
-            newItem.rating = 9
-            newItem.photoURL = NSBundle.mainBundle().URLForResource("hoot2", withExtension: "png")!
-            
-            managedObjectContext?.save(nil)
         }
     }
     
@@ -177,11 +144,13 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
             tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
         case .Delete:
             tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
-//        case .Update:
-//            con
+        case .Update:
+            if let cell = tableView.cellForRowAtIndexPath(indexPath!) as? HootCell {
+                cell.setHoot(cell.hoot!)
+            }
         case .Move:
             tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
-            tableView.insertRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+            tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
         default:
             NSLog("Unknown NSFetchedResultsChangeType in ViewController")
         }
