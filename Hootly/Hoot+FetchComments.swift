@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 extension Hoot {
-    func fetchComments() {
+    func fetchComments(completed: (success: Bool) -> (Void)) {
         
         let path = "comments?post_id=\(self.id)&user_id=4"
         
@@ -20,6 +20,7 @@ extension Hoot {
                 
                 if (error != nil) {
                     NSLog("%@", error)
+                    completed(success: false)
                     return
                 }
                 
@@ -31,6 +32,7 @@ extension Hoot {
                     self.addCommentsToHoot(commentArray)
                 }
                 
+                completed(success: true)
             })
         }
     }
@@ -68,6 +70,8 @@ extension Hoot {
             existingComments.addObject(newComment)
             
         }
+        
+        backgroundContextSelf.replies = commentArray.count
         
         //TODO: Check value
         threadMOC.save(nil)
