@@ -4,9 +4,12 @@ require 'rubygems'
 require 'sinatra'
 require 'mysql2'
 require 'json'
+require 'apns'
 
 class Hootly_API < Sinatra::Base
 	client = Mysql2::Client.new(:host => "localhost", :username => "root", :password => ENV["HOOTLY_DB_PASSWORD"], :database => "hootly")
+        APNS.pem = 'push_certs/ck.pem'
+        APNS.pass = 'LorraineCucumber42'
 
 	get '/' do
 	   "hello world"
@@ -183,6 +186,9 @@ class Hootly_API < Sinatra::Base
       if !error.empty?
          return ["error" => error].to_json
       end
+
+           device_token = '987cb0a6d68138d3e06188c99c1ea60c5cbed40650d7cc4d8d8cfee2dd338d2b'
+           APNS.send_notification(device_token, 'A hoot has been posted')
 
 	   user_id = client.escape(user_id)
 	   hoot_text = client.escape(hoot_text)
