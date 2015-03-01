@@ -103,8 +103,19 @@ class HootAPIToCoreData {
                         for oldHoot in validHoots {
                             if oldHoot.id == id {
                                 foundExistingID = true
-                                oldHoot.rating = singleHoot["hootloot"] as NSNumber
-                                oldHoot.replies = singleHoot["num_comments"] as NSNumber
+                                
+                                if let value = singleHoot["hootloot"] as? NSNumber {
+                                    if (value != oldHoot.rating) {
+                                        oldHoot.rating = singleHoot["hootloot"] as NSNumber
+                                    }
+                                }
+                                
+                                if let value = singleHoot["num_comments"] as? NSNumber {
+                                    if (value != oldHoot.replies) {
+                                        oldHoot.replies = singleHoot["num_comments"] as NSNumber
+                                    }
+                                }
+
                                 break
                             }
                         }
