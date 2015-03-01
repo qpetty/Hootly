@@ -145,8 +145,9 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
         case .Delete:
             tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
         case .Update:
-            let cell = tableView.cellForRowAtIndexPath(indexPath!) as HootCell
-            cell.setHoot(cell.hoot!)
+            if let cell = tableView.cellForRowAtIndexPath(indexPath!) as? HootCell {
+                cell.setHoot(cell.hoot!)
+            }
         case .Move:
             tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
             tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
