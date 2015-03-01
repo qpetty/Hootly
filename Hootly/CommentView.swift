@@ -16,8 +16,29 @@ class CommentView: UIView {
     @IBOutlet weak var rating: UILabel!
     @IBOutlet weak var replies: UILabel!
     @IBOutlet weak var time: UILabel!
-    
+    @IBOutlet weak var upVoteButton: UIButton!
+    @IBOutlet weak var downVoteButton: UIButton!
     @IBOutlet weak var repliesImage: UIImageView!
+    
+    @IBAction func upVoteButtonDidPress(sender: AnyObject) {
+        upVoteButton.transform = CGAffineTransformMakeTranslation(0, -5)
+        
+        UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.6, options: nil,
+            animations: {
+                self.upVoteButton.transform = CGAffineTransformMakeTranslation(0, 0)
+                self.upVoteButton.setBackgroundImage(UIImage(named: "UpvoteActive"), forState: UIControlState.Normal)
+            }, nil)
+    }
+
+    @IBAction func downVoteButtonDidPress(sender: AnyObject) {
+        downVoteButton.transform = CGAffineTransformMakeTranslation(0, 5)
+        
+        UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.6, options: nil,
+            animations: {
+                self.downVoteButton.transform = CGAffineTransformMakeTranslation(0, 0)
+                self.downVoteButton.setBackgroundImage(UIImage(named: "DownvoteActive"), forState: UIControlState.Normal)
+            }, nil)
+    }
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
