@@ -270,7 +270,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="c9Y-SX-sUT" id="BNZ-c2-jEy">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jG8-Jh-1dN" customClass="CommentView" customModule="Hootly" customModuleProvider="target">
+                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jG8-Jh-1dN" customClass="CommentView" customModule="Hootly" customModuleProvider="target">
                                                     <rect key="frame" x="8" y="8" width="584" height="27"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
@@ -278,9 +278,21 @@
                                             <constraints>
                                                 <constraint firstAttribute="trailingMargin" secondItem="jG8-Jh-1dN" secondAttribute="trailing" id="4gD-lw-nJG"/>
                                                 <constraint firstItem="jG8-Jh-1dN" firstAttribute="leading" secondItem="BNZ-c2-jEy" secondAttribute="leadingMargin" id="7C6-GK-13E"/>
+                                                <constraint firstAttribute="bottom" secondItem="jG8-Jh-1dN" secondAttribute="bottom" id="JVp-u1-pk6"/>
+                                                <constraint firstItem="jG8-Jh-1dN" firstAttribute="leading" secondItem="BNZ-c2-jEy" secondAttribute="leading" id="PDy-Vx-gJA"/>
                                                 <constraint firstItem="jG8-Jh-1dN" firstAttribute="top" secondItem="BNZ-c2-jEy" secondAttribute="topMargin" id="Rnv-e3-PCv"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="jG8-Jh-1dN" secondAttribute="bottom" id="cSX-7u-V9K"/>
+                                                <constraint firstItem="jG8-Jh-1dN" firstAttribute="top" secondItem="BNZ-c2-jEy" secondAttribute="top" id="d7W-Jg-CdJ"/>
+                                                <constraint firstAttribute="trailing" secondItem="jG8-Jh-1dN" secondAttribute="trailing" id="v9b-Xc-AHK"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="4gD-lw-nJG"/>
+                                                    <exclude reference="7C6-GK-13E"/>
+                                                    <exclude reference="Rnv-e3-PCv"/>
+                                                    <exclude reference="cSX-7u-V9K"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="commentView" destination="jG8-Jh-1dN" id="9IG-iv-f4C"/>
