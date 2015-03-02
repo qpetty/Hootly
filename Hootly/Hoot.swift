@@ -2,7 +2,7 @@
 //  Hoot.swift
 //  Hootly
 //
-//  Created by Quinton Petty on 2/24/15.
+//  Created by Quinton Petty on 3/1/15.
 //  Copyright (c) 2015 Octave Labs LLC. All rights reserved.
 //
 
@@ -19,6 +19,7 @@ class Hoot: NSManagedObject {
     @NSManaged var rating: NSNumber
     @NSManaged var replies: NSNumber
     @NSManaged var time: NSDate
+    @NSManaged var voted: NSNumber
     @NSManaged var comments: NSSet
 
 }

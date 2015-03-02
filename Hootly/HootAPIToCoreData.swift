@@ -147,6 +147,11 @@ class HootAPIToCoreData {
                                     }
                                 }
 
+                                if let value = singleHoot["requester_vote"] as? NSNumber {
+                                    if (value != oldHoot.voted) {
+                                        oldHoot.voted = singleHoot["requester_vote"] as NSNumber
+                                    }
+                                }
                                 break
                             }
                         }
@@ -159,7 +164,8 @@ class HootAPIToCoreData {
                             newItem.comment = singleHoot["hoot_text"] as String
                             newItem.rating = singleHoot["hootloot"] as NSNumber
                             newItem.replies = singleHoot["num_comments"] as NSNumber
-
+                            newItem.voted = singleHoot["requester_vote"] as NSNumber
+                            
                             if let tempPhotoURL = NSURL(string: singleHoot["image_path"] as String, relativeToURL: self.hostURL!) {
                                 newItem.photoURL = tempPhotoURL
                             }
@@ -268,7 +274,7 @@ class HootAPIToCoreData {
         request.HTTPMethod = "POST"
         
         var postBody = NSMutableData()
-        postBody.mp_setInteger(6, forKey: "user_id")
+        postBody.mp_setInteger(4, forKey: "user_id")
         postBody.mp_setInteger(Int32(hootID), forKey: idName)
         
         request.setValue(postBody.KIMultipartContentType, forHTTPHeaderField: "Content-Type")

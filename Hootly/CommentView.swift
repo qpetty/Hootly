@@ -29,7 +29,6 @@ class CommentView: UIView {
             })
         } else if hootComment != nil {
             HootAPIToCoreData.postCommentUpVote(hootComment!.id.integerValue, completed: { (success) -> (Void) in
-                self.hootComment!.voted = NSNumber(bool: true)
                 return
             })
         }
@@ -40,11 +39,12 @@ class CommentView: UIView {
             animations: {
                 self.upVoteButton.transform = CGAffineTransformMakeTranslation(0, 0)
                 self.upVoteButton.setBackgroundImage(UIImage(named: "UpvoteActive"), forState: UIControlState.Disabled)
-                self.setVoted(true)
                 
                 if self.hoot != nil {
+                    self.hoot!.voted = 1
                     self.hoot!.rating = self.hoot!.rating.integerValue + 1
                 } else if self.hootComment != nil {
+                    self.hootComment!.voted = 1
                     self.hootComment!.score = self.hootComment!.score.integerValue + 1
                 }
             }, nil)
@@ -57,7 +57,6 @@ class CommentView: UIView {
             })
         } else if hootComment != nil {
             HootAPIToCoreData.postCommentDownVote(hootComment!.id.integerValue, completed: { (success) -> (Void) in
-                self.hootComment!.voted = NSNumber(bool: true)
                 return
             })
         }
@@ -68,11 +67,12 @@ class CommentView: UIView {
             animations: {
                 self.downVoteButton.transform = CGAffineTransformMakeTranslation(0, 0)
                 self.downVoteButton.setBackgroundImage(UIImage(named: "DownvoteActive"), forState: UIControlState.Disabled)
-                self.setVoted(true)
                 
                 if self.hoot != nil {
+                    self.hoot!.voted = -1
                     self.hoot!.rating = self.hoot!.rating.integerValue - 1
                 } else if self.hootComment != nil {
+                    self.hootComment!.voted = -1
                     self.hootComment!.score = self.hootComment!.score.integerValue - 1
                 }
             }, nil)
@@ -114,6 +114,7 @@ class CommentView: UIView {
         setRatingText(newHoot.rating)
         setReplyText(newHoot.replies)
         setTime(newHoot.time)
+        setVoted(newHoot.voted.integerValue)
         
         showReplies(true)
     }
@@ -124,7 +125,7 @@ class CommentView: UIView {
         setCommentText(newComment.text)
         setRatingText(newComment.score)
         setTime(newComment.time)
-        setVoted(newComment.voted.boolValue)
+        setVoted(newComment.voted.integerValue)
 
         showReplies(false)
     }
@@ -141,16 +142,22 @@ class CommentView: UIView {
         comment.text = text
     }
     
-    func setVoted(voted: Bool) {
-        if voted == true {
-            self.upVoteButton.enabled = false
-            self.downVoteButton.enabled = false
-        } else {
+    func setVoted(voted: Int) {
+        self.upVoteButton.setBackgroundImage(UIImage(named: "Upvote"), forState: UIControlState.Disabled)
+        self.downVoteButton.setBackgroundImage(UIImage(named: "Downvote"), forState: UIControlState.Disabled)
+        
+        if voted == 0 {
             self.upVoteButton.enabled = true
             self.downVoteButton.enabled = true
+        } else {
+            self.upVoteButton.enabled = false
+            self.downVoteButton.enabled = false
             
-            self.upVoteButton.setBackgroundImage(UIImage(named: "Upvote"), forState: UIControlState.Disabled)
-            self.downVoteButton.setBackgroundImage(UIImage(named: "Downvote"), forState: UIControlState.Disabled)
+            if voted == 1 {
+                self.upVoteButton.setBackgroundImage(UIImage(named: "UpvoteActive"), forState: UIControlState.Disabled)
+            } else {
+                self.downVoteButton.setBackgroundImage(UIImage(named: "DownvoteActive"), forState: UIControlState.Disabled)
+            }
         }
     }
     
