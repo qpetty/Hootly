@@ -238,6 +238,48 @@ class HootAPIToCoreData {
         self.genericURLConnectionFromRequest(request, completed: completed)
     }
     
+    class func postHootUpVote(id: Int, completed: (success: Bool) -> (Void)) {
+        postVote("hootsup", hootID: id, idName: "post_id", completed: completed)
+    }
+    
+    class func postHootDownVote(id: Int, completed: (success: Bool) -> (Void)) {
+        postVote("hootsdown", hootID: id, idName: "post_id", completed: completed)
+    }
+    
+    class func postCommentUpVote(id: Int, completed: (success: Bool) -> (Void)) {
+        postVote("commentsup", hootID: id, idName: "comment_id", completed: completed)
+    }
+    
+    class func postCommentDownVote(id: Int, completed: (success: Bool) -> (Void)) {
+        postVote("commentsdown", hootID: id, idName: "comment_id", completed: completed)
+    }
+    
+    class func postVote(type: String, hootID: Int, idName: String, completed: (success: Bool) -> (Void)) {
+        var url: NSURL
+        
+        if let host = hostURL {
+            url = NSURL(string: type, relativeToURL: host)!
+        } else {
+            println("could not construct URL in getHoots()")
+            return
+        }
+        
+        let request = NSMutableURLRequest(URL: url)
+        request.HTTPMethod = "POST"
+        
+        var postBody = NSMutableData()
+        postBody.mp_setInteger(6, forKey: "user_id")
+        postBody.mp_setInteger(Int32(hootID), forKey: idName)
+        
+        request.setValue(postBody.KIMultipartContentType, forHTTPHeaderField: "Content-Type")
+        postBody.mp_prepareForRequest()
+        request.HTTPBody = postBody
+        
+        NSLog("Posting %@ for hoot %d to URL: %@", type, hootID, url)
+        
+        self.genericURLConnectionFromRequest(request, completed: completed)
+    }
+    
     // MARK: - Convienence Functions (I wish these could be private class methods)
     
     class func genericURLConnectionFromRequest(request: NSURLRequest, completed: (success: Bool) -> (Void)) {
