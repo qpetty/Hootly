@@ -47,6 +47,10 @@ class NewHootViewController: UIViewController, CommentFormProtocol {
         
     }
     
+    func exitWithoutComment() {
+        return
+    }
+    
     func moveTextFormUp(aNotification: NSNotification) {
         if let userInfo = aNotification.userInfo {
             

@@ -29,6 +29,9 @@
                             <exclude reference="EY2-cX-eeT"/>
                         </mask>
                     </variation>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="cIB-bB-YJK"/>
+                    </connections>
                 </textView>
                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vzk-ga-r35">
                     <rect key="frame" x="512" y="2" width="80" height="36"/>

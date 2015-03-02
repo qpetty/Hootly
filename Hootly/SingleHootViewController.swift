@@ -115,6 +115,10 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
         }
     }
     
+    func exitWithoutComment() {
+        self.commentForm.textField.resignFirstResponder()
+    }
+    
     func fetchResultsFromCoreData() {
         let fetchReq = NSFetchRequest(entityName: "HootComment")
         fetchReq.predicate = NSPredicate(format: "hoot == %@", hoot!)
