@@ -25,6 +25,37 @@ class HootAPIToCoreData {
         }
     }
     
+    class func getHootID(completed: (id: String?) -> (Void)) {
+        var url: NSURL
+        
+        if let host = hostURL {
+            url = NSURL(string: "newuser", relativeToURL: host)!
+        } else {
+            println("could not construct URL in getHoots()")
+            return
+        }
+        
+        let request = NSMutableURLRequest(URL: url)
+        request.HTTPMethod = "POST"
+        
+        NSLog("Posting hoot to URL: %@", url)
+        
+        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) { (response, data, error) -> Void in
+            
+            if (error != nil) {
+                NSLog("%@", error)
+                completed(id: nil)
+                return
+            }
+            
+            if var hootArray = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as? Dictionary<String, String>{
+                completed(id: hootArray["user_id"])
+            } else {
+                completed(id: nil)
+            }
+        }
+    }
+    
     class func getHoots(completed: (Int) -> (Void)) {
         var url: NSURL
         
@@ -116,6 +147,11 @@ class HootAPIToCoreData {
                                     }
                                 }
 
+                                if let value = singleHoot["requester_vote"] as? NSNumber {
+                                    if (value != oldHoot.voted) {
+                                        oldHoot.voted = singleHoot["requester_vote"] as NSNumber
+                                    }
+                                }
                                 break
                             }
                         }
@@ -128,7 +164,8 @@ class HootAPIToCoreData {
                             newItem.comment = singleHoot["hoot_text"] as String
                             newItem.rating = singleHoot["hootloot"] as NSNumber
                             newItem.replies = singleHoot["num_comments"] as NSNumber
-
+                            newItem.voted = singleHoot["requester_vote"] as NSNumber
+                            
                             if let tempPhotoURL = NSURL(string: singleHoot["image_path"] as String, relativeToURL: self.hostURL!) {
                                 newItem.photoURL = tempPhotoURL
                             }
@@ -203,6 +240,48 @@ class HootAPIToCoreData {
         request.HTTPBody = postBody
         
         NSLog("Posting comment for hoot %d to URL: %@", hootID, url)
+        
+        self.genericURLConnectionFromRequest(request, completed: completed)
+    }
+    
+    class func postHootUpVote(id: Int, completed: (success: Bool) -> (Void)) {
+        postVote("hootsup", hootID: id, idName: "post_id", completed: completed)
+    }
+    
+    class func postHootDownVote(id: Int, completed: (success: Bool) -> (Void)) {
+        postVote("hootsdown", hootID: id, idName: "post_id", completed: completed)
+    }
+    
+    class func postCommentUpVote(id: Int, completed: (success: Bool) -> (Void)) {
+        postVote("commentsup", hootID: id, idName: "comment_id", completed: completed)
+    }
+    
+    class func postCommentDownVote(id: Int, completed: (success: Bool) -> (Void)) {
+        postVote("commentsdown", hootID: id, idName: "comment_id", completed: completed)
+    }
+    
+    class func postVote(type: String, hootID: Int, idName: String, completed: (success: Bool) -> (Void)) {
+        var url: NSURL
+        
+        if let host = hostURL {
+            url = NSURL(string: type, relativeToURL: host)!
+        } else {
+            println("could not construct URL in getHoots()")
+            return
+        }
+        
+        let request = NSMutableURLRequest(URL: url)
+        request.HTTPMethod = "POST"
+        
+        var postBody = NSMutableData()
+        postBody.mp_setInteger(4, forKey: "user_id")
+        postBody.mp_setInteger(Int32(hootID), forKey: idName)
+        
+        request.setValue(postBody.KIMultipartContentType, forHTTPHeaderField: "Content-Type")
+        postBody.mp_prepareForRequest()
+        request.HTTPBody = postBody
+        
+        NSLog("Posting %@ for hoot %d to URL: %@", type, hootID, url)
         
         self.genericURLConnectionFromRequest(request, completed: completed)
     }
