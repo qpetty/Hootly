@@ -21,5 +21,6 @@ Pods
 
 # API
 hootly_api/log/
+hootly_api/log/unicorn.log
 hootly_api/tmp/
 hootly_api/uploads/
