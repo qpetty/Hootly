@@ -213,7 +213,8 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
             let cell = sender as HootCell
             dest.hoot = cell.hoot
             dest.hootImage = cell.photo?.image
-            dest.hoot?.fetchComments({ (success) -> (Void) in
+            
+            HootAPIToCoreData.fetchCommentsForHoot(dest.hoot, completed: { (success) -> (Void) in
                 //Can't pass in nil instead of a closure so we just won't do anything here
             })
             

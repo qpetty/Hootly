@@ -118,7 +118,7 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
         
         HootAPIToCoreData.postComment(comment, hootID: hoot!.id.integerValue) { (success) -> (Void) in
             if(success) {
-                self.hoot?.fetchComments({ (success) -> (Void) in
+                HootAPIToCoreData.fetchCommentsForHoot(self.hoot, completed: { (success) -> (Void) in
                     println("new comment so maybe scroll to bottom here after animation")
                 })
                 self.commentForm.textField.resignFirstResponder()
