@@ -16,6 +16,9 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
     var fetchedResultsController: NSFetchedResultsController?
     var managedObjectContext:NSManagedObjectContext?
     
+    // Create blur effect view
+    var blurEffectView: UIVisualEffectView?
+    
     @IBOutlet weak var commentForm: CommentFormView!
     
     @IBOutlet weak var photo: UIImageView!
@@ -30,6 +33,15 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
         
         // Change color of Navigation title to white
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
+        
+        // Create the desired blur effect
+        var blurEffect = UIBlurEffect(style: UIBlurEffectStyle.ExtraLight)
+        
+        // Add and set up blurEffect to blurEffectView
+        self.blurEffectView = UIVisualEffectView(effect: blurEffect)
+        self.blurEffectView?.frame = photo.bounds
+        self.blurEffectView?.alpha = 0
+        self.photo.addSubview(blurEffectView!)
         
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         managedObjectContext = appDelegate.managedObjectContext
@@ -98,7 +110,8 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        photo.alpha = 1 - (scrollView.contentOffset.y / view.frame.size.width) * 0.5
+        //photo.alpha = 1 - (scrollView.contentOffset.y / view.frame.size.width) * 0.5
+        //blurEffectView?.alpha = (scrollView.contentOffset.y / view.frame.size.width)
     }
     
     func commentToSubmit(comment: String) {
