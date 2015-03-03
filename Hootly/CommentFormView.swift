@@ -11,21 +11,27 @@ import UIKit
 
 protocol CommentFormProtocol: class {
     func commentToSubmit(comment: String)
+    func exitWithoutComment()
 }
 
-class CommentFormView: UIView {
+class CommentFormView: UIView, UITextViewDelegate {
     var nibView: UIView?
+    var active: Bool
+    
+    private let characterLimit = 140
     
     @IBOutlet weak var textField: SZTextView!
     @IBOutlet weak var submitButton: UIButton!
     weak var delegate: CommentFormProtocol?
     
     required init(coder aDecoder: NSCoder) {
+        active = false
         super.init(coder: aDecoder)
         loadNib()
     }
     
     override init(frame: CGRect) {
+        active = false
         super.init(frame: frame)
         loadNib()
     }
@@ -37,15 +43,33 @@ class CommentFormView: UIView {
 
         submitButton.layer.backgroundColor = UIColor(red: 127/255, green: 168/255, blue: 215/255, alpha: 1.0).CGColor
         submitButton.layer.cornerRadius = 4.0
-        
     }
     
     override func layoutSubviews() {
         nibView!.frame = self.bounds
     }
-    @IBAction func submitComment(sender: AnyObject) {
-        println("submitting comment")
+    
+    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+        let len = countElements(textView.text) - range.length + countElements(text)
         
-        delegate?.commentToSubmit(textField.text)
+        if len > characterLimit {
+            return false
+        } else if len > 0 {
+            active = true
+        } else {
+            active = false
+        }
+
+        return true
+    }
+    
+    @IBAction func submitComment(sender: AnyObject) {
+        if active {
+            delegate?.commentToSubmit(textField.text)
+        } else {
+            delegate?.exitWithoutComment()
+        }
+        textField.text = ""
+        active = false
     }
 }
