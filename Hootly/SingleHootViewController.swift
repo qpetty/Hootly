@@ -35,7 +35,7 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
         
         // Create the desired blur effect
-        var blurEffect = UIBlurEffect(style: UIBlurEffectStyle.ExtraLight)
+        var blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Light)
         
         // Add and set up blurEffect to blurEffectView
         self.blurEffectView = UIVisualEffectView(effect: blurEffect)
@@ -111,7 +111,7 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
         //photo.alpha = 1 - (scrollView.contentOffset.y / view.frame.size.width) * 0.5
-        //blurEffectView?.alpha = (scrollView.contentOffset.y / view.frame.size.width)
+        blurEffectView?.alpha = (scrollView.contentOffset.y / view.frame.size.width) * 0.6
     }
     
     func commentToSubmit(comment: String) {
