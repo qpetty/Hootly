@@ -23,7 +23,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>Production URL</key>
-	<string>http://www.anappnooneneeds.com</string>
+	<string>https://www.anappnooneneeds.com</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>
