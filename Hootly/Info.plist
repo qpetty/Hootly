@@ -25,7 +25,7 @@
 	<key>Production URL</key>
 	<string>https://www.anappnooneneeds.com</string>
 	<key>UIMainStoryboardFile</key>
-	<string>Main</string>
+	<string></string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
@@ -45,5 +45,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We use your location to place your hoots and find nearby hoots</string>
 </dict>
 </plist>

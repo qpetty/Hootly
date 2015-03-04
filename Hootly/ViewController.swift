@@ -9,11 +9,12 @@
 import UIKit
 import MobileCoreServices
 import CoreData
+import CoreLocation
 
-class ViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, NSFetchedResultsControllerDelegate {
+class ViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, NSFetchedResultsControllerDelegate, CLLocationManagerDelegate {
     var fetchedResultsController: NSFetchedResultsController?
     var managedObjectContext:NSManagedObjectContext?
-
+    
     let CELL_HEIGHT = 80.0 as CGFloat
     
     override init() {
@@ -44,9 +45,33 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         managedObjectContext = appDelegate.managedObjectContext
         
+        promptForLocation()
+        
+        let manager = appDelegate.locationManager
+        manager.delegate = self
+        
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: "refreshAndFetchData", forControlEvents: .ValueChanged)
-        
+    }
+    
+    func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        let mess = "changed location authorization to"
+        switch status {
+        case .Authorized:
+            NSLog("%@: Authorized", mess)
+        case .AuthorizedWhenInUse:
+            NSLog("%@: AuthorizedWhenInUse", mess)
+            beginRefreshing()
+        case .Denied:
+            NSLog("%@: Denied", mess)
+        case .NotDetermined:
+            NSLog("%@: NotDetermined", mess)
+        case .Restricted:
+            NSLog("%@: Restricted", mess)
+        }
+    }
+    
+    func beginRefreshing() {
         refreshControl?.beginRefreshing()
         self.fetchResultsFromCoreData(true)
         refreshAndFetchData()
@@ -80,10 +105,46 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
         }
     }
     
+    func promptForLocation() {
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let manager = appDelegate.locationManager
+
+        if CLLocationManager.authorizationStatus() == .NotDetermined && CLLocationManager.locationServicesEnabled() {
+            if manager.respondsToSelector("requestWhenInUseAuthorization") {
+                println("asking for location permission")
+                manager.requestWhenInUseAuthorization()
+            }
+        }
+        manager.startUpdatingLocation()
+    }
+    
     func refreshAndFetchData() {
-        HootAPIToCoreData.getHoots { (addedHoots: Int) -> (Void) in
-            self.refreshControl?.endRefreshing()
-            return
+        
+        switch CLLocationManager.authorizationStatus() {
+        case .Authorized, .AuthorizedWhenInUse:
+            HootAPIToCoreData.getHoots { (addedHoots: Int) -> (Void) in
+                self.refreshControl?.endRefreshing()
+                return
+            }
+        case .NotDetermined:
+            promptForLocation()
+        case .Restricted, .Denied:
+            let alertController = UIAlertController(
+                title: "Location Access Disabled",
+                message: "In order to use retrieve nearby hoots, please open this app's settings and set location access to 'While Using the App'.",
+                preferredStyle: .Alert)
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+            alertController.addAction(cancelAction)
+            
+            let openAction = UIAlertAction(title: "Open Settings", style: .Default) { (action) in
+                if let url = NSURL(string:UIApplicationOpenSettingsURLString) {
+                    UIApplication.sharedApplication().openURL(url)
+                }
+            }
+            alertController.addAction(openAction)
+            
+            self.presentViewController(alertController, animated: true, completion: nil)
         }
     }
     

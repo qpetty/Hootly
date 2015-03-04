@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import CoreLocation
 
 class HootAPIToCoreData {
     
@@ -32,6 +33,16 @@ class HootAPIToCoreData {
             println("could not construct URL in getHoots()")
             return nil
         }
+    }
+    
+    class var coordinates: CLLocationCoordinate2D? {
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let manager = appDelegate.locationManager
+
+        if manager.location == nil {
+            return nil
+        }
+        return manager.location.coordinate
     }
     
     class func getHootID(completed: (id: String?) -> (Void)) {
@@ -68,8 +79,14 @@ class HootAPIToCoreData {
     class func getHoots(completed: (Int) -> (Void)) {
         var url: NSURL
         
+        let coord = self.coordinates
+        if coord == nil {
+            println("could not get location coordinates")
+            return
+        }
+        
         if let host = hostURL {
-            let urlPath = "hoots?user_id=\(self.hootID)&lat=5&long=5"
+            let urlPath = "hoots?user_id=\(self.hootID)&lat=\(coord!.latitude)&long=\(coord!.longitude)"
             url = NSURL(string: urlPath, relativeToURL: host)!
         } else {
             println("could not construct URL in getHoots()")
@@ -300,6 +317,12 @@ class HootAPIToCoreData {
     class func postHoot(image: UIImage, comment: String, completed: (success: Bool) -> (Void)) {
         var url: NSURL
         
+        let coord = self.coordinates
+        if coord == nil {
+            println("could not get location coordinates")
+            return
+        }
+        
         if let host = hostURL {
             url = NSURL(string: "hoots", relativeToURL: host)!
         } else {
@@ -312,8 +335,8 @@ class HootAPIToCoreData {
         
         var postBody = NSMutableData()
         postBody.mp_setString(self.hootID, forKey: "user_id")
-        postBody.mp_setFloat(5, forKey: "lat")
-        postBody.mp_setFloat(5, forKey: "long")
+        postBody.mp_setFloat(Float(coord!.latitude), forKey: "lat")
+        postBody.mp_setFloat(Float(coord!.longitude), forKey: "long")
         postBody.mp_setString(comment, forKey: "hoot_text")
         postBody.mp_setJPEGImage(image, withQuality: 1.0, forKey: "image")
         

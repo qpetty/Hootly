@@ -8,14 +8,18 @@
 
 import UIKit
 import CoreData
+import CoreLocation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     private var pushToken: String?
+    let locationManager = CLLocationManager()
+    
     let userIDStorageKey = "HootlyUserID"
     let pushNotificationStorageKey = "SentPUSHNotification"
+    let locationScreenShown = "LocationScreenShown"
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -28,6 +32,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         application.registerUserNotificationSettings( settings )
         application.registerForRemoteNotifications()
+        
+        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        var firstVC: UIViewController
+        
+        if let userIDData = NSUserDefaults.standardUserDefaults().dataForKey(self.locationScreenShown) {
+            firstVC = storyboard.instantiateViewControllerWithIdentifier("IntialViewController") as UIViewController
+        } else {
+            firstVC = storyboard.instantiateViewControllerWithIdentifier("LocationScreen") as UIViewController
+        }
+        
+        self.window?.rootViewController = firstVC
+        self.window?.makeKeyAndVisible()
         
         return true
     }
