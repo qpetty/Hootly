@@ -137,6 +137,13 @@ class HootAPIToCoreData {
 
                 //Delete old hoots
                 for singleHoot in hootsToDelete {
+                    
+                    if let urlToDelete = singleHoot.photoURL as? NSURL {
+                        if urlToDelete.fileURL == true {
+                            NSFileManager.defaultManager().removeItemAtURL(urlToDelete, error: nil)
+                        }
+                    }
+
                     threadMOC.deleteObject(singleHoot)
                 }
                 
