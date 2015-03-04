@@ -26,7 +26,6 @@
 		5A9768741A88492B00229E7E /* SZTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9768731A88492B00229E7E /* SZTextView.m */; };
 		5AAFBE161A9446D5009003B9 /* Hoot+ImageForTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAFBE151A9446D5009003B9 /* Hoot+ImageForTableView.swift */; };
 		5ACCCE171A9D97F3000BD67C /* SingleCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACCCE161A9D97F3000BD67C /* SingleCommentCell.swift */; };
-		5ACCCE251A9DA1BF000BD67C /* Hoot+FetchComments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACCCE241A9DA1BF000BD67C /* Hoot+FetchComments.swift */; };
 		5ADAE5C61AA43B3C00BC4449 /* HootComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADAE5C51AA43B3C00BC4449 /* HootComment.swift */; };
 		5ADAE5C81AA43DF200BC4449 /* Hoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADAE5C71AA43DF200BC4449 /* Hoot.swift */; };
 		D12280BE1A87F2F100CDDFB8 /* CommentFormView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D12280BD1A87F2F100CDDFB8 /* CommentFormView.xib */; };
@@ -70,7 +69,6 @@
 		5A9768731A88492B00229E7E /* SZTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZTextView.m; sourceTree = "<group>"; };
 		5AAFBE151A9446D5009003B9 /* Hoot+ImageForTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Hoot+ImageForTableView.swift"; sourceTree = "<group>"; };
 		5ACCCE161A9D97F3000BD67C /* SingleCommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleCommentCell.swift; sourceTree = "<group>"; };
-		5ACCCE241A9DA1BF000BD67C /* Hoot+FetchComments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Hoot+FetchComments.swift"; sourceTree = "<group>"; };
 		5ADAE5C51AA43B3C00BC4449 /* HootComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HootComment.swift; sourceTree = "<group>"; };
 		5ADAE5C71AA43DF200BC4449 /* Hoot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hoot.swift; sourceTree = "<group>"; };
 		D12280BD1A87F2F100CDDFB8 /* CommentFormView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentFormView.xib; sourceTree = "<group>"; };
@@ -144,7 +142,6 @@
 				5ADAE5C71AA43DF200BC4449 /* Hoot.swift */,
 				5ADAE5C51AA43B3C00BC4449 /* HootComment.swift */,
 				5AAFBE151A9446D5009003B9 /* Hoot+ImageForTableView.swift */,
-				5ACCCE241A9DA1BF000BD67C /* Hoot+FetchComments.swift */,
 				5A94E3011A74940300CA1CB8 /* Images.xcassets */,
 				5A94E3031A74940300CA1CB8 /* LaunchScreen.xib */,
 				5A94E2F81A74940300CA1CB8 /* Supporting Files */,
@@ -301,7 +298,6 @@
 				5ADAE5C61AA43B3C00BC4449 /* HootComment.swift in Sources */,
 				5A37D18A1A7D9170006AAC65 /* SingleHootViewController.swift in Sources */,
 				5AAFBE161A9446D5009003B9 /* Hoot+ImageForTableView.swift in Sources */,
-				5ACCCE251A9DA1BF000BD67C /* Hoot+FetchComments.swift in Sources */,
 				5A9768741A88492B00229E7E /* SZTextView.m in Sources */,
 				5ADAE5C81AA43DF200BC4449 /* Hoot.swift in Sources */,
 				5A97686A1A88086E00229E7E /* NewHootViewController.swift in Sources */,

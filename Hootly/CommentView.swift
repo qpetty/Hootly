@@ -38,8 +38,8 @@ class CommentView: UIView {
         UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.6, options: nil,
             animations: {
                 self.upVoteButton.transform = CGAffineTransformMakeTranslation(0, 0)
-                self.upVoteButton.setBackgroundImage(UIImage(named: "UpvoteActive"), forState: UIControlState.Disabled)
-                
+                self.setVoted(1)
+
                 if self.hoot != nil {
                     self.hoot!.voted = 1
                     self.hoot!.rating = self.hoot!.rating.integerValue + 1
@@ -66,7 +66,7 @@ class CommentView: UIView {
         UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.6, options: nil,
             animations: {
                 self.downVoteButton.transform = CGAffineTransformMakeTranslation(0, 0)
-                self.downVoteButton.setBackgroundImage(UIImage(named: "DownvoteActive"), forState: UIControlState.Disabled)
+                self.setVoted(-1)
                 
                 if self.hoot != nil {
                     self.hoot!.voted = -1

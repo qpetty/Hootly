@@ -16,6 +16,9 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
     var fetchedResultsController: NSFetchedResultsController?
     var managedObjectContext:NSManagedObjectContext?
     
+    // Create blur effect view
+    var blurEffectView: UIVisualEffectView?
+    
     @IBOutlet weak var commentForm: CommentFormView!
     
     @IBOutlet weak var photo: UIImageView!
@@ -30,6 +33,15 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
         
         // Change color of Navigation title to white
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
+        
+        // Create the desired blur effect
+        var blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Light)
+        
+        // Add and set up blurEffect to blurEffectView
+        self.blurEffectView = UIVisualEffectView(effect: blurEffect)
+        self.blurEffectView?.frame = photo.bounds
+        self.blurEffectView?.alpha = 0
+        self.photo.addSubview(blurEffectView!)
         
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         managedObjectContext = appDelegate.managedObjectContext
@@ -98,14 +110,15 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        photo.alpha = 1 - (scrollView.contentOffset.y / view.frame.size.width) * 0.5
+        //photo.alpha = 1 - (scrollView.contentOffset.y / view.frame.size.width) * 0.5
+        blurEffectView?.alpha = (scrollView.contentOffset.y / view.frame.size.width) * 0.6
     }
     
     func commentToSubmit(comment: String) {
         
         HootAPIToCoreData.postComment(comment, hootID: hoot!.id.integerValue) { (success) -> (Void) in
             if(success) {
-                self.hoot?.fetchComments({ (success) -> (Void) in
+                HootAPIToCoreData.fetchCommentsForHoot(self.hoot, completed: { (success) -> (Void) in
                     println("new comment so maybe scroll to bottom here after animation")
                 })
                 self.commentForm.textField.resignFirstResponder()

@@ -16,6 +16,15 @@ class HootAPIToCoreData {
         return appDelegate.managedObjectContext!
     }
     
+    class var hootID: String {
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        if let hootID = appDelegate.hootlyID {
+            return hootID
+        } else {
+            return "4"
+        }
+    }
+    
     class var hostURL: NSURL? {
         if let hostString = NSBundle.mainBundle().objectForInfoDictionaryKey("Production URL") as? String {
             return NSURL(string: hostString)!
@@ -60,13 +69,14 @@ class HootAPIToCoreData {
         var url: NSURL
         
         if let host = hostURL {
-            url = NSURL(string: "hoots?lat=5&long=5&user_id=4", relativeToURL: host)!
+            let urlPath = "hoots?user_id=\(self.hootID)&lat=5&long=5"
+            url = NSURL(string: urlPath, relativeToURL: host)!
         } else {
             println("could not construct URL in getHoots()")
             return
         }
 
-        NSLog("Fetching URL: %@", url)
+        NSLog("GETting URL: %@", url)
         
         let request = NSURLRequest(URL: url)
         
@@ -188,6 +198,105 @@ class HootAPIToCoreData {
         }
     }
     
+    class func fetchCommentsForHoot(hoot: Hoot?, completed: (success: Bool) -> (Void)) {
+        
+        if hoot == nil {
+            completed(success: false)
+            return
+        }
+        
+        let path = "comments?user_id=\(self.hootID)&post_id=\(hoot!.id)"
+        
+        if let commentURL = NSURL(string: path, relativeToURL: HootAPIToCoreData.hostURL) {
+            let request = NSURLRequest(URL: commentURL)
+            NSLog("GETting URL: %@", commentURL)
+            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { (response, data, error) -> Void in
+                
+                if (error != nil) {
+                    NSLog("%@", error)
+                    completed(success: false)
+                    return
+                }
+                
+                //println("Got response: \(response)")
+                
+                if var commentArray = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as? Array<Dictionary<String, AnyObject>> {
+                    //println("array: \(commentArray)")
+                    
+                    self.addCommentsToHoot(hoot!, commentArray: commentArray)
+                }
+                
+                completed(success: true)
+            })
+        }
+    }
+    
+    class func addCommentsToHoot(hoot: Hoot, commentArray: Array<Dictionary<String, AnyObject>>) {
+        var threadMOC = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
+        threadMOC.parentContext = hoot.managedObjectContext
+        
+        let backgroundContextSelf = threadMOC.objectWithID(hoot.objectID) as Hoot
+        var existingComments = backgroundContextSelf.mutableSetValueForKey("comments")
+        existingComments.removeAllObjects()
+        
+        for singleComment in commentArray {
+            var newComment = NSEntityDescription.insertNewObjectForEntityForName("HootComment", inManagedObjectContext: threadMOC) as HootComment
+            
+            if let value = singleComment["comment_id"] as? NSNumber {
+                newComment.id = value
+            }
+            if let value = singleComment["comment_text"] as? String {
+                newComment.text = value
+            }
+            if let value = singleComment["score"] as? NSNumber {
+                newComment.score = value
+            }
+            if let value = singleComment["requester_vote"] as? NSNumber {
+                newComment.voted = value
+            }
+            if let value = singleComment["timestamp"] as? NSNumber {
+                newComment.time = NSDate(timeIntervalSince1970: value as NSTimeInterval)
+            } else {
+                newComment.time = NSDate()
+            }
+            
+            newComment.hoot = backgroundContextSelf
+            existingComments.addObject(newComment)
+            
+        }
+        
+        backgroundContextSelf.replies = commentArray.count
+        
+        //TODO: Check value
+        threadMOC.save(nil)
+    }
+    
+    class func postPUSHToken(id: String, token: String, completed: (success: Bool) -> (Void)) {
+        var url: NSURL
+        
+        if let host = hostURL {
+            url = NSURL(string: "newtoken", relativeToURL: host)!
+        } else {
+            println("could not construct URL in getHoots()")
+            return
+        }
+        
+        let request = NSMutableURLRequest(URL: url)
+        request.HTTPMethod = "POST"
+        
+        var postBody = NSMutableData()
+        postBody.mp_setString(id, forKey: "user_id")
+        postBody.mp_setString(token, forKey: "token")
+        
+        request.setValue(postBody.KIMultipartContentType, forHTTPHeaderField: "Content-Type")
+        postBody.mp_prepareForRequest()
+        request.HTTPBody = postBody
+        
+        NSLog("POSTing token(%@) to URL: %@", token, url)
+        
+        self.genericURLConnectionFromRequest(request, completed: completed)
+    }
+    
     class func postHoot(image: UIImage, comment: String, completed: (success: Bool) -> (Void)) {
         var url: NSURL
         
@@ -202,7 +311,7 @@ class HootAPIToCoreData {
         request.HTTPMethod = "POST"
         
         var postBody = NSMutableData()
-        postBody.mp_setInteger(6, forKey: "user_id")
+        postBody.mp_setString(self.hootID, forKey: "user_id")
         postBody.mp_setFloat(5, forKey: "lat")
         postBody.mp_setFloat(5, forKey: "long")
         postBody.mp_setString(comment, forKey: "hoot_text")
@@ -212,7 +321,7 @@ class HootAPIToCoreData {
         postBody.mp_prepareForRequest()
         request.HTTPBody = postBody
         
-        NSLog("Posting hoot to URL: %@", url)
+        NSLog("POSTing hoot to URL: %@", url)
         
         self.genericURLConnectionFromRequest(request, completed: completed)
     }
@@ -231,7 +340,7 @@ class HootAPIToCoreData {
         request.HTTPMethod = "POST"
         
         var postBody = NSMutableData()
-        postBody.mp_setInteger(6, forKey: "user_id")
+        postBody.mp_setString(self.hootID, forKey: "user_id")
         postBody.mp_setInteger(Int32(hootID), forKey: "post_id")
         postBody.mp_setString(comment, forKey: "text")
         
@@ -239,7 +348,7 @@ class HootAPIToCoreData {
         postBody.mp_prepareForRequest()
         request.HTTPBody = postBody
         
-        NSLog("Posting comment for hoot %d to URL: %@", hootID, url)
+        NSLog("POSTing comment for hoot %d to URL: %@", hootID, url)
         
         self.genericURLConnectionFromRequest(request, completed: completed)
     }
@@ -274,14 +383,14 @@ class HootAPIToCoreData {
         request.HTTPMethod = "POST"
         
         var postBody = NSMutableData()
-        postBody.mp_setInteger(4, forKey: "user_id")
+        postBody.mp_setString(self.hootID, forKey: "user_id")
         postBody.mp_setInteger(Int32(hootID), forKey: idName)
         
         request.setValue(postBody.KIMultipartContentType, forHTTPHeaderField: "Content-Type")
         postBody.mp_prepareForRequest()
         request.HTTPBody = postBody
         
-        NSLog("Posting %@ for hoot %d to URL: %@", type, hootID, url)
+        NSLog("POSTing %@ for hoot %d to URL: %@", type, hootID, url)
         
         self.genericURLConnectionFromRequest(request, completed: completed)
     }

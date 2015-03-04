@@ -13,8 +13,10 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    private var pushToken: String?
     let userIDStorageKey = "HootlyUserID"
-
+    let pushNotificationStorageKey = "SentPUSHNotification"
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
@@ -27,30 +29,52 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.registerUserNotificationSettings( settings )
         application.registerForRemoteNotifications()
         
-        println("Hootly ID: \(hootlyID)")
-        
         return true
     }
     
-    lazy var hootlyID: String? = {
-        var id: String? = nil
-        
-        let defaults = NSUserDefaults.standardUserDefaults()
-        
-        if let userIDData = defaults.dataForKey(self.userIDStorageKey) {
-            id = NSKeyedUnarchiver.unarchiveObjectWithData(userIDData) as? String
-        } else {
-            HootAPIToCoreData.getHootID { (id) -> (Void) in
-                if id != nil {
-                    let userIDData = NSKeyedArchiver.archivedDataWithRootObject(id!)
-                    defaults.setObject(userIDData, forKey: self.userIDStorageKey)
-                    println("Setting Hootly ID to: \(id)")
+    var hootlyID: String? {
+        get {
+            var id: String? = nil
+            
+            let defaults = NSUserDefaults.standardUserDefaults()
+            
+            if let userIDData = defaults.dataForKey(self.userIDStorageKey) {
+                id = NSKeyedUnarchiver.unarchiveObjectWithData(userIDData) as? String
+                
+                if defaults.dataForKey(self.pushNotificationStorageKey) == nil {
+                    if let token = self.pushToken {
+                        HootAPIToCoreData.postPUSHToken(id!, token: token, completed: self.tokenResponse)
+                    }
+                }
+            } else {
+                HootAPIToCoreData.getHootID { (id) -> (Void) in
+                    if id != nil {
+                        let userIDData = NSKeyedArchiver.archivedDataWithRootObject(id!)
+                        defaults.setObject(userIDData, forKey: self.userIDStorageKey)
+                        defaults.synchronize()
+                        println("Setting Hootly ID to: \(id)")
+                        
+                        if let token = self.pushToken {
+                            HootAPIToCoreData.postPUSHToken(id!, token: token, completed: self.tokenResponse)
+                        }
+                    }
                 }
             }
+            return id
         }
-
-        return id
-    }()
+    }
+    
+    let tokenResponse = { (success: Bool) -> (Void) in
+        let appD = UIApplication.sharedApplication().delegate as AppDelegate
+        if success == true {
+            let userIDData = NSKeyedArchiver.archivedDataWithRootObject(NSNumber(bool: true))
+            let defaults = NSUserDefaults.standardUserDefaults()
+            defaults.setObject(userIDData, forKey: appD.pushNotificationStorageKey)
+            defaults.synchronize()
+        } else {
+            NSLog("token didn't save")
+        }
+    }
     
     func application( application: UIApplication!, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData! ) {
         
@@ -60,8 +84,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             .stringByTrimmingCharactersInSet( characterSet )
             .stringByReplacingOccurrencesOfString( " ", withString: "" ) as String
         
-        println( deviceTokenString )
-        
+        pushToken = deviceTokenString
     }
     
     func application( application: UIApplication!, didFailToRegisterForRemoteNotificationsWithError error: NSError! ) {
