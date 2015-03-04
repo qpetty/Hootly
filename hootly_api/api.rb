@@ -27,6 +27,8 @@ class Hootly_API < Sinatra::Base
    post '/newtoken' do
       token = params['token']
       user_id = params['user_id']
+      user_id = client.escape(user_id)
+      token = client.escape(token)
 
       error = ""
       if token.nil?
@@ -39,7 +41,7 @@ class Hootly_API < Sinatra::Base
          return [error].to_json
       end
 
-      client.query("UPDATE Users SET device_token = #{token} WHERE id = #{user_id}")
+      client.query("UPDATE Users SET device_token = '#{token}' WHERE id = '#{user_id}'")
    end
 
 	get '/hootloot' do
@@ -252,7 +254,7 @@ class Hootly_API < Sinatra::Base
 
 	   hoot_hootloot = client.query("SELECT hootloot FROM Hoots WHERE id = #{post_id}").first['hootloot']
 	   if hoot_hootloot <= -5
-	      client.query("UPDATE Comments SET active = false WHERE id = #{post_id}")
+	      client.query("UPDATE Hoots SET active = false WHERE id = #{post_id}")
 	   end
 	end
 
