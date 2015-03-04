@@ -16,12 +16,17 @@ class HootCell: UITableViewCell {
     var hoot: Hoot?
     
     func setHoot(singleHoot: Hoot) {
-        hoot = singleHoot
-        
-        photo.image = nil
-        hoot?.fetchImage({ (image: UIImage) -> (Void) in
-            self.photo.image = image
-        })
+        if hoot != singleHoot {
+            hoot = singleHoot
+            
+            photo.image = nil
+            let currentID = hoot?.id
+            hoot?.fetchImage({ (image: UIImage) -> (Void) in
+                if currentID == self.hoot?.id {
+                    self.photo.image = image
+                }
+            })
+        }
         
         commentView.setValuesWithHoot(hoot!)
     }
