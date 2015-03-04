@@ -32,25 +32,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    lazy var hootlyID: String? = {
-        var id: String? = nil
-        
-        let defaults = NSUserDefaults.standardUserDefaults()
-        
-        if let userIDData = defaults.dataForKey(self.userIDStorageKey) {
-            id = NSKeyedUnarchiver.unarchiveObjectWithData(userIDData) as? String
-        } else {
-            HootAPIToCoreData.getHootID { (id) -> (Void) in
-                if id != nil {
-                    let userIDData = NSKeyedArchiver.archivedDataWithRootObject(id!)
-                    defaults.setObject(userIDData, forKey: self.userIDStorageKey)
-                    println("Setting Hootly ID to: \(id)")
+    var hootlyID: String? {
+        get {
+            var id: String? = nil
+            
+            let defaults = NSUserDefaults.standardUserDefaults()
+            
+            if let userIDData = defaults.dataForKey(self.userIDStorageKey) {
+                id = NSKeyedUnarchiver.unarchiveObjectWithData(userIDData) as? String
+            } else {
+                HootAPIToCoreData.getHootID { (id) -> (Void) in
+                    if id != nil {
+                        let userIDData = NSKeyedArchiver.archivedDataWithRootObject(id!)
+                        defaults.setObject(userIDData, forKey: self.userIDStorageKey)
+                        defaults.synchronize()
+                        println("Setting Hootly ID to: \(id)")
+                    }
                 }
             }
+            return id
         }
-
-        return id
-    }()
+    }
     
     func application( application: UIApplication!, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData! ) {
         
