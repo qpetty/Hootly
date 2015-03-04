@@ -271,6 +271,32 @@ class HootAPIToCoreData {
         threadMOC.save(nil)
     }
     
+    class func postPUSHToken(id: String, token: String, completed: (success: Bool) -> (Void)) {
+        var url: NSURL
+        
+        if let host = hostURL {
+            url = NSURL(string: "newtoken", relativeToURL: host)!
+        } else {
+            println("could not construct URL in getHoots()")
+            return
+        }
+        
+        let request = NSMutableURLRequest(URL: url)
+        request.HTTPMethod = "POST"
+        
+        var postBody = NSMutableData()
+        postBody.mp_setString(id, forKey: "user_id")
+        postBody.mp_setString(token, forKey: "token")
+        
+        request.setValue(postBody.KIMultipartContentType, forHTTPHeaderField: "Content-Type")
+        postBody.mp_prepareForRequest()
+        request.HTTPBody = postBody
+        
+        NSLog("POSTing token(%@) to URL: %@", token, url)
+        
+        self.genericURLConnectionFromRequest(request, completed: completed)
+    }
+    
     class func postHoot(image: UIImage, comment: String, completed: (success: Bool) -> (Void)) {
         var url: NSURL
         
