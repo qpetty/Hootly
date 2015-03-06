@@ -12,6 +12,7 @@ import UIKit
 class HootCell: UITableViewCell {
     @IBOutlet weak var photo: UIImageView!
     @IBOutlet weak var commentView: CommentView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var hoot: Hoot?
     
@@ -20,10 +21,12 @@ class HootCell: UITableViewCell {
             hoot = singleHoot
             
             photo.image = nil
+            activityIndicator.startAnimating()
             let currentID = hoot?.id
             hoot?.fetchImage({ (image: UIImage) -> (Void) in
                 if currentID == self.hoot?.id {
                     self.photo.image = image
+                    self.activityIndicator.stopAnimating()
                 }
             })
         }
