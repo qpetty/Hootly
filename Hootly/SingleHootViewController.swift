@@ -123,7 +123,7 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
                 })
                 self.commentForm.textField.resignFirstResponder()
             } else {
-                println("failure")
+                println("failure submitting comment")
             }
         }
     }
