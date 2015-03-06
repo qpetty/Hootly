@@ -71,7 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         let userIDData = NSKeyedArchiver.archivedDataWithRootObject(id!)
                         defaults.setObject(userIDData, forKey: self.userIDStorageKey)
                         defaults.synchronize()
-                        println("Setting Hootly ID to: \(id)")
+                        NSLog("Setting Hootly ID to: \(id)")
                         
                         if let token = self.pushToken {
                             HootAPIToCoreData.postPUSHToken(id!, token: token, completed: self.tokenResponse)
@@ -107,9 +107,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application( application: UIApplication!, didFailToRegisterForRemoteNotificationsWithError error: NSError! ) {
-        println()
-        println( error.localizedDescription )
-        println()
+        NSLog("\ndidFailToRegisterForRemoteNotificationsWithError: \(error.localizedDescription)\n")
     }
 
     func applicationWillResignActive(application: UIApplication) {

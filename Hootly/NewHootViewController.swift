@@ -41,7 +41,7 @@ class NewHootViewController: UIViewController, CommentFormProtocol {
             if(success) {
                 self.dismissViewControllerAnimated(true, completion: nil)
             } else {
-                println("couldnt submit this hoot")
+                NSLog("couldnt submit this hoot")
             }
         }
         

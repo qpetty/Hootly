@@ -119,11 +119,11 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
         HootAPIToCoreData.postComment(comment, hootID: hoot!.id.integerValue) { (success) -> (Void) in
             if(success) {
                 HootAPIToCoreData.fetchCommentsForHoot(self.hoot, completed: { (success) -> (Void) in
-                    println("new comment so maybe scroll to bottom here after animation")
+                    NSLog("new comment so maybe scroll to bottom here after animation")
                 })
                 self.commentForm.textField.resignFirstResponder()
             } else {
-                println("failure")
+                NSLog("failure")
             }
         }
     }
@@ -141,11 +141,11 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
         fetchedResultsController?.delegate = self
         
         if fetchedResultsController?.performFetch(nil) == false {
-            println("fetch failed")
+            NSLog("fetch failed")
             return
         }
         
-        println("fetch succeeded: ordered by time")
+        NSLog("fetch succeeded: ordered by time")
         //commentTable.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Fade)
     }
     
@@ -193,7 +193,7 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
             if let cell = commentTable.cellForRowAtIndexPath(adjustedIndexPath!) as? SingleCommentCell {
                 let comment = anObject as HootComment
                 cell.commentView.setValuesWithComment(comment)
-                println("loading \(adjustedIndexPath!.row)")
+                NSLog("loading \(adjustedIndexPath!.row)")
             }
         case .Move:
             commentTable.deleteRowsAtIndexPaths([adjustedIndexPath!], withRowAnimation: .Fade)
