@@ -321,7 +321,7 @@ class HootAPIToCoreData {
         self.genericURLConnectionFromRequest(request, completed: completed)
     }
     
-    class func postHoot(image: UIImage, comment: String, completed: (success: Bool) -> (Void)) {
+    class func postHoot(image: UIImage, comment: String, delegate: NSURLConnectionDataDelegate) {
         var url: NSURL
         
         let coord = self.coordinates
@@ -353,10 +353,11 @@ class HootAPIToCoreData {
         
         NSLog("POSTing hoot to URL: %@", url)
         
-        self.genericURLConnectionFromRequest(request, completed: completed)
+        let conn = NSURLConnection(request: request, delegate: delegate, startImmediately: true)
+        //self.genericURLConnectionFromRequest(request, completed: completed)
     }
     
-    class func postComment(comment: String, hootID: Int, completed: (success: Bool) -> (Void)) {
+    class func postComment(comment: String, hootID: Int, delegate: NSURLConnectionDataDelegate) {
         var url: NSURL
         
         if let host = hostURL {
@@ -380,7 +381,8 @@ class HootAPIToCoreData {
         
         NSLog("POSTing comment for hoot %d to URL: %@", hootID, url)
         
-        self.genericURLConnectionFromRequest(request, completed: completed)
+        let conn = NSURLConnection(request: request, delegate: delegate, startImmediately: true)
+        //self.genericURLConnectionFromRequest(request, completed: completed)
     }
     
     class func postHootUpVote(id: Int, completed: (success: Bool) -> (Void)) {

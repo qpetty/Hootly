@@ -44,6 +44,7 @@ class CommentFormView: UIView, UITextViewDelegate {
 
         submitButton.layer.backgroundColor = UIColor(red: 127/255, green: 168/255, blue: 215/255, alpha: 1.0).CGColor
         submitButton.layer.cornerRadius = 4.0
+        status = NSMakeRange(0, 100)
     }
     
     override func layoutSubviews() {

@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import CoreData
 
-class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate, CommentFormProtocol {
+class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate, NSURLConnectionDataDelegate, CommentFormProtocol {
     var hoot: Hoot?
     var hootImage: UIImage?
     var fetchedResultsController: NSFetchedResultsController?
@@ -78,6 +78,7 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
             
             keyboardHeight.constant = keyboardFrame.height
             
+            commentForm.status = NSMakeRange(0, 100)
             UIView.animateWithDuration(0.1, animations: { () -> Void in
                 self.view.layoutIfNeeded()
                 self.scrollTableViewToBottom()
@@ -115,17 +116,7 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
     }
     
     func commentToSubmit(comment: String) {
-        
-        HootAPIToCoreData.postComment(comment, hootID: hoot!.id.integerValue) { (success) -> (Void) in
-            if(success) {
-                HootAPIToCoreData.fetchCommentsForHoot(self.hoot, completed: { (success) -> (Void) in
-                    println("new comment so maybe scroll to bottom here after animation")
-                })
-                self.commentForm.textField.resignFirstResponder()
-            } else {
-                println("failure submitting comment")
-            }
-        }
+        HootAPIToCoreData.postComment(comment, hootID: hoot!.id.integerValue, delegate: self)
     }
     
     func exitWithoutComment() {
@@ -155,6 +146,23 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
         } else {
             return nil
         }
+    }
+    
+    // MARK: - NSURLConnectionDataDelegate Methods
+    
+    func connectionDidFinishLoading(connection: NSURLConnection) {
+        HootAPIToCoreData.fetchCommentsForHoot(self.hoot, completed: { (success) -> (Void) in
+            println("new comment so maybe scroll to bottom here after animation")
+        })
+        self.commentForm.textField.resignFirstResponder()
+    }
+    
+    func connection(connection: NSURLConnection, didFailWithError error: NSError) {
+        println("failure submitting comment")
+    }
+    
+    func connection(connection: NSURLConnection, didSendBodyData bytesWritten: Int, totalBytesWritten: Int, totalBytesExpectedToWrite: Int) {
+        commentForm.status = NSMakeRange(totalBytesWritten, totalBytesExpectedToWrite)
     }
     
     // MARK: - NSFetchedResultsControllerDelegate
