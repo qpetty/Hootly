@@ -18,7 +18,7 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V6A-Qe-kyI">
                     <rect key="frame" x="0.0" y="0.0" width="450" height="40"/>
-                    <color key="backgroundColor" red="1" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.60784316059999999" green="0.69803923369999998" blue="0.9215686917" alpha="1" colorSpace="deviceRGB"/>
                 </view>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="1000" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PKz-2d-U9P" customClass="SZTextView">
                     <rect key="frame" x="8" y="8" width="496" height="24"/>
