@@ -12,6 +12,7 @@ class Hootly_API < Sinatra::Base
    helpers do
       include Sinatra::ParameterCheck
       include Sinatra::ParameterEscape
+      include Sinatra::PushNotifications
    end
 
 	client = Mysql2::Client.new(:host => "localhost", :username => "root", :password => ENV["HOOTLY_DB_PASSWORD"], :database => "hootly")
@@ -398,8 +399,10 @@ class Hootly_API < Sinatra::Base
          return error
       end
 
+      escape_parameters = ['post_id']
+      escape_params(escape_parameters, client)
+
 	   post_id = params['post_id']
-	   post_id = client.escape(post_id)
 
 	   client.query("Update Hoots SET active = false WHERE id = #{post_id}");
 	end

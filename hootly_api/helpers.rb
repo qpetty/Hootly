@@ -27,5 +27,16 @@ module Sinatra
          end
       end
    end
-   helpers ParameterCheck, ParameterEscape
+
+   module PushNotifications
+      def hoot_vote_activity(post_id, user_id, client)
+      end
+
+      def comment_vote_activity(comment_id, poster_id, client)
+      end
+
+      def reply_activity(post_id, user_id, client)
+      end
+   end
+   helpers ParameterCheck, ParameterEscape, PushNotifications
 end
