@@ -30,7 +30,7 @@ class HootAPIToCoreData {
         if let hostString = NSBundle.mainBundle().objectForInfoDictionaryKey("Production URL") as? String {
             return NSURL(string: hostString)!
         } else {
-            println("could not construct URL in getHoots()")
+            NSLog("could not construct URL in getHoots()")
             return nil
         }
     }
@@ -51,7 +51,7 @@ class HootAPIToCoreData {
         if let host = hostURL {
             url = NSURL(string: "newuser", relativeToURL: host)!
         } else {
-            println("could not construct URL in getHoots()")
+            NSLog("could not construct URL in getHoots()")
             return
         }
         
@@ -81,7 +81,7 @@ class HootAPIToCoreData {
         
         let coord = self.coordinates
         if coord == nil {
-            println("could not get location coordinates")
+            NSLog("could not get location coordinates")
             return
         }
         
@@ -89,7 +89,7 @@ class HootAPIToCoreData {
             let urlPath = "hoots?user_id=\(self.hootID)&lat=\(coord!.latitude)&long=\(coord!.longitude)"
             url = NSURL(string: urlPath, relativeToURL: host)!
         } else {
-            println("could not construct URL in getHoots()")
+            NSLog("could not construct URL in getHoots()")
             return
         }
 
@@ -130,13 +130,20 @@ class HootAPIToCoreData {
                 let hootsToDelete = threadMOC.executeFetchRequest(fetchReq, error: &fetchError) as [Hoot]
                 
                 if let error = fetchError {
-                    println("error exectuting fetch request for hoots to delete")
+                    NSLog("error exectuting fetch request for hoots to delete")
                     completed(0)
                     return
                 }
 
                 //Delete old hoots
                 for singleHoot in hootsToDelete {
+                    
+                    if let urlToDelete = singleHoot.photoURL as? NSURL {
+                        if urlToDelete.fileURL == true {
+                            NSFileManager.defaultManager().removeItemAtURL(urlToDelete, error: nil)
+                        }
+                    }
+
                     threadMOC.deleteObject(singleHoot)
                 }
                 
@@ -149,7 +156,7 @@ class HootAPIToCoreData {
                 let validHoots = threadMOC.executeFetchRequest(fetchReq, error: &fetchError) as [Hoot]
                 
                 if let error = fetchError {
-                    println("error exectuting fetch request for hoots to keep")
+                    NSLog("error exectuting fetch request for hoots to keep")
                     completed(0)
                     return
                 }
@@ -204,7 +211,7 @@ class HootAPIToCoreData {
                 threadMOC.save(&fetchError)
                 
                 if let error = fetchError {
-                    println("error saving context in getHoots()")
+                    NSLog("error saving context in getHoots()")
                     completed(0)
                 } else {
                     completed(hootArray.count)
@@ -294,7 +301,7 @@ class HootAPIToCoreData {
         if let host = hostURL {
             url = NSURL(string: "newtoken", relativeToURL: host)!
         } else {
-            println("could not construct URL in getHoots()")
+            NSLog("could not construct URL in getHoots()")
             return
         }
         
@@ -319,14 +326,14 @@ class HootAPIToCoreData {
         
         let coord = self.coordinates
         if coord == nil {
-            println("could not get location coordinates")
+            NSLog("could not get location coordinates")
             return
         }
         
         if let host = hostURL {
             url = NSURL(string: "hoots", relativeToURL: host)!
         } else {
-            println("could not construct URL in getHoots()")
+            NSLog("could not construct URL in getHoots()")
             return
         }
         
@@ -355,7 +362,7 @@ class HootAPIToCoreData {
         if let host = hostURL {
             url = NSURL(string: "comments", relativeToURL: host)!
         } else {
-            println("could not construct URL in getHoots()")
+            NSLog("could not construct URL in getHoots()")
             return
         }
         
@@ -398,7 +405,7 @@ class HootAPIToCoreData {
         if let host = hostURL {
             url = NSURL(string: type, relativeToURL: host)!
         } else {
-            println("could not construct URL in getHoots()")
+            NSLog("could not construct URL in getHoots()")
             return
         }
         

@@ -43,6 +43,8 @@ class CommentView: UIView {
                 if self.hoot != nil {
                     self.hoot!.voted = 1
                     self.hoot!.rating = self.hoot!.rating.integerValue + 1
+                    //Fixes the case when updating the hoot score on a singlehootviewcontroller
+                    self.setRatingText(self.hoot!.rating)
                 } else if self.hootComment != nil {
                     self.hootComment!.voted = 1
                     self.hootComment!.score = self.hootComment!.score.integerValue + 1
@@ -71,6 +73,8 @@ class CommentView: UIView {
                 if self.hoot != nil {
                     self.hoot!.voted = -1
                     self.hoot!.rating = self.hoot!.rating.integerValue - 1
+                    //Fixes the case when updating the hoot score on a singlehootviewcontroller
+                    self.setRatingText(self.hoot!.rating)
                 } else if self.hootComment != nil {
                     self.hootComment!.voted = -1
                     self.hootComment!.score = self.hootComment!.score.integerValue - 1

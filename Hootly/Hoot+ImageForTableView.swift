@@ -61,11 +61,11 @@ extension Hoot {
                                 self.managedObjectContext?.save(nil)
                             })
                         } else {
-                            println("strangly could not get a URL corresponding to \(photoURL)")
+                            NSLog("strangly could not get a URL corresponding to \(photoURL)")
                         }
 
                     } else {
-                        println("could not write: \(photoURL)")
+                        NSLog("could not write: \(photoURL)")
                     }
                 }
             }
@@ -78,7 +78,7 @@ extension Hoot {
                     })
                 }
             } else {
-                println("couldn't find url")
+                NSLog("couldn't find url")
             }
         }
     }

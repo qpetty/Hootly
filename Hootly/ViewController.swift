@@ -34,7 +34,7 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
                 fetchResultsFromCoreData(true)
             }
         } else {
-            println("Expected UISegementedControl")
+            NSLog("Expected UISegementedControl")
         }
     }
     
@@ -91,7 +91,7 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
     }
     
     func managedObjectContextDidSave(aNotification: NSNotification) {
-        println("managed object context did save")
+        NSLog("managed object context did save")
         if(NSThread.isMainThread() == false) {
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.managedObjectContextDidSave(aNotification)
@@ -100,7 +100,7 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
 
         // if a context other than the main context has saved, merge the changes
         if(aNotification.object as? NSManagedObjectContext != managedObjectContext) {
-            println("merging changes")
+            NSLog("merging changes")
             managedObjectContext?.mergeChangesFromContextDidSaveNotification(aNotification)
         }
     }
@@ -111,7 +111,7 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
 
         if CLLocationManager.authorizationStatus() == .NotDetermined && CLLocationManager.locationServicesEnabled() {
             if manager.respondsToSelector("requestWhenInUseAuthorization") {
-                println("asking for location permission")
+                NSLog("asking for location permission")
                 manager.requestWhenInUseAuthorization()
             }
         }
@@ -164,11 +164,11 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
         fetchedResultsController?.delegate = self
         
         if fetchedResultsController?.performFetch(nil) == false {
-            println("fetch failed")
+            NSLog("fetch failed")
             return
         }
         
-        println("fetch succeeded: ordered by time -> \(sortedByDate)")
+        NSLog("fetch succeeded: ordered by time -> \(sortedByDate)")
         tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Fade)
         
         if(tableView.numberOfRowsInSection(0) > 0) {
@@ -263,7 +263,7 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
     }
     
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
-        println("nothing picked")
+        NSLog("nothing picked")
         dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -290,7 +290,7 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
             dest.mediaTypes = [kUTTypeImage]
             
         default:
-            println("unrecognized segue")
+            NSLog("unrecognized segue")
         }
     }
 }

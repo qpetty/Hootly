@@ -183,7 +183,7 @@
                                     <constraint firstAttribute="height" constant="30" placeholder="YES" id="q4t-al-RIx"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ly1-SZ-bbR" userLabel="Keyboard View">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ly1-SZ-bbR" userLabel="Keyboard View">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" id="1Om-5c-Xdp"/>
@@ -311,7 +311,7 @@
                                     <outlet property="delegate" destination="bVX-S0-grA" id="fFF-Ci-02l"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hyy-ro-cxk" userLabel="Keyboard View">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hyy-ro-cxk" userLabel="Keyboard View">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" id="BCb-EN-lWK"/>
@@ -384,6 +384,9 @@
                                                 <constraint firstAttribute="width" secondItem="TAz-Xu-Ciz" secondAttribute="height" multiplier="1:1" id="P3b-oq-EH0"/>
                                             </constraints>
                                         </imageView>
+                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="wVA-65-xHY">
+                                            <rect key="frame" x="177" y="178" width="20" height="20"/>
+                                        </activityIndicatorView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Ye-gz-p7r" userLabel="Comment" customClass="CommentView" customModule="Hootly" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="375" width="375" height="80"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -396,6 +399,8 @@
                                         <constraint firstItem="5Ye-gz-p7r" firstAttribute="top" secondItem="TAz-Xu-Ciz" secondAttribute="top" constant="338" id="1qY-qO-ABQ"/>
                                         <constraint firstItem="TAz-Xu-Ciz" firstAttribute="leading" secondItem="8dc-XR-19J" secondAttribute="leading" id="4Vi-zq-bJ1"/>
                                         <constraint firstAttribute="trailing" secondItem="TAz-Xu-Ciz" secondAttribute="trailing" id="4uf-pO-ViV"/>
+                                        <constraint firstItem="TAz-Xu-Ciz" firstAttribute="centerY" secondItem="wVA-65-xHY" secondAttribute="centerY" id="aZC-Xw-ULz"/>
+                                        <constraint firstItem="TAz-Xu-Ciz" firstAttribute="centerX" secondItem="wVA-65-xHY" secondAttribute="centerX" id="ceW-Su-dBP"/>
                                         <constraint firstItem="5Ye-gz-p7r" firstAttribute="top" secondItem="TAz-Xu-Ciz" secondAttribute="bottom" id="dHZ-zw-Izr"/>
                                         <constraint firstItem="5Ye-gz-p7r" firstAttribute="leading" secondItem="8dc-XR-19J" secondAttribute="leading" id="o4E-p7-Mk3"/>
                                         <constraint firstItem="TAz-Xu-Ciz" firstAttribute="top" secondItem="8dc-XR-19J" secondAttribute="top" id="qOr-nE-QGO"/>
@@ -408,6 +413,7 @@
                                     </variation>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="activityIndicator" destination="wVA-65-xHY" id="yte-41-tPO"/>
                                     <outlet property="commentView" destination="5Ye-gz-p7r" id="2lP-30-vSj"/>
                                     <outlet property="photo" destination="TAz-Xu-Ciz" id="BYH-U7-L65"/>
                                     <segue destination="bVX-S0-grA" kind="show" identifier="DetailHoot" id="KVm-Kr-sLE"/>
