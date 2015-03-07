@@ -161,12 +161,12 @@ class Hootly_API < Sinatra::Base
          return error
       end
 
+      escape_parameters = ['lat', 'long', 'user_id']
+      escape_params(escape_parameters)
+
 	   lat = params['lat']
 	   long = params['long']
 	   user_id = params['user_id']
-	   lat = client.escape(lat)
-	   long = client.escape(long)
-	   user_id = client.escape(user_id)
 
       posts = client.query("SELECT *, (7926 *
                                        asin( sqrt( pow(sin((radians(latitude) - radians(#{lat}))/2), 2) +
@@ -190,19 +190,19 @@ class Hootly_API < Sinatra::Base
 	      vote_dir = 0
 	      user_upvote = client.query("select sum(vote) as votes from Hoots_Upvotes where hoot_id = #{id} and user_id = '#{user_id}'")
 	      user_downvote = client.query("select sum(vote) as votes from Hoots_Downvotes where hoot_id = #{id} and user_id = '#{user_id}'")
+
 	      if !user_upvote.first['votes'].nil?
-		 vote_dir = 1
+            vote_dir = 1
 	      end
 	      if !user_downvote.first['votes'].nil?
-		 vote_dir = -1
+            vote_dir = -1
 	      end
 
 	      cur_post["requester_vote"] = vote_dir
-
 	      num_comments = 0
-
 	      num_comments = client.query("SELECT count(*) as num_comments FROM Comments WHERE post_id = #{id} and active = true").first["num_comments"]
 	      cur_post["num_comments"] = num_comments
+
 	      posts_return.push(cur_post)
 	   end
 	   posts_return.to_json
@@ -225,7 +225,7 @@ class Hootly_API < Sinatra::Base
 
 
       device_token = '987cb0a6d68138d3e06188c99c1ea60c5cbed40650d7cc4d8d8cfee2dd338d2b'
-      APNS.send_notification(device_token, 'A hoot has been posted')
+      APNS.send_notification(device_token, :alert => 'A hoot has been posted', :badge => 1, :sound => 'default')
 
 	   user_id = client.escape(user_id)
 	   hoot_text = client.escape(hoot_text)
@@ -248,7 +248,7 @@ class Hootly_API < Sinatra::Base
 
 	post '/hootsup' do
       parameters = ['post_id', 'user_id']
-      error = check_params(parameters)
+      error = check_params(parameters, client)
       if !error.empty?
          return error
       end
@@ -270,6 +270,9 @@ class Hootly_API < Sinatra::Base
       if !error.empty?
          return error
       end
+
+      escape_parameters = ['post_id', 'user_id']
+      escape_params(escape_parameters, client)
 
 	   post_id = params['post_id']
 	   user_id = params['user_id']
