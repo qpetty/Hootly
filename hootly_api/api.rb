@@ -2,11 +2,18 @@
 
 require 'rubygems'
 require 'sinatra'
+require './helpers'
 require 'mysql2'
 require 'json'
 require 'apns'
 
 class Hootly_API < Sinatra::Base
+
+   helpers do
+      include Sinatra::ParameterCheck
+      include Sinatra::ParameterEscape
+   end
+
 	client = Mysql2::Client.new(:host => "localhost", :username => "root", :password => ENV["HOOTLY_DB_PASSWORD"], :database => "hootly")
         APNS.pem = 'push_certs/ck.pem'
         APNS.pass = 'LorraineCucumber42'
@@ -25,6 +32,12 @@ class Hootly_API < Sinatra::Base
 	end
 
    post '/newtoken' do
+      parameters = ['token', 'user_id']
+      error = check_params(parameters)
+      if !error.empty?
+         return error
+      end
+
       token = params['token']
       user_id = params['user_id']
       user_id = client.escape(user_id)
@@ -45,9 +58,18 @@ class Hootly_API < Sinatra::Base
    end
 
 	get '/hootloot' do
+
+      parameters = ['user_id']
+      error = check_params(parameters)
+      if !error.empty?
+         return error
+      end
+
+      escape_parameters = ['user_id']
+      escape_params(escape_parameters, client)
+
 	   data = {}
 	   user_id = params['user_id']
-	   user_id = client.escape(user_id)
 	   hootloot = client.query("SELECT hootloot FROM Users where id = '#{user_id}'")
 	   if hootloot.first
 	      data['hootloot'] = hootloot.first['hootloot']
@@ -56,6 +78,12 @@ class Hootly_API < Sinatra::Base
 	end
 
 	get '/myhoots' do
+      parameters = ['user_id']
+      error = check_params(parameters)
+      if !error.empty?
+         return error
+      end
+
 	   user_id = params['user_id']
 	   user_id = client.escape(user_id)
 	   comments = client.query("SELECT post_id FROM Comments WHERE user_id = '#{user_id}'")
@@ -127,6 +155,12 @@ class Hootly_API < Sinatra::Base
 	end
 
 	get '/hoots' do
+      parameters = ['lat', 'long', 'user_id']
+      error = check_params(parameters)
+      if !error.empty?
+         return error
+      end
+
 	   lat = params['lat']
 	   long = params['long']
 	   user_id = params['user_id']
@@ -177,38 +211,21 @@ class Hootly_API < Sinatra::Base
 	# post info
 	# userid, an image, a hoot_text
 	post '/hoots' do
-      error = ""
+      parameters = ['user_id', 'hoot_text', 'lat', 'long']
+      error = check_params(parameters)
+      if !error.empty?
+         return ["error" => error].to_json
+      end
+
 	   user_id = params["user_id"]
 	   hoot_text = params['hoot_text']
 	   timestamp = Time.now.to_i
 	   lat = params["lat"]
 	   long = params["long"]
 
-      if user_id.nil?
-         error = error + "User id is nil. "
-      end
-      if hoot_text.nil?
-         error = error + "Hoot text is nil. "
-      end
-      if timestamp.nil?
-         error = error + "Timestamp is nil. "
-      end
-      if lat.nil?
-         error = error + "Latitude is nil. "
-      end
-      if long.nil?
-         error = error + "Longitude is nil. "
-      end
-      if params['image'].nil?
-         error = error + "Image is nil. "
-      end
 
-      if !error.empty?
-         return ["error" => error].to_json
-      end
-
-           device_token = '987cb0a6d68138d3e06188c99c1ea60c5cbed40650d7cc4d8d8cfee2dd338d2b'
-           APNS.send_notification(device_token, 'A hoot has been posted')
+      device_token = '987cb0a6d68138d3e06188c99c1ea60c5cbed40650d7cc4d8d8cfee2dd338d2b'
+      APNS.send_notification(device_token, 'A hoot has been posted')
 
 	   user_id = client.escape(user_id)
 	   hoot_text = client.escape(hoot_text)
@@ -230,6 +247,12 @@ class Hootly_API < Sinatra::Base
 	end
 
 	post '/hootsup' do
+      parameters = ['post_id', 'user_id']
+      error = check_params(parameters)
+      if !error.empty?
+         return error
+      end
+
 	   post_id = params['post_id']
 	   user_id = params['user_id']
 	   post_id = client.escape(post_id)
@@ -242,6 +265,12 @@ class Hootly_API < Sinatra::Base
 	end
 
 	post '/hootsdown' do
+      parameters = ['post_id', 'user_id']
+      error = check_params(parameters)
+      if !error.empty?
+         return error
+      end
+
 	   post_id = params['post_id']
 	   user_id = params['user_id']
 	   post_id = client.escape(post_id)
@@ -261,6 +290,12 @@ class Hootly_API < Sinatra::Base
 	# example usage
 	# /comments?postid=1&user_id=1
 	get '/comments' do
+      parameters = ['post_id', 'user_id']
+      error = check_params(parameters)
+      if !error.empty?
+         return error
+      end
+
 	   comments_return = []
 	   post_id = params['post_id']
 	   post_id = client.escape(post_id)
@@ -291,6 +326,12 @@ class Hootly_API < Sinatra::Base
 	end
 
 	post '/comments' do
+      parameters = ['post_id', 'text', 'user_id']
+      error = check_params(parameters)
+      if !error.empty?
+         return error
+      end
+
 	   post_id = params['post_id']
 	   text = params['text']
 	   user_id = params['user_id']
@@ -306,6 +347,12 @@ class Hootly_API < Sinatra::Base
 	end
 
 	post '/commentsup' do
+      parameters = ['comment_id', 'user_id']
+      error = check_params(parameters)
+      if !error.empty?
+         return error
+      end
+
 	   comment_id = params['comment_id']
 	   user_id = params['user_id']
 	   comment_id = client.escape(comment_id)
@@ -319,6 +366,12 @@ class Hootly_API < Sinatra::Base
 	end
 
 	post '/commentsdown' do
+      parameters = ['comment_id', 'user_id']
+      error = check_params(parameters)
+      if !error.empty?
+         return error
+      end
+
 	   comment_id = params['comment_id']
 	   user_id = params['user_id']
 	   comment_id = client.escape(comment_id)
@@ -336,6 +389,12 @@ class Hootly_API < Sinatra::Base
 	end
 
 	delete '/hoot' do
+      parameters = ['post_id']
+      error = check_params(parameters)
+      if !error.empty?
+         return error
+      end
+
 	   post_id = params['post_id']
 	   post_id = client.escape(post_id)
 
