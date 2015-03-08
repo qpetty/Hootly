@@ -102,10 +102,10 @@ class Hootly_API < Sinatra::Base
 	      user_upvote = client.query("select sum(vote) as votes from Hoots_Upvotes where hoot_id = #{id} and user_id = '#{user_id}'")
 	      user_downvote = client.query("select sum(vote) as votes from Hoots_Downvotes where hoot_id = #{id} and user_id = '#{user_id}'")
 	      if !user_upvote.first['votes'].nil?
-		 vote_dir = 1
+		      vote_dir = 1
 	      end
 	      if !user_downvote.first['votes'].nil?
-		 vote_dir = -1
+		      vote_dir = -1
 	      end
 
 	      cur_post["requester_vote"] = vote_dir
@@ -352,10 +352,11 @@ class Hootly_API < Sinatra::Base
          return error
       end
 
+      escape_parameters = ['comment_id', 'user_id']
+      escape_params(escape_parameters, client)
+
 	   comment_id = params['comment_id']
 	   user_id = params['user_id']
-	   comment_id = client.escape(comment_id)
-	   user_id = client.escape(user_id)
 
 	   client.query("INSERT INTO Comments_Upvotes (comment_id, user_id) VALUES (#{comment_id}, '#{user_id}')")
 	   client.query("UPDATE Comments SET hootloot = hootloot + 1 WHERE id = #{comment_id}")
@@ -363,6 +364,8 @@ class Hootly_API < Sinatra::Base
 
 	   poster_id = client.query("SELECT * FROM Comments WHERE id = #{comment_id}").first['user_id']
 	   client.query("UPDATE Users SET hootloot = hootloot + 2 WHERE id = '#{poster_id}'")
+
+      comment_vote_activity(comment_id, client)
 	end
 
 	post '/commentsdown' do
@@ -372,10 +375,11 @@ class Hootly_API < Sinatra::Base
          return error
       end
 
+      escape_parameters = ['comment_id', 'user_id']
+      escape_params(escape_parameters, client)
+
 	   comment_id = params['comment_id']
 	   user_id = params['user_id']
-	   comment_id = client.escape(comment_id)
-	   user_id = client.escape(user_id)
 
 	   client.query("INSERT INTO Comments_Downvotes (comment_id, user_id) VALUES (#{comment_id}, '#{user_id}')")
 	   client.query("UPDATE Comments SET hootloot = hootloot - 1 WHERE id = #{comment_id}")
@@ -387,6 +391,8 @@ class Hootly_API < Sinatra::Base
 	   if comment_hootloot <= -5
 	      client.query("UPDATE Comments SET active = false WHERE id = #{comment_id}")
 	   end
+
+      comment_vote_activity(comment_id, client)
 	end
 
 	delete '/hoot' do

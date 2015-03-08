@@ -69,7 +69,25 @@ module Sinatra
          client.query("UPDATE Users SET last_notification = #{Time.now.to_i} WHERE id = '#{user['id']}'")
       end
 
-      def comment_vote_activity(comment_id, poster_id, client)
+      def comment_vote_activity(comment_id, client)
+         comment = client.query("SELECT * FROM Comments WHERE id = '#{comment_id}'").first
+         user = client.query("SELECT * FROM Users WHERE id = '#{comment['user_id']}'").first
+
+         return if user.nil?
+
+         device_token = user['device_token']
+         return if device_token.nil?
+
+         last_notification = user['last_notification']
+         last_notification = 0 if last_notification.nil?
+         return if Time.now.to_i - last_notification <= NOTIFICATION_THRESHOLD
+
+         person_people = 'person has'
+         person_people = 'people have' if comment['votes'] > 1
+
+         alert = "#{hoot['votes']} #{person_people} voted on your Comment"
+         APNS.send_notification(device_token, :alert => alert, :sound => SOUND, :other => {:hoot_id => comment['post_id']})
+         client.query("UPDATE Users SET last_notification = #{Time.now.to_i} WHERE id = '#{user['id']}'")
       end
 
       def reply_activity(post_id, user_id, client)
