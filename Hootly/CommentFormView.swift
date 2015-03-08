@@ -14,9 +14,9 @@ protocol CommentFormProtocol: class {
     func exitWithoutComment()
 }
 
-class CommentFormView: UIView, UITextViewDelegate {
-    var nibView: UIView?
-    var active: Bool
+@IBDesignable
+class CommentFormView: NibDesignable, UITextViewDelegate {
+    var active = false
     
     private let characterLimit = 140
     
@@ -25,30 +25,29 @@ class CommentFormView: UIView, UITextViewDelegate {
     @IBOutlet weak var statusSizeToRightEdge: NSLayoutConstraint!
     weak var delegate: CommentFormProtocol?
     
-    required init(coder aDecoder: NSCoder) {
-        active = false
-        super.init(coder: aDecoder)
-        loadNib()
+    @IBInspectable var borderColor: UIColor = UIColor(red: 127/255, green: 168/255, blue: 215/255, alpha: 1.0) {
+        didSet {
+            submitButton.layer.backgroundColor = borderColor.CGColor
+        }
     }
     
-    override init(frame: CGRect) {
-        active = false
-        super.init(frame: frame)
-        loadNib()
+    @IBInspectable var cornerRadius: CGFloat = 4.0 {
+        didSet {
+            submitButton.layer.cornerRadius = cornerRadius
+            submitButton.layer.masksToBounds = cornerRadius > 0
+        }
     }
     
-    func loadNib() {
-        nibView = NSBundle.mainBundle().loadNibNamed("CommentFormView", owner: self, options: nil)[0] as? UIView
-        self.addSubview(nibView!)
-        textField.placeholder = "Hoot your Hoot!";
-
-        submitButton.layer.backgroundColor = UIColor(red: 127/255, green: 168/255, blue: 215/255, alpha: 1.0).CGColor
-        submitButton.layer.cornerRadius = 4.0
-        status = NSMakeRange(0, 100)
+    @IBInspectable var placeholderText: String = "Hoot your Hoot!"{
+        didSet {
+            textField.placeholder = placeholderText
+        }
     }
     
-    override func layoutSubviews() {
-        nibView!.frame = self.bounds
+    @IBInspectable var initialStatus: Int = 0 {
+        didSet {
+            status = NSMakeRange(initialStatus, 100)
+        }
     }
     
     var status: NSRange {
