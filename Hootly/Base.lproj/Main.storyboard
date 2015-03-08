@@ -138,6 +138,71 @@
             </objects>
             <point key="canvasLocation" x="-363.5" y="1164.5"/>
         </scene>
+        <!--Profile View Controller-->
+        <scene sceneID="Zcw-gP-Bo2">
+            <objects>
+                <tableViewController id="JXb-hh-STh" customClass="ProfileViewController" customModule="Hootly" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="pic-vf-IIb">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="Hoot" selectionStyle="none" indentationWidth="10" reuseIdentifier="Hoot" rowHeight="460" id="CGo-Vt-L4j" customClass="HootCell" customModule="Hootly" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CGo-Vt-L4j" id="s4K-Bj-8W6">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dzu-vy-DKE">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="dzu-vy-DKE" secondAttribute="height" multiplier="1:1" id="Dnv-K7-wJX"/>
+                                            </constraints>
+                                        </imageView>
+                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="md9-we-dTb">
+                                            <rect key="frame" x="289.5" y="290.5" width="20" height="20"/>
+                                        </activityIndicatorView>
+                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eul-Yq-CLs" userLabel="Comment" customClass="CommentView" customModule="Hootly" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="600" width="600" height="80"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="eul-Yq-CLs" firstAttribute="top" secondItem="dzu-vy-DKE" secondAttribute="top" constant="338" id="BbY-PR-DxU"/>
+                                        <constraint firstItem="dzu-vy-DKE" firstAttribute="centerX" secondItem="md9-we-dTb" secondAttribute="centerX" id="Gds-I4-gFz"/>
+                                        <constraint firstItem="eul-Yq-CLs" firstAttribute="leading" secondItem="s4K-Bj-8W6" secondAttribute="leading" id="KVo-xR-2Al"/>
+                                        <constraint firstAttribute="bottom" secondItem="eul-Yq-CLs" secondAttribute="bottom" id="Oj1-Mo-qaa"/>
+                                        <constraint firstItem="dzu-vy-DKE" firstAttribute="leading" secondItem="s4K-Bj-8W6" secondAttribute="leading" id="pJN-6A-u96"/>
+                                        <constraint firstAttribute="trailing" secondItem="eul-Yq-CLs" secondAttribute="trailing" id="rdi-uQ-dwr"/>
+                                        <constraint firstAttribute="trailing" secondItem="dzu-vy-DKE" secondAttribute="trailing" id="sib-qx-IIo"/>
+                                        <constraint firstItem="dzu-vy-DKE" firstAttribute="top" secondItem="s4K-Bj-8W6" secondAttribute="top" id="tal-ri-0f2"/>
+                                        <constraint firstItem="eul-Yq-CLs" firstAttribute="top" secondItem="dzu-vy-DKE" secondAttribute="bottom" id="w3a-a1-Zzq"/>
+                                        <constraint firstItem="dzu-vy-DKE" firstAttribute="centerY" secondItem="md9-we-dTb" secondAttribute="centerY" id="xer-eS-cZs"/>
+                                    </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="BbY-PR-DxU"/>
+                                        </mask>
+                                    </variation>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="activityIndicator" destination="md9-we-dTb" id="3pZ-K4-7uu"/>
+                                    <outlet property="commentView" destination="eul-Yq-CLs" id="2X3-mV-Hnl"/>
+                                    <outlet property="photo" destination="dzu-vy-DKE" id="N6u-41-7fB"/>
+                                    <segue destination="bVX-S0-grA" kind="show" identifier="ProfileDetailHoot" id="YN5-DH-Tl0"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="JXb-hh-STh" id="jSF-UP-dwK"/>
+                            <outlet property="delegate" destination="JXb-hh-STh" id="jKg-Pm-4BQ"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="msS-h3-34r" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1007" y="1189"/>
+        </scene>
         <!--New Hoot View Controller-->
         <scene sceneID="GKD-Uk-uXU">
             <objects>
@@ -194,7 +259,7 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholderText" value="Hoot your Hoot!"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ly1-SZ-bbR" userLabel="Keyboard View">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ly1-SZ-bbR" userLabel="Keyboard View">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" id="1Om-5c-Xdp"/>
@@ -227,7 +292,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4ZY-pH-xh1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="242.5" y="-436.5"/>
+            <point key="canvasLocation" x="574" y="-753"/>
         </scene>
         <!--Image Picker Controller-->
         <scene sceneID="dSj-ge-iOk">
@@ -256,7 +321,7 @@
                         <viewControllerLayoutGuide type="bottom" id="T7b-7o-R7V"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="EL9-fv-4C7">
-                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9T9-um-Onb">
@@ -400,16 +465,16 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="J6f-xL-Wi0" id="8dc-XR-19J">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TAz-Xu-Ciz">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TAz-Xu-Ciz">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="TAz-Xu-Ciz" secondAttribute="height" multiplier="1:1" id="o9p-rF-OUX"/>
                                             </constraints>
                                         </imageView>
-                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="wVA-65-xHY">
+                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="wVA-65-xHY">
                                             <rect key="frame" x="289.5" y="290.5" width="20" height="20"/>
                                         </activityIndicatorView>
-                                        <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Ye-gz-p7r" userLabel="Comment" customClass="CommentView" customModule="Hootly" customModuleProvider="target">
+                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Ye-gz-p7r" userLabel="Comment" customClass="CommentView" customModule="Hootly" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="600" width="600" height="80"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
@@ -447,6 +512,11 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="dqf-GY-UHj">
                         <nil key="title"/>
+                        <barButtonItem key="leftBarButtonItem" title="Profile" id="J7N-nI-2sS">
+                            <connections>
+                                <segue destination="JXb-hh-STh" kind="show" identifier="ProfileView" id="xVj-pM-l79"/>
+                            </connections>
+                        </barButtonItem>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="aUS-28-uTg">
                             <rect key="frame" x="210" y="7" width="180" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -476,5 +546,8 @@
         <image name="Flag" width="25" height="25"/>
         <image name="HootlyIcon" width="60" height="60"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="YN5-DH-Tl0"/>
+    </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

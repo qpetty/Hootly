@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5A2699871AACEC5D0018D393 /* NibDesignable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2699861AACEC5D0018D393 /* NibDesignable.swift */; };
+		5A2699891AAD0ED00018D393 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2699881AAD0ED00018D393 /* ProfileViewController.swift */; };
 		5A37D18A1A7D9170006AAC65 /* SingleHootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A37D1891A7D9170006AAC65 /* SingleHootViewController.swift */; };
 		5A37D1931A7DD60D006AAC65 /* CommentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A37D1921A7DD60D006AAC65 /* CommentView.xib */; };
 		5A37D1951A7DD7EB006AAC65 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A37D1941A7DD7EB006AAC65 /* CommentView.swift */; };
@@ -45,6 +46,7 @@
 
 /* Begin PBXFileReference section */
 		5A2699861AACEC5D0018D393 /* NibDesignable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NibDesignable.swift; sourceTree = "<group>"; };
+		5A2699881AAD0ED00018D393 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		5A37D1891A7D9170006AAC65 /* SingleHootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleHootViewController.swift; sourceTree = "<group>"; };
 		5A37D1921A7DD60D006AAC65 /* CommentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentView.xib; sourceTree = "<group>"; };
 		5A37D1941A7DD7EB006AAC65 /* CommentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 			children = (
 				5A94E2FA1A74940300CA1CB8 /* AppDelegate.swift */,
 				5A94E2FC1A74940300CA1CB8 /* ViewController.swift */,
+				5A2699881AAD0ED00018D393 /* ProfileViewController.swift */,
 				5A9768691A88086E00229E7E /* NewHootViewController.swift */,
 				5A37D1891A7D9170006AAC65 /* SingleHootViewController.swift */,
 				5A94E31C1A749F6600CA1CB8 /* HootCell.swift */,
@@ -306,6 +309,7 @@
 				5A94E2FD1A74940300CA1CB8 /* ViewController.swift in Sources */,
 				5A9768701A88262D00229E7E /* CommentFormView.swift in Sources */,
 				5A61AB201A900E6400B06495 /* Hootly.xcdatamodeld in Sources */,
+				5A2699891AAD0ED00018D393 /* ProfileViewController.swift in Sources */,
 				5ADAE5C61AA43B3C00BC4449 /* HootComment.swift in Sources */,
 				5A37D18A1A7D9170006AAC65 /* SingleHootViewController.swift in Sources */,
 				5AAFBE161A9446D5009003B9 /* Hoot+ImageForTableView.swift in Sources */,
