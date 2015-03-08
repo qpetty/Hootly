@@ -27,6 +27,7 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
     @IBOutlet weak var formHeight: NSLayoutConstraint!
     
     let CELL_HEIGHT = 80.0 as Double
+    var keyboardOnScreen = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +48,9 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
         managedObjectContext = appDelegate.managedObjectContext
         
         commentForm.delegate = self
+        
+        let rec = UITapGestureRecognizer(target: self, action: "tableViewTapped:")
+        commentTable.addGestureRecognizer(rec)
         
         fetchResultsFromCoreData()
     }
@@ -83,6 +87,7 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
                 self.view.layoutIfNeeded()
                 self.scrollTableViewToBottom()
             })
+            keyboardOnScreen = true
         }
     }
     
@@ -96,6 +101,13 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
                 self.view.layoutIfNeeded()
                 self.scrollTableViewToBottom()
             })
+            keyboardOnScreen = false
+        }
+    }
+    
+    func tableViewTapped(sender: UITapGestureRecognizer) {
+        if keyboardOnScreen == true {
+            exitWithoutComment()
         }
     }
     
