@@ -38,22 +38,11 @@ class Hootly_API < Sinatra::Base
       if !error.empty?
          return error
       end
+      escape_parameters = ['token', 'user_id']
+      escape_params(escape_parameters, client)
 
       token = params['token']
       user_id = params['user_id']
-      user_id = client.escape(user_id)
-      token = client.escape(token)
-
-      error = ""
-      if token.nil?
-         error = error + "Token is nil. "
-      end
-      if user_id.nil?
-         error = error + "User ID is nil. "
-      end
-      if !error.empty?
-         return [error].to_json
-      end
 
       client.query("UPDATE Users SET device_token = '#{token}' WHERE id = '#{user_id}'")
    end
@@ -113,10 +102,10 @@ class Hootly_API < Sinatra::Base
 	      user_upvote = client.query("select sum(vote) as votes from Hoots_Upvotes where hoot_id = #{id} and user_id = '#{user_id}'")
 	      user_downvote = client.query("select sum(vote) as votes from Hoots_Downvotes where hoot_id = #{id} and user_id = '#{user_id}'")
 	      if !user_upvote.first['votes'].nil?
-		 vote_dir = 1
+		      vote_dir = 1
 	      end
 	      if !user_downvote.first['votes'].nil?
-		 vote_dir = -1
+		      vote_dir = -1
 	      end
 
 	      cur_post["requester_vote"] = vote_dir
@@ -249,7 +238,7 @@ class Hootly_API < Sinatra::Base
 
 	post '/hootsup' do
       parameters = ['post_id', 'user_id']
-      error = check_params(parameters, client)
+      error = check_params(parameters)
       if !error.empty?
          return error
       end
@@ -353,7 +342,9 @@ class Hootly_API < Sinatra::Base
 	   timestamp = Time.now.to_i
 
 	   client.query("INSERT INTO Comments (user_id, post_id, comment_text, timestamp) VALUES ('#{user_id}', #{post_id}, '#{text}', #{timestamp})")
-	   ["success"].to_json
+
+      reply_activity(post_id, client)
+      ["success"].to_json
 	end
 
 	post '/commentsup' do
@@ -363,10 +354,11 @@ class Hootly_API < Sinatra::Base
          return error
       end
 
+      escape_parameters = ['comment_id', 'user_id']
+      escape_params(escape_parameters, client)
+
 	   comment_id = params['comment_id']
 	   user_id = params['user_id']
-	   comment_id = client.escape(comment_id)
-	   user_id = client.escape(user_id)
 
 	   client.query("INSERT INTO Comments_Upvotes (comment_id, user_id) VALUES (#{comment_id}, '#{user_id}')")
 	   client.query("UPDATE Comments SET hootloot = hootloot + 1 WHERE id = #{comment_id}")
@@ -374,6 +366,8 @@ class Hootly_API < Sinatra::Base
 
 	   poster_id = client.query("SELECT * FROM Comments WHERE id = #{comment_id}").first['user_id']
 	   client.query("UPDATE Users SET hootloot = hootloot + 2 WHERE id = '#{poster_id}'")
+
+      comment_vote_activity(comment_id, client)
 	end
 
 	post '/commentsdown' do
@@ -383,10 +377,11 @@ class Hootly_API < Sinatra::Base
          return error
       end
 
+      escape_parameters = ['comment_id', 'user_id']
+      escape_params(escape_parameters, client)
+
 	   comment_id = params['comment_id']
 	   user_id = params['user_id']
-	   comment_id = client.escape(comment_id)
-	   user_id = client.escape(user_id)
 
 	   client.query("INSERT INTO Comments_Downvotes (comment_id, user_id) VALUES (#{comment_id}, '#{user_id}')")
 	   client.query("UPDATE Comments SET hootloot = hootloot - 1 WHERE id = #{comment_id}")
@@ -398,6 +393,8 @@ class Hootly_API < Sinatra::Base
 	   if comment_hootloot <= -5
 	      client.query("UPDATE Comments SET active = false WHERE id = #{comment_id}")
 	   end
+
+      comment_vote_activity(comment_id, client)
 	end
 
 	delete '/hoot' do
