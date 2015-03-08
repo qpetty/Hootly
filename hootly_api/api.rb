@@ -38,22 +38,11 @@ class Hootly_API < Sinatra::Base
       if !error.empty?
          return error
       end
+      escape_parameters = ['token', 'user_id']
+      escape_params(escape_parameters, client)
 
       token = params['token']
       user_id = params['user_id']
-      user_id = client.escape(user_id)
-      token = client.escape(token)
-
-      error = ""
-      if token.nil?
-         error = error + "Token is nil. "
-      end
-      if user_id.nil?
-         error = error + "User ID is nil. "
-      end
-      if !error.empty?
-         return [error].to_json
-      end
 
       client.query("UPDATE Users SET device_token = '#{token}' WHERE id = '#{user_id}'")
    end
@@ -249,7 +238,7 @@ class Hootly_API < Sinatra::Base
 
 	post '/hootsup' do
       parameters = ['post_id', 'user_id']
-      error = check_params(parameters, client)
+      error = check_params(parameters)
       if !error.empty?
          return error
       end

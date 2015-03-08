@@ -47,8 +47,10 @@ module Sinatra
       APNS.pem = 'push_certs/ck.pem'
       APNS.pass = 'LorraineCucumber42'
       def hoot_vote_activity(post_id, client)
-         hoot = client.query("SELECT * FROM Hoots WHERE id = '#{hoot_id}'").first
+         hoot = client.query("SELECT * FROM Hoots WHERE id = '#{post_id}'").first
          user = client.query("SELECT * FROM Users WHERE id = '#{hoot['user_id']}'").first
+
+         return if user.nil?
 
          device_token = user['device_token']
          return if device_token.nil?

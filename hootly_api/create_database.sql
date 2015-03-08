@@ -4,8 +4,8 @@ use hootly;
 CREATE TABLE Users (
    id CHAR(42) NOT NULL PRIMARY KEY,
    hootloot INT NOT NULL DEFAULT 100,
-   last_notifcation INT(11),
-   device_token VARCHAR
+   last_notification INT(11) NOT NULL DEFAULT 0,
+   device_token VARCHAR(64)
 );
 
 
