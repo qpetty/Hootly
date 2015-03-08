@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A2699871AACEC5D0018D393 /* NibDesignable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2699861AACEC5D0018D393 /* NibDesignable.swift */; };
 		5A37D18A1A7D9170006AAC65 /* SingleHootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A37D1891A7D9170006AAC65 /* SingleHootViewController.swift */; };
 		5A37D1931A7DD60D006AAC65 /* CommentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A37D1921A7DD60D006AAC65 /* CommentView.xib */; };
 		5A37D1951A7DD7EB006AAC65 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A37D1941A7DD7EB006AAC65 /* CommentView.swift */; };
@@ -43,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5A2699861AACEC5D0018D393 /* NibDesignable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NibDesignable.swift; sourceTree = "<group>"; };
 		5A37D1891A7D9170006AAC65 /* SingleHootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleHootViewController.swift; sourceTree = "<group>"; };
 		5A37D1921A7DD60D006AAC65 /* CommentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentView.xib; sourceTree = "<group>"; };
 		5A37D1941A7DD7EB006AAC65 /* CommentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
@@ -94,6 +96,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5A2699811AACE97E0018D393 /* Nib Rendering */ = {
+			isa = PBXGroup;
+			children = (
+				5A2699861AACEC5D0018D393 /* NibDesignable.swift */,
+			);
+			name = "Nib Rendering";
+			sourceTree = "<group>";
+		};
 		5A61AB1D1A900D3400B06495 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -136,6 +146,7 @@
 				5A37D1921A7DD60D006AAC65 /* CommentView.xib */,
 				5A97686F1A88262D00229E7E /* CommentFormView.swift */,
 				D12280BD1A87F2F100CDDFB8 /* CommentFormView.xib */,
+				5A2699811AACE97E0018D393 /* Nib Rendering */,
 				5A9768751A88493000229E7E /* Outside Code */,
 				5A82480F1A92B4630055E334 /* HootAPIToCoreData.swift */,
 				5A61AB1E1A900E6400B06495 /* Hootly.xcdatamodeld */,
@@ -300,6 +311,7 @@
 				5AAFBE161A9446D5009003B9 /* Hoot+ImageForTableView.swift in Sources */,
 				5A9768741A88492B00229E7E /* SZTextView.m in Sources */,
 				5ADAE5C81AA43DF200BC4449 /* Hoot.swift in Sources */,
+				5A2699871AACEC5D0018D393 /* NibDesignable.swift in Sources */,
 				5A97686A1A88086E00229E7E /* NewHootViewController.swift in Sources */,
 				5A94E2FB1A74940300CA1CB8 /* AppDelegate.swift in Sources */,
 				D1839CBB1A9192FA00C87B19 /* LocationPrompt.swift in Sources */,

@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class CommentView: UIView {
+class CommentView: NibDesignable {
     var nibView: UIView?
     var hoot: Hoot?
     var hootComment: HootComment?
@@ -80,25 +80,6 @@ class CommentView: UIView {
                     self.hootComment!.score = self.hootComment!.score.integerValue - 1
                 }
             }, nil)
-    }
-    
-    required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        loadNib()
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        loadNib()
-    }
-    
-    func loadNib() {
-        nibView = NSBundle.mainBundle().loadNibNamed("CommentView", owner: self, options: nil)[0] as? UIView
-        self.addSubview(nibView!)
-    }
-    
-    override func layoutSubviews() {
-        nibView!.frame = self.bounds
     }
     
     func showReplies(show: Bool) {
