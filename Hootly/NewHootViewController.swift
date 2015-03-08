@@ -36,15 +36,7 @@ class NewHootViewController: UIViewController, CommentFormProtocol, NSURLConnect
     }
     
     func commentToSubmit(comment: String) {
-        
-        HootAPIToCoreData.postHoot(image!, comment: comment) { (success) -> (Void) in
-            if(success) {
-                self.dismissViewControllerAnimated(true, completion: nil)
-            } else {
-                NSLog("couldnt submit this hoot")
-            }
-        }
-        
+        HootAPIToCoreData.postHoot(image!, comment: comment, delegate: self)
     }
     
     func exitWithoutComment() {
@@ -70,7 +62,7 @@ class NewHootViewController: UIViewController, CommentFormProtocol, NSURLConnect
     }
     
     func connection(connection: NSURLConnection, didFailWithError error: NSError) {
-        println("couldnt submit this hoot")
+        NSLog("couldnt submit this hoot")
     }
     
     func connection(connection: NSURLConnection, didSendBodyData bytesWritten: Int, totalBytesWritten: Int, totalBytesExpectedToWrite: Int) {

@@ -116,17 +116,7 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
     }
     
     func commentToSubmit(comment: String) {
-        
-        HootAPIToCoreData.postComment(comment, hootID: hoot!.id.integerValue) { (success) -> (Void) in
-            if(success) {
-                HootAPIToCoreData.fetchCommentsForHoot(self.hoot, completed: { (success) -> (Void) in
-                    NSLog("new comment so maybe scroll to bottom here after animation")
-                })
-                self.commentForm.textField.resignFirstResponder()
-            } else {
-                NSLog("failure")
-            }
-        }
+        HootAPIToCoreData.postComment(comment, hootID: hoot!.id.integerValue, delegate: self)
     }
     
     func exitWithoutComment() {
@@ -168,7 +158,7 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
     }
     
     func connection(connection: NSURLConnection, didFailWithError error: NSError) {
-        println("failure submitting comment")
+        NSLog("failure submitting comment")
     }
     
     func connection(connection: NSURLConnection, didSendBodyData bytesWritten: Int, totalBytesWritten: Int, totalBytesExpectedToWrite: Int) {
