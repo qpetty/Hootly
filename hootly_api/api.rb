@@ -163,7 +163,7 @@ class Hootly_API < Sinatra::Base
       end
 
       escape_parameters = ['lat', 'long', 'user_id']
-      escape_params(escape_parameters)
+      escape_params(escape_parameters, client)
 
 	   lat = params['lat']
 	   long = params['long']
@@ -244,7 +244,7 @@ class Hootly_API < Sinatra::Base
 	   end
 
 	   client.query("INSERT INTO Hoots (user_id, hoot_text, timestamp, image_path, latitude, longitude) VALUES ( '#{user_id}', '#{hoot_text}', #{timestamp}, '#{imagepath}', #{lat}, #{long} )")
-           ["sucess"].to_json
+           ["success"].to_json
 	end
 
 	post '/hootsup' do
@@ -261,8 +261,11 @@ class Hootly_API < Sinatra::Base
 
 	   client.query("INSERT INTO Hoots_Upvotes (hoot_id, user_id) VALUES (#{post_id}, '#{user_id}')")
 	   client.query("UPDATE Hoots SET hootloot = hootloot + 1 WHERE id = #{post_id}")
+	   client.query("UPDATE Hoots SET votes = votes + 1 WHERE id = #{post_id}")
 	   poster_id = client.query("SELECT * FROM Hoots WHERE id = #{post_id}").first['user_id']
 	   client.query("UPDATE Users SET hootloot = hootloot + 2 WHERE id = '#{poster_id}'")
+
+      hoot_vote_activity(post_id, client)
 	end
 
 	post '/hootsdown' do
@@ -282,6 +285,7 @@ class Hootly_API < Sinatra::Base
 
 	   client.query("INSERT INTO Hoots_Downvotes (hoot_id, user_id) VALUES (#{post_id}, '#{user_id}')")
 	   client.query("UPDATE Hoots SET hootloot = hootloot - 1 WHERE id = #{post_id}")
+	   client.query("UPDATE Hoots SET votes = votes - 1 WHERE id = #{post_id}")
 	   poster_id = client.query("SELECT * FROM Hoots WHERE id = #{post_id}").first['user_id']
 	   client.query("UPDATE Users SET hootloot = hootloot - 1 WHERE id = '#{poster_id}'")
 
@@ -289,6 +293,8 @@ class Hootly_API < Sinatra::Base
 	   if hoot_hootloot <= -5
 	      client.query("UPDATE Hoots SET active = false WHERE id = #{post_id}")
 	   end
+
+      hoot_vote_activity(post_id, client)
 	end
 
 	# example usage
@@ -347,7 +353,7 @@ class Hootly_API < Sinatra::Base
 	   timestamp = Time.now.to_i
 
 	   client.query("INSERT INTO Comments (user_id, post_id, comment_text, timestamp) VALUES ('#{user_id}', #{post_id}, '#{text}', #{timestamp})")
-	   "success"
+	   ["success"].to_json
 	end
 
 	post '/commentsup' do
@@ -364,6 +370,7 @@ class Hootly_API < Sinatra::Base
 
 	   client.query("INSERT INTO Comments_Upvotes (comment_id, user_id) VALUES (#{comment_id}, '#{user_id}')")
 	   client.query("UPDATE Comments SET hootloot = hootloot + 1 WHERE id = #{comment_id}")
+	   client.query("UPDATE Comments SET votes = votes + 1 WHERE id = #{comment_id}")
 
 	   poster_id = client.query("SELECT * FROM Comments WHERE id = #{comment_id}").first['user_id']
 	   client.query("UPDATE Users SET hootloot = hootloot + 2 WHERE id = '#{poster_id}'")
@@ -383,6 +390,7 @@ class Hootly_API < Sinatra::Base
 
 	   client.query("INSERT INTO Comments_Downvotes (comment_id, user_id) VALUES (#{comment_id}, '#{user_id}')")
 	   client.query("UPDATE Comments SET hootloot = hootloot - 1 WHERE id = #{comment_id}")
+	   client.query("UPDATE Comments SET votes = votes + 1 WHERE id = #{comment_id}")
 	   poster_id = client.query("SELECT * FROM Comments WHERE id = #{comment_id}").first['user_id']
 	   client.query("UPDATE Users SET hootloot = hootloot - 1 WHERE id = '#{poster_id}'")
 

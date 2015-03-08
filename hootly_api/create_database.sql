@@ -4,6 +4,7 @@ use hootly;
 CREATE TABLE Users (
    id CHAR(42) NOT NULL PRIMARY KEY,
    hootloot INT NOT NULL DEFAULT 100,
+   last_notifcation INT(11),
    device_token VARCHAR
 );
 
@@ -14,6 +15,7 @@ CREATE TABLE Hoots (
    image_path TEXT NOT NULL,
    hoot_text CHAR(160) NOT NULL,
    hootloot INT NOT NULL DEFAULT 0,
+   votes INT NOT NULL DEFAULT 0,
    timestamp INT(11) NOT NULL,
    active BOOL NOT NULL DEFAULT 1,
    latitude FLOAT NOT NULL,
@@ -39,6 +41,7 @@ CREATE TABLE Comments (
    user_id CHAR(42) NOT NULL,
    post_id INT NOT NULL,
    hootloot INT NOT NULL DEFAULT 0,
+   votes INT NOT NULL DEFAULT 0,
    timestamp INT(11) NOT NULL,
    active BOOL DEFAULT 1,
    comment_text CHAR(160) NOT NULL
