@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class NewHootViewController: UIViewController, CommentFormProtocol {
+class NewHootViewController: UIViewController, CommentFormProtocol, NSURLConnectionDataDelegate {
     @IBOutlet weak var capturedImageView: UIImageView!
     @IBOutlet weak var commentForm: CommentFormView!
     @IBOutlet weak var keyboardHeight: NSLayoutConstraint!
@@ -61,5 +61,19 @@ class NewHootViewController: UIViewController, CommentFormProtocol {
                 self.view.layoutIfNeeded()
             })
         }
+    }
+    
+    // MARK: - NSURLConnectionDataDelegate Methods
+    
+    func connectionDidFinishLoading(connection: NSURLConnection) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func connection(connection: NSURLConnection, didFailWithError error: NSError) {
+        println("couldnt submit this hoot")
+    }
+    
+    func connection(connection: NSURLConnection, didSendBodyData bytesWritten: Int, totalBytesWritten: Int, totalBytesExpectedToWrite: Int) {
+        commentForm.status = NSMakeRange(totalBytesWritten, totalBytesExpectedToWrite)
     }
 }
