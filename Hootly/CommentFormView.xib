@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CommentFormView" customModule="Hootly" customModuleProvider="target">
             <connections>
+                <outlet property="statusSizeToRightEdge" destination="lmB-uz-9gg" id="xIb-Ji-lJ1"/>
                 <outlet property="submitButton" destination="Vzk-ga-r35" id="zBL-Iu-59N"/>
                 <outlet property="textField" destination="PKz-2d-U9P" id="urM-3j-6af"/>
             </connections>
@@ -15,6 +16,10 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="40"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V6A-Qe-kyI">
+                    <rect key="frame" x="0.0" y="0.0" width="450" height="40"/>
+                    <color key="backgroundColor" red="0.49803921568627452" green="0.6588235294117647" blue="0.84313725490196079" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </view>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="1000" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PKz-2d-U9P" customClass="SZTextView">
                     <rect key="frame" x="8" y="8" width="496" height="24"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -58,10 +63,14 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="PKz-2d-U9P" secondAttribute="bottom" constant="8" id="0FM-bz-JsD"/>
+                <constraint firstItem="V6A-Qe-kyI" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="AhE-OU-IHf"/>
                 <constraint firstAttribute="trailing" secondItem="Vzk-ga-r35" secondAttribute="trailing" constant="8" id="E1b-Bt-VMp"/>
+                <constraint firstItem="V6A-Qe-kyI" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="HKc-2i-EbN"/>
                 <constraint firstAttribute="centerY" secondItem="Vzk-ga-r35" secondAttribute="centerY" id="J0g-sA-oEs"/>
                 <constraint firstItem="Vzk-ga-r35" firstAttribute="leading" secondItem="PKz-2d-U9P" secondAttribute="trailing" constant="8" id="ZOk-Vh-l8I"/>
+                <constraint firstAttribute="bottom" secondItem="V6A-Qe-kyI" secondAttribute="bottom" id="dav-zz-LvX"/>
                 <constraint firstItem="PKz-2d-U9P" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="hG6-j9-ocx"/>
+                <constraint firstAttribute="trailing" secondItem="V6A-Qe-kyI" secondAttribute="trailing" constant="150" id="lmB-uz-9gg"/>
                 <constraint firstItem="PKz-2d-U9P" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="qTf-Wx-RnZ"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>

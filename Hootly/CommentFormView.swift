@@ -22,6 +22,7 @@ class CommentFormView: UIView, UITextViewDelegate {
     
     @IBOutlet weak var textField: SZTextView!
     @IBOutlet weak var submitButton: UIButton!
+    @IBOutlet weak var statusSizeToRightEdge: NSLayoutConstraint!
     weak var delegate: CommentFormProtocol?
     
     required init(coder aDecoder: NSCoder) {
@@ -43,10 +44,26 @@ class CommentFormView: UIView, UITextViewDelegate {
 
         submitButton.layer.backgroundColor = UIColor(red: 127/255, green: 168/255, blue: 215/255, alpha: 1.0).CGColor
         submitButton.layer.cornerRadius = 4.0
+        status = NSMakeRange(0, 100)
     }
     
     override func layoutSubviews() {
         nibView!.frame = self.bounds
+    }
+    
+    var status: NSRange {
+        get {
+            let length = frame.size.width
+            let filled = (length - statusSizeToRightEdge.constant) / length * 100
+            return NSMakeRange(Int(filled), 100)
+        }
+        set(newStatus) {
+            let status = (1.0 - (Float(newStatus.location) / Float(newStatus.length))) * Float(frame.size.width)
+            statusSizeToRightEdge.constant = CGFloat(status)
+            UIView.animateWithDuration(0.1, animations: { () -> Void in
+                self.layoutIfNeeded()
+            })
+        }
     }
     
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {

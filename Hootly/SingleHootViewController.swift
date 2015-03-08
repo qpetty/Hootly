@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import CoreData
 
-class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate, CommentFormProtocol {
+class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate, NSURLConnectionDataDelegate, CommentFormProtocol {
     var hoot: Hoot?
     var hootImage: UIImage?
     var fetchedResultsController: NSFetchedResultsController?
@@ -27,6 +27,7 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
     @IBOutlet weak var formHeight: NSLayoutConstraint!
     
     let CELL_HEIGHT = 80.0 as Double
+    var keyboardOnScreen = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +48,9 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
         managedObjectContext = appDelegate.managedObjectContext
         
         commentForm.delegate = self
+        
+        let rec = UITapGestureRecognizer(target: self, action: "tableViewTapped:")
+        commentTable.addGestureRecognizer(rec)
         
         fetchResultsFromCoreData()
     }
@@ -78,10 +82,12 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
             
             keyboardHeight.constant = keyboardFrame.height
             
+            commentForm.status = NSMakeRange(0, 100)
             UIView.animateWithDuration(0.1, animations: { () -> Void in
                 self.view.layoutIfNeeded()
                 self.scrollTableViewToBottom()
             })
+            keyboardOnScreen = true
         }
     }
     
@@ -95,6 +101,13 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
                 self.view.layoutIfNeeded()
                 self.scrollTableViewToBottom()
             })
+            keyboardOnScreen = false
+        }
+    }
+    
+    func tableViewTapped(sender: UITapGestureRecognizer) {
+        if keyboardOnScreen == true {
+            exitWithoutComment()
         }
     }
     
@@ -115,17 +128,7 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
     }
     
     func commentToSubmit(comment: String) {
-        
-        HootAPIToCoreData.postComment(comment, hootID: hoot!.id.integerValue) { (success) -> (Void) in
-            if(success) {
-                HootAPIToCoreData.fetchCommentsForHoot(self.hoot, completed: { (success) -> (Void) in
-                    NSLog("new comment so maybe scroll to bottom here after animation")
-                })
-                self.commentForm.textField.resignFirstResponder()
-            } else {
-                NSLog("failure")
-            }
-        }
+        HootAPIToCoreData.postComment(comment, hootID: hoot!.id.integerValue, delegate: self)
     }
     
     func exitWithoutComment() {
@@ -155,6 +158,23 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
         } else {
             return nil
         }
+    }
+    
+    // MARK: - NSURLConnectionDataDelegate Methods
+    
+    func connectionDidFinishLoading(connection: NSURLConnection) {
+        HootAPIToCoreData.fetchCommentsForHoot(self.hoot, completed: { (success) -> (Void) in
+            println("new comment so maybe scroll to bottom here after animation")
+        })
+        self.commentForm.textField.resignFirstResponder()
+    }
+    
+    func connection(connection: NSURLConnection, didFailWithError error: NSError) {
+        NSLog("failure submitting comment")
+    }
+    
+    func connection(connection: NSURLConnection, didSendBodyData bytesWritten: Int, totalBytesWritten: Int, totalBytesExpectedToWrite: Int) {
+        commentForm.status = NSMakeRange(totalBytesWritten, totalBytesExpectedToWrite)
     }
     
     // MARK: - NSFetchedResultsControllerDelegate
