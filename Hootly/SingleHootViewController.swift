@@ -59,6 +59,9 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
         super.viewWillAppear(animated)
         photo.image = hootImage
         
+        commentTable.estimatedRowHeight = CGFloat(CELL_HEIGHT)
+        //commentTable.rowHeight = UITableViewAutomaticDimension
+        
         commentTable.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Fade)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboard:", name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardAway:", name: UIKeyboardWillHideNotification, object: nil)
@@ -235,7 +238,7 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
             return view.frame.size.width
         }
         
-        return CGFloat(CELL_HEIGHT)
+        return UITableViewAutomaticDimension
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
