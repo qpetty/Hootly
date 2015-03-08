@@ -64,7 +64,7 @@ module Sinatra
          person_people = 'person has'
          person_people = 'people have' if hoot['votes'] > 1
 
-         alert = "#{hoot['votes']} #{person_people} voted on your Hoot"
+         alert = "#{hoot['votes']} #{person_people} voted on your Hoot!"
          APNS.send_notification(device_token, :alert => alert, :sound => SOUND, :other => {:hoot_id => hoot['id']})
          client.query("UPDATE Users SET last_notification = #{Time.now.to_i} WHERE id = '#{user['id']}'")
       end
@@ -85,12 +85,36 @@ module Sinatra
          person_people = 'person has'
          person_people = 'people have' if comment['votes'] > 1
 
-         alert = "#{hoot['votes']} #{person_people} voted on your Comment"
+         alert = "#{comment['votes']} #{person_people} voted on your Comment!"
          APNS.send_notification(device_token, :alert => alert, :sound => SOUND, :other => {:hoot_id => comment['post_id']})
          client.query("UPDATE Users SET last_notification = #{Time.now.to_i} WHERE id = '#{user['id']}'")
       end
 
-      def reply_activity(post_id, user_id, client)
+      def reply_activity(post_id, client)
+         hoot = client.query("SELECT * FROM Hoots WHERE id = '#{post_id}'").first
+         user = client.query("SELECT * FROM Users WHERE id = '#{hoot['user_id']}'").first
+         return if user.nil?
+         device_token = user['device_token']
+         return if device_token.nil?
+
+         comments = client.query("SELECT * as comment_count FROM Comments WHERE post_id = '#{post_id}'")
+         comment_count = comments.length
+
+         person_people = 'person has'
+         person_people = 'people have' if comment_count > 1
+         comment_alert = "#{comment_count} #{person_people} replied to your Comment!"
+
+         comment_device_tokens = {}
+         comment_device_tokens[device_token] = True
+         comments.each do |comment|
+            c_device_token = client.query("SELECT device_token FROM Users WHERE id = '#{comment['user_id']}'").first
+            if !c_device_token.nil? and comment_device_tokens[c_device_token].nil?
+               APNS.send_notification(c_device_token, :alert => comment_alert, :sound => SOUND, :other => {:hoot_id => hoot['id']})
+            end
+            comment_device_tokens[c_device_token] = True
+         end
+         alert = "#{comment_count} #{person_people} replied to your Hoot!"
+         APNS.send_notifcation(device_token, :alert => alert, :sound => SOUND, :other => {:hoot_id => hoot['id']})
       end
    end
    helpers ParameterCheck, ParameterEscape, PushNotifications

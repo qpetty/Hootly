@@ -342,7 +342,9 @@ class Hootly_API < Sinatra::Base
 	   timestamp = Time.now.to_i
 
 	   client.query("INSERT INTO Comments (user_id, post_id, comment_text, timestamp) VALUES ('#{user_id}', #{post_id}, '#{text}', #{timestamp})")
-	   ["success"].to_json
+
+      reply_activity(post_id, client)
+      ["success"].to_json
 	end
 
 	post '/commentsup' do
