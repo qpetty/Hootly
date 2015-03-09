@@ -177,6 +177,7 @@ class Hootly_API < Sinatra::Base
 	      cur_post["hoot_text"] = post["hoot_text"]
 	      cur_post["hootloot"] = post["hootloot"]
 	      cur_post["timestamp"] = post["timestamp"]
+              cur_post["mine"] = post["user_id"] == user_id
 	      vote_dir = 0
 	      user_upvote = client.query("select sum(vote) as votes from Hoots_Upvotes where hoot_id = #{id} and user_id = '#{user_id}'")
 	      user_downvote = client.query("select sum(vote) as votes from Hoots_Downvotes where hoot_id = #{id} and user_id = '#{user_id}'")
