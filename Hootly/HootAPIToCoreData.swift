@@ -76,6 +76,44 @@ class HootAPIToCoreData {
         }
     }
     
+    class func getMyHoots(completed: (Int) -> (Void)) {
+        var url: NSURL
+        
+        let coord = self.coordinates
+        if coord == nil {
+            NSLog("could not get location coordinates")
+            return
+        }
+        
+        if let host = hostURL {
+            let urlPath = "myhoots?user_id=\(self.hootID)"
+            url = NSURL(string: urlPath, relativeToURL: host)!
+        } else {
+            NSLog("could not construct URL in getHoots()")
+            return
+        }
+        
+        NSLog("GETting URL: %@", url)
+        
+        let request = NSURLRequest(URL: url)
+        
+        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) { (response, data, error) -> Void in
+            
+            if (error != nil) {
+                NSLog("%@", error)
+                completed(0)
+                return
+            }
+            
+            if var hootArray = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as? Array<Dictionary<String, AnyObject>>{
+                completed(self.addHootsToCoreData(hootArray, removeOthers: false))
+            } else {
+                completed(0)
+            }
+            
+        }
+    }
+    
     class func getHoots(completed: (Int) -> (Void)) {
         var url: NSURL
         
@@ -106,7 +144,7 @@ class HootAPIToCoreData {
             }
             
             if var hootArray = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as? Array<Dictionary<String, AnyObject>>{
-                completed(self.addHootsToCoreData(hootArray))
+                completed(self.addHootsToCoreData(hootArray, removeOthers: true))
             } else {
                 completed(0)
             }
@@ -114,7 +152,7 @@ class HootAPIToCoreData {
         }
     }
     
-    class func addHootsToCoreData(hootArray: Array<Dictionary<String, AnyObject>>) -> Int {
+    class func addHootsToCoreData(hootArray: Array<Dictionary<String, AnyObject>>, removeOthers: Bool) -> Int {
         
         var threadMOC = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
         threadMOC.parentContext = self.managedObjectCon
@@ -130,34 +168,14 @@ class HootAPIToCoreData {
             }
         }
         
-        //Prepare fetch request to get all old hoots not in our new list
-        var fetchReq = NSFetchRequest(entityName: "Hoot")
-        fetchReq.predicate = NSPredicate(format: "NOT (id IN %@)", idArray)
-        fetchReq.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
-        
+        if removeOthers == true {
+            removeHootsWithIDs(idArray)
+        }
+
         var fetchError: NSError?
-        let hootsToDelete = threadMOC.executeFetchRequest(fetchReq, error: &fetchError) as [Hoot]
-        
-        if let error = fetchError {
-            NSLog("error exectuting fetch request for hoots to delete")
-            return 0
-        }
-        
-        //Delete old hoots
-        for singleHoot in hootsToDelete {
-            
-            if let urlToDelete = singleHoot.photoURL as? NSURL {
-                if urlToDelete.fileURL == true {
-                    NSFileManager.defaultManager().removeItemAtURL(urlToDelete, error: nil)
-                }
-            }
-            
-            threadMOC.deleteObject(singleHoot)
-        }
-        
         
         //Prepare fetch request to add new hoots
-        fetchReq = NSFetchRequest(entityName: "Hoot")
+        let fetchReq = NSFetchRequest(entityName: "Hoot")
         fetchReq.predicate = NSPredicate(format: "(id IN %@)", idArray)
         fetchReq.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
         
@@ -227,6 +245,43 @@ class HootAPIToCoreData {
         return hootArray.count
     }
 
+    class func removeHootsWithIDs(idArray: [Int]) {
+        var threadMOC = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
+        threadMOC.parentContext = self.managedObjectCon
+        
+        //Prepare fetch request to get all old hoots not in our new list
+        var fetchReq = NSFetchRequest(entityName: "Hoot")
+        fetchReq.predicate = NSPredicate(format: "(NOT(id IN %@)) && (myHoot = false)", idArray)
+        fetchReq.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
+        
+        var fetchError: NSError?
+        let hootsToDelete = threadMOC.executeFetchRequest(fetchReq, error: &fetchError) as [Hoot]
+        
+        if let error = fetchError {
+            NSLog("error exectuting fetch request for hoots to delete")
+            return
+        }
+        
+        //Delete old hoots
+        for singleHoot in hootsToDelete {
+            
+            if let urlToDelete = singleHoot.photoURL as? NSURL {
+                if urlToDelete.fileURL == true {
+                    NSFileManager.defaultManager().removeItemAtURL(urlToDelete, error: nil)
+                }
+            }
+            
+            threadMOC.deleteObject(singleHoot)
+        }
+        
+        //Save after everything
+        threadMOC.save(&fetchError)
+        
+        if let error = fetchError {
+            NSLog("error saving context in removeHootsWithIDs()")
+        }
+    }
+    
     class func fetchCommentsForHoot(hoot: Hoot?, completed: (success: Bool) -> (Void)) {
         
         if hoot == nil {

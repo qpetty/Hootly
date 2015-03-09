@@ -34,7 +34,7 @@ class ProfileViewController: UITableViewController, UITableViewDataSource, UITab
     }
     
     func refreshAndFetchData() {
-        HootAPIToCoreData.getHoots { (addedHoots: Int) -> (Void) in
+        HootAPIToCoreData.getMyHoots { (addedHoots: Int) -> (Void) in
             self.refreshControl?.endRefreshing()
             return
         }
