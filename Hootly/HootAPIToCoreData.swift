@@ -105,123 +105,128 @@ class HootAPIToCoreData {
                 return
             }
             
-            var threadMOC = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
-            threadMOC.parentContext = self.managedObjectCon
-            
             if var hootArray = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as? Array<Dictionary<String, AnyObject>>{
-                
-                //Make an Array of ids to then search through core data with
-                var idArray = [Int]()
-                
-                //println(hootArray)
-                for hoot in hootArray {
-                    if let id = hoot["id"] as? Int {
-                        idArray.append(id)
-                        //println(id)
-                    }
-                }
-                
-                //Prepare fetch request to get all old hoots not in our new list
-                var fetchReq = NSFetchRequest(entityName: "Hoot")
-                fetchReq.predicate = NSPredicate(format: "NOT (id IN %@)", idArray)
-                fetchReq.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
-
-                var fetchError: NSError?
-                let hootsToDelete = threadMOC.executeFetchRequest(fetchReq, error: &fetchError) as [Hoot]
-                
-                if let error = fetchError {
-                    NSLog("error exectuting fetch request for hoots to delete")
-                    completed(0)
-                    return
-                }
-
-                //Delete old hoots
-                for singleHoot in hootsToDelete {
-                    
-                    if let urlToDelete = singleHoot.photoURL as? NSURL {
-                        if urlToDelete.fileURL == true {
-                            NSFileManager.defaultManager().removeItemAtURL(urlToDelete, error: nil)
-                        }
-                    }
-
-                    threadMOC.deleteObject(singleHoot)
-                }
-                
-                
-                //Prepare fetch request to add new hoots
-                fetchReq = NSFetchRequest(entityName: "Hoot")
-                fetchReq.predicate = NSPredicate(format: "(id IN %@)", idArray)
-                fetchReq.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
-                
-                let validHoots = threadMOC.executeFetchRequest(fetchReq, error: &fetchError) as [Hoot]
-                
-                if let error = fetchError {
-                    NSLog("error exectuting fetch request for hoots to keep")
-                    completed(0)
-                    return
-                }
-                
-                for singleHoot in hootArray {
-                    if let id = singleHoot["id"] as? Int {
-                        
-                        var foundExistingID = false
-                        for oldHoot in validHoots {
-                            if oldHoot.id == id {
-                                foundExistingID = true
-                                
-                                if let value = singleHoot["hootloot"] as? NSNumber {
-                                    if (value != oldHoot.rating) {
-                                        oldHoot.rating = singleHoot["hootloot"] as NSNumber
-                                    }
-                                }
-                                
-                                if let value = singleHoot["num_comments"] as? NSNumber {
-                                    if (value != oldHoot.replies) {
-                                        oldHoot.replies = singleHoot["num_comments"] as NSNumber
-                                    }
-                                }
-
-                                if let value = singleHoot["requester_vote"] as? NSNumber {
-                                    if (value != oldHoot.voted) {
-                                        oldHoot.voted = singleHoot["requester_vote"] as NSNumber
-                                    }
-                                }
-                                break
-                            }
-                        }
-                        
-                        //Create new Hoot if we didnt find it
-                        if foundExistingID == false {
-                            var newItem = NSEntityDescription.insertNewObjectForEntityForName("Hoot", inManagedObjectContext: threadMOC) as Hoot
-                            newItem.id = id
-                            newItem.time = NSDate(timeIntervalSince1970: singleHoot["timestamp"]! as NSTimeInterval)
-                            newItem.comment = singleHoot["hoot_text"] as String
-                            newItem.rating = singleHoot["hootloot"] as NSNumber
-                            newItem.replies = singleHoot["num_comments"] as NSNumber
-                            newItem.voted = singleHoot["requester_vote"] as NSNumber
-                            
-                            if let tempPhotoURL = NSURL(string: singleHoot["image_path"] as String, relativeToURL: self.hostURL!) {
-                                newItem.photoURL = tempPhotoURL
-                            }
-                        }
-                    }
-                }
-                
-                //Save after everything
-                threadMOC.save(&fetchError)
-                
-                if let error = fetchError {
-                    NSLog("error saving context in getHoots()")
-                    completed(0)
-                } else {
-                    completed(hootArray.count)
-                }
+                completed(self.addHootsToCoreData(hootArray))
             } else {
                 completed(0)
             }
+            
         }
     }
     
+    class func addHootsToCoreData(hootArray: Array<Dictionary<String, AnyObject>>) -> Int {
+        
+        var threadMOC = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
+        threadMOC.parentContext = self.managedObjectCon
+        
+        //Make an Array of ids to then search through core data with
+        var idArray = [Int]()
+        
+        //println(hootArray)
+        for hoot in hootArray {
+            if let id = hoot["id"] as? Int {
+                idArray.append(id)
+                //println(id)
+            }
+        }
+        
+        //Prepare fetch request to get all old hoots not in our new list
+        var fetchReq = NSFetchRequest(entityName: "Hoot")
+        fetchReq.predicate = NSPredicate(format: "NOT (id IN %@)", idArray)
+        fetchReq.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
+        
+        var fetchError: NSError?
+        let hootsToDelete = threadMOC.executeFetchRequest(fetchReq, error: &fetchError) as [Hoot]
+        
+        if let error = fetchError {
+            NSLog("error exectuting fetch request for hoots to delete")
+            return 0
+        }
+        
+        //Delete old hoots
+        for singleHoot in hootsToDelete {
+            
+            if let urlToDelete = singleHoot.photoURL as? NSURL {
+                if urlToDelete.fileURL == true {
+                    NSFileManager.defaultManager().removeItemAtURL(urlToDelete, error: nil)
+                }
+            }
+            
+            threadMOC.deleteObject(singleHoot)
+        }
+        
+        
+        //Prepare fetch request to add new hoots
+        fetchReq = NSFetchRequest(entityName: "Hoot")
+        fetchReq.predicate = NSPredicate(format: "(id IN %@)", idArray)
+        fetchReq.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
+        
+        let validHoots = threadMOC.executeFetchRequest(fetchReq, error: &fetchError) as [Hoot]
+        
+        if let error = fetchError {
+            NSLog("error exectuting fetch request for hoots to keep")
+            return 0
+        }
+        
+        for singleHoot in hootArray {
+            if let id = singleHoot["id"] as? Int {
+                
+                var foundExistingID = false
+                for oldHoot in validHoots {
+                    if oldHoot.id == id {
+                        foundExistingID = true
+                        
+                        if let value = singleHoot["hootloot"] as? NSNumber {
+                            if (value != oldHoot.rating) {
+                                oldHoot.rating = singleHoot["hootloot"] as NSNumber
+                            }
+                        }
+                        
+                        if let value = singleHoot["num_comments"] as? NSNumber {
+                            if (value != oldHoot.replies) {
+                                oldHoot.replies = singleHoot["num_comments"] as NSNumber
+                            }
+                        }
+                        
+                        if let value = singleHoot["requester_vote"] as? NSNumber {
+                            if (value != oldHoot.voted) {
+                                oldHoot.voted = singleHoot["requester_vote"] as NSNumber
+                            }
+                        }
+                        break
+                    }
+                }
+                
+                //Create new Hoot if we didnt find it
+                if foundExistingID == false {
+                    var newItem = NSEntityDescription.insertNewObjectForEntityForName("Hoot", inManagedObjectContext: threadMOC) as Hoot
+                    newItem.id = id
+                    newItem.time = NSDate(timeIntervalSince1970: singleHoot["timestamp"]! as NSTimeInterval)
+                    newItem.comment = singleHoot["hoot_text"] as String
+                    newItem.rating = singleHoot["hootloot"] as NSNumber
+                    newItem.replies = singleHoot["num_comments"] as NSNumber
+                    newItem.voted = singleHoot["requester_vote"] as NSNumber
+                    newItem.myHoot = singleHoot["mine"] as Bool
+                    
+                    if let tempPhotoURL = NSURL(string: singleHoot["image_path"] as String, relativeToURL: self.hostURL!) {
+                        newItem.photoURL = tempPhotoURL
+                    }
+                }
+            }
+        }
+        
+        //Save after everything
+        threadMOC.save(&fetchError)
+        
+        if let error = fetchError {
+            NSLog("error saving context in getHoots()")
+            return 9
+        }
+
+
+        return hootArray.count
+    }
+
     class func fetchCommentsForHoot(hoot: Hoot?, completed: (success: Bool) -> (Void)) {
         
         if hoot == nil {

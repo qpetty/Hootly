@@ -3,6 +3,7 @@
     <entity name="Hoot" representedClassName="Hoot" syncable="YES">
         <attribute name="comment" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="myHoot" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="photoURL" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="rating" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="replies" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -19,7 +20,7 @@
         <relationship name="hoot" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Hoot" inverseName="comments" inverseEntity="Hoot" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Hoot" positionX="-999" positionY="-774" width="128" height="163"/>
+        <element name="Hoot" positionX="-999" positionY="-774" width="128" height="180"/>
         <element name="HootComment" positionX="-722" positionY="-774" width="128" height="135"/>
     </elements>
 </model>
