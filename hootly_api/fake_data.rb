@@ -10,7 +10,7 @@ result = `curl #{host}/hootloot?user_id=#{user_id}`
 hootloot = JSON.parse(result)["hootloot"]
 
 
-`curl --form "image=@/Users/brandon/Desktop/img.png" --form user_id=#{user_id} --form lat=5 --form long=5 --form hoot_text="hello" #{host}/hoots`
+`curl --form "image=@/Users/brandon/Desktop/img.jpeg" --form user_id=#{user_id} --form lat=5 --form long=5 --form hoot_text="hello" #{host}/hoots`
 
 result = `curl "#{host}/hoots?lat=5&long=5&user_id=#{user_id}"`
 hoots = JSON.parse(result)
