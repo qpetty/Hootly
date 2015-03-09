@@ -6,6 +6,7 @@ require './helpers'
 require 'mysql2'
 require 'json'
 require 'apns'
+require 'dimensions'
 
 class Hootly_API < Sinatra::Base
 
@@ -229,6 +230,8 @@ class Hootly_API < Sinatra::Base
 	   imagepath = user_id.to_s + timestamp.to_s + file_type
 
 	   # This saves the image in the uploads directory
+      p Dimensions.dimensions(params['image'][:tempfile])
+
 	   File.open('./uploads/' + imagepath, "wb") do |f|
 		f.write(params['image'][:tempfile].read)
 	   end

@@ -81,6 +81,9 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        tableView.estimatedRowHeight = self.view.frame.size.width + CELL_HEIGHT
+        tableView.rowHeight = UITableViewAutomaticDimension
+        
         //TODO: Might not be the best place for this but we'll try it here for a while
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "managedObjectContextDidSave:", name: NSManagedObjectContextDidSaveNotification, object: nil)
     }
@@ -222,14 +225,6 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
     }
     
     // MARK: - NSTableViewDelegate
-    
-    override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return self.view.frame.size.width + CELL_HEIGHT
-    }
-    
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return self.view.frame.size.width + CELL_HEIGHT
-    }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if fetchedResultsController?.sections?.count > 0 {
