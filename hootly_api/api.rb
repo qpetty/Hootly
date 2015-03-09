@@ -7,6 +7,7 @@ require 'mysql2'
 require 'json'
 require 'apns'
 require 'dimensions'
+require 'fastimage_resize'
 
 class Hootly_API < Sinatra::Base
 
@@ -230,10 +231,26 @@ class Hootly_API < Sinatra::Base
 	   imagepath = user_id.to_s + timestamp.to_s + file_type
 
 	   # This saves the image in the uploads directory
-      p Dimensions.dimensions(params['image'][:tempfile])
+      img_dimensions =  Dimensions.dimensions(params['image'][:tempfile])
+      square_image = params['image'][:tempfile]
+
+      side_length = img_dimensions[0]
+      if img_dimensions[0] > img_dimensions[1]
+         side_length = img_dimensions[1]
+      else
+         side_length = img_dimensions[0]
+      end
+      if img_dimensions[0] != img_dimensions[1]
+         square_image = FastImage.resize(square_image, side_length, side_length)
+      end
+
+      if side_length > 640
+         square_image = FastImage.resize(square_image, 640, 640)
+      end
 
 	   File.open('./uploads/' + imagepath, "wb") do |f|
-		f.write(params['image'][:tempfile].read)
+		   #f.write(params['image'][:tempfile].read)
+         f.write(square_image.read)
 	   end
 
 	   client.query("INSERT INTO Hoots (user_id, hoot_text, timestamp, image_path, latitude, longitude) VALUES ( '#{user_id}', '#{hoot_text}', #{timestamp}, '#{imagepath}', #{lat}, #{long} )")
