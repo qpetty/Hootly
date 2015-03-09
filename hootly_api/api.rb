@@ -97,9 +97,12 @@ class Hootly_API < Sinatra::Base
 	      post = client.query("SELECT * FROM Hoots WHERE id =#{post_id}").first
 	      id = post["id"]
 	      cur_post = {}
-	      cur_post["image_path"] = post["image_path"]
+	      cur_post["id"] = post["id"]
+	      cur_post["image_path"] = 'uploads/' + post["image_path"]
 	      cur_post["hoot_text"] = post["hoot_text"]
 	      cur_post["hootloot"] = post["hootloot"]
+	      cur_post["timestamp"] = post["timestamp"]
+         cur_post["mine"] = post["user_id"] == user_id
 	      vote_dir = 0
 	      user_upvote = client.query("select sum(vote) as votes from Hoots_Upvotes where hoot_id = #{id} and user_id = '#{user_id}'")
 	      user_downvote = client.query("select sum(vote) as votes from Hoots_Downvotes where hoot_id = #{id} and user_id = '#{user_id}'")
@@ -117,10 +120,17 @@ class Hootly_API < Sinatra::Base
 	end
 
 	get '/hoot' do
+      parameters = ['user_id', 'post_id']
+      error = check_params(parameters)
+      if !error.empty?
+         return error
+      end
+
+      escape_parameters = ['user_id', 'post_id']
+      escape_params(escape_parameters, client)
+
 	   post_id = params["post_id"]
-	   post_id = client.escape(post_id)
 	   user_id = params["user_id"]
-	   user_id = client.escape(user_id)
 
 	   post = client.query("SELECT * FROM Hoots where id = #{post_id} and active = true")
 	   post = post.first
@@ -129,6 +139,8 @@ class Hootly_API < Sinatra::Base
 	   post_return["image_path"] = 'uploads/' + post["image_path"]
 	   post_return["hoot_text"] = post["hoot_text"]
 	   post_return["hootloot"] = post["hootloot"]
+      post_return["timestamp"] = post["timestamp"]
+      post_return["mine"] = post["user_id"] == user_id
 
 	   vote_dir = 0
 	   user_upvote = client.query("select sum(vote) as votes from Hoots_Upvotes where hoot_id = #{post_id} and user_id = '#{user_id}'")
@@ -141,7 +153,6 @@ class Hootly_API < Sinatra::Base
 	   end
 
 	   post_return["requester_vote"] = vote_dir
-
 
 	   post_return.to_json
 	end
@@ -179,7 +190,7 @@ class Hootly_API < Sinatra::Base
 	      cur_post["hoot_text"] = post["hoot_text"]
 	      cur_post["hootloot"] = post["hootloot"]
 	      cur_post["timestamp"] = post["timestamp"]
-              cur_post["mine"] = post["user_id"] == user_id
+         cur_post["mine"] = post["user_id"] == user_id
 	      vote_dir = 0
 	      user_upvote = client.query("select sum(vote) as votes from Hoots_Upvotes where hoot_id = #{id} and user_id = '#{user_id}'")
 	      user_downvote = client.query("select sum(vote) as votes from Hoots_Downvotes where hoot_id = #{id} and user_id = '#{user_id}'")
