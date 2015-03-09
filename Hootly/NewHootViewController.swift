@@ -18,6 +18,8 @@ class NewHootViewController: UIViewController, CommentFormProtocol, NSURLConnect
     var adjustingView: UIView?
     var bottomConstraint: NSLayoutConstraint?
     
+    let maxImageSize = 640 as CGFloat
+    
     @IBAction func closeModal(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: nil)
     }
@@ -36,6 +38,14 @@ class NewHootViewController: UIViewController, CommentFormProtocol, NSURLConnect
     }
     
     func commentToSubmit(comment: String) {
+        if image?.size.height >= maxImageSize || image?.size.height >= maxImageSize {
+            let newSize = CGSize(width: maxImageSize, height: maxImageSize)
+            
+            UIGraphicsBeginImageContext(newSize)
+            image!.drawInRect(CGRect(x: 0, y: 0, width: newSize.width, height: newSize.width))
+            image = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+        }
         HootAPIToCoreData.postHoot(image!, comment: comment, delegate: self)
     }
     
