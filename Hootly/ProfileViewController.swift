@@ -52,14 +52,10 @@ class ProfileViewController: UITableViewController, UITableViewDataSource, UITab
     func fetchResultsFromCoreData(sortedByDate: Bool) {
         let fetchReq = NSFetchRequest(entityName: "Hoot")
         
-        if sortedByDate == true {
-            let sortDes = NSSortDescriptor(key: "time", ascending: false)
-            fetchReq.sortDescriptors = [sortDes]
-        } else {
-            let sortDes = NSSortDescriptor(key: "rating", ascending: false)
-            fetchReq.sortDescriptors = [sortDes]
-        }
+        let sortDes = NSSortDescriptor(key: "time", ascending: false)
+        fetchReq.sortDescriptors = [sortDes]
         
+        fetchReq.predicate = NSPredicate(format: "myHoot = true")
         
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchReq, managedObjectContext: managedObjectContext!, sectionNameKeyPath: nil, cacheName: nil)
         fetchedResultsController?.delegate = self

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5A2699871AACEC5D0018D393 /* NibDesignable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2699861AACEC5D0018D393 /* NibDesignable.swift */; };
 		5A2699891AAD0ED00018D393 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2699881AAD0ED00018D393 /* ProfileViewController.swift */; };
+		5A26998B1AAD194A0018D393 /* Hoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A26998A1AAD194A0018D393 /* Hoot.swift */; };
 		5A37D18A1A7D9170006AAC65 /* SingleHootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A37D1891A7D9170006AAC65 /* SingleHootViewController.swift */; };
 		5A37D1931A7DD60D006AAC65 /* CommentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A37D1921A7DD60D006AAC65 /* CommentView.xib */; };
 		5A37D1951A7DD7EB006AAC65 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A37D1941A7DD7EB006AAC65 /* CommentView.swift */; };
@@ -29,7 +30,6 @@
 		5AAFBE161A9446D5009003B9 /* Hoot+ImageForTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAFBE151A9446D5009003B9 /* Hoot+ImageForTableView.swift */; };
 		5ACCCE171A9D97F3000BD67C /* SingleCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACCCE161A9D97F3000BD67C /* SingleCommentCell.swift */; };
 		5ADAE5C61AA43B3C00BC4449 /* HootComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADAE5C51AA43B3C00BC4449 /* HootComment.swift */; };
-		5ADAE5C81AA43DF200BC4449 /* Hoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADAE5C71AA43DF200BC4449 /* Hoot.swift */; };
 		D12280BE1A87F2F100CDDFB8 /* CommentFormView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D12280BD1A87F2F100CDDFB8 /* CommentFormView.xib */; };
 		D1839CBB1A9192FA00C87B19 /* LocationPrompt.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1839CBA1A9192FA00C87B19 /* LocationPrompt.swift */; };
 /* End PBXBuildFile section */
@@ -47,6 +47,7 @@
 /* Begin PBXFileReference section */
 		5A2699861AACEC5D0018D393 /* NibDesignable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NibDesignable.swift; sourceTree = "<group>"; };
 		5A2699881AAD0ED00018D393 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		5A26998A1AAD194A0018D393 /* Hoot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hoot.swift; sourceTree = "<group>"; };
 		5A37D1891A7D9170006AAC65 /* SingleHootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleHootViewController.swift; sourceTree = "<group>"; };
 		5A37D1921A7DD60D006AAC65 /* CommentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentView.xib; sourceTree = "<group>"; };
 		5A37D1941A7DD7EB006AAC65 /* CommentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
@@ -74,7 +75,6 @@
 		5AAFBE151A9446D5009003B9 /* Hoot+ImageForTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Hoot+ImageForTableView.swift"; sourceTree = "<group>"; };
 		5ACCCE161A9D97F3000BD67C /* SingleCommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleCommentCell.swift; sourceTree = "<group>"; };
 		5ADAE5C51AA43B3C00BC4449 /* HootComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HootComment.swift; sourceTree = "<group>"; };
-		5ADAE5C71AA43DF200BC4449 /* Hoot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hoot.swift; sourceTree = "<group>"; };
 		D12280BD1A87F2F100CDDFB8 /* CommentFormView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentFormView.xib; sourceTree = "<group>"; };
 		D1839CBA1A9192FA00C87B19 /* LocationPrompt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationPrompt.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -153,7 +153,7 @@
 				5A9768751A88493000229E7E /* Outside Code */,
 				5A82480F1A92B4630055E334 /* HootAPIToCoreData.swift */,
 				5A61AB1E1A900E6400B06495 /* Hootly.xcdatamodeld */,
-				5ADAE5C71AA43DF200BC4449 /* Hoot.swift */,
+				5A26998A1AAD194A0018D393 /* Hoot.swift */,
 				5ADAE5C51AA43B3C00BC4449 /* HootComment.swift */,
 				5AAFBE151A9446D5009003B9 /* Hoot+ImageForTableView.swift */,
 				5A94E3011A74940300CA1CB8 /* Images.xcassets */,
@@ -314,9 +314,9 @@
 				5A37D18A1A7D9170006AAC65 /* SingleHootViewController.swift in Sources */,
 				5AAFBE161A9446D5009003B9 /* Hoot+ImageForTableView.swift in Sources */,
 				5A9768741A88492B00229E7E /* SZTextView.m in Sources */,
-				5ADAE5C81AA43DF200BC4449 /* Hoot.swift in Sources */,
 				5A2699871AACEC5D0018D393 /* NibDesignable.swift in Sources */,
 				5A97686A1A88086E00229E7E /* NewHootViewController.swift in Sources */,
+				5A26998B1AAD194A0018D393 /* Hoot.swift in Sources */,
 				5A94E2FB1A74940300CA1CB8 /* AppDelegate.swift in Sources */,
 				D1839CBB1A9192FA00C87B19 /* LocationPrompt.swift in Sources */,
 				5A94E31D1A749F6600CA1CB8 /* HootCell.swift in Sources */,
