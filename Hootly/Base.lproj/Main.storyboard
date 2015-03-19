@@ -75,8 +75,8 @@
                                     <action selector="buttonPressed:" destination="bh7-L1-lZw" eventType="touchUpInside" id="Djf-Nn-HEw"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Welcome to Hootly!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EV8-IW-Yrc">
-                                <rect key="frame" x="192" y="124" width="217" height="29"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Hootly!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EV8-IW-Yrc">
+                                <rect key="frame" x="191" y="124" width="217" height="29"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
@@ -136,9 +136,26 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="raC-k0-4h9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-363.5" y="1164.5"/>
+            <point key="canvasLocation" x="-1444" y="548"/>
         </scene>
-        <!--Profile View Controller-->
+        <!--Navigation Controller-->
+        <scene sceneID="lYX-Tl-SwO">
+            <objects>
+                <navigationController id="ny0-1K-hvH" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="xgq-wl-PNs">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.55294117649999996" green="0.73333333329999995" blue="0.94509803920000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="JXb-hh-STh" kind="relationship" relationship="rootViewController" id="tdl-lb-B49"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Z6T-B3-cSv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="267" y="1616"/>
+        </scene>
+        <!--Profile-->
         <scene sceneID="Zcw-gP-Bo2">
             <objects>
                 <tableViewController id="JXb-hh-STh" customClass="ProfileViewController" customModule="Hootly" customModuleProvider="target" sceneMemberID="viewController">
@@ -198,8 +215,24 @@
                             <outlet property="delegate" destination="JXb-hh-STh" id="jKg-Pm-4BQ"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Profile" id="SBh-dL-aSD">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="IxM-Ac-Gkt">
+                            <connections>
+                                <action selector="closeModal:" destination="JXb-hh-STh" id="G75-eL-Q09"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="msS-h3-34r" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationBar contentMode="scaleToFill" id="gXS-Uq-UPq">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <items>
+                        <navigationItem title="Profile" id="3Vm-yC-Dm8">
+                            <barButtonItem key="backBarButtonItem" title="Hoots" id="zKL-dm-JAn"/>
+                        </navigationItem>
+                    </items>
+                </navigationBar>
             </objects>
             <point key="canvasLocation" x="1007" y="1189"/>
         </scene>
@@ -259,7 +292,7 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholderText" value="Hoot your Hoot!"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ly1-SZ-bbR" userLabel="Keyboard View">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ly1-SZ-bbR" userLabel="Keyboard View">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" id="1Om-5c-Xdp"/>
@@ -352,8 +385,8 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="c9Y-SX-sUT" id="BNZ-c2-jEy">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jG8-Jh-1dN" customClass="CommentView" customModule="Hootly" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="110"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jG8-Jh-1dN" customClass="CommentView" customModule="Hootly" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="109"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
                                             </subviews>
@@ -386,7 +419,7 @@
                                     <outlet property="delegate" destination="bVX-S0-grA" id="fFF-Ci-02l"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hyy-ro-cxk" userLabel="Keyboard View">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hyy-ro-cxk" userLabel="Keyboard View">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" id="BCb-EN-lWK"/>
@@ -517,7 +550,7 @@
                         <nil key="title"/>
                         <barButtonItem key="leftBarButtonItem" title="100" id="J7N-nI-2sS">
                             <connections>
-                                <segue destination="JXb-hh-STh" kind="show" identifier="ProfileView" id="xVj-pM-l79"/>
+                                <segue destination="ny0-1K-hvH" kind="presentation" identifier="ProfileView" id="TEL-BA-44b"/>
                             </connections>
                         </barButtonItem>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="aUS-28-uTg">
@@ -553,7 +586,7 @@
         <image name="HootlyIcon" width="60" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="KVm-Kr-sLE"/>
+        <segue reference="YN5-DH-Tl0"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
