@@ -160,6 +160,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if let navController = self.window?.rootViewController as? UINavigationController {
                 NSLog("pushing \(navController)")
                 singleHootViewController.hoot = hoot;
+                navController.dismissViewControllerAnimated(true, completion: nil)
                 navController.pushViewController(singleHootViewController, animated: true)
             }
             
