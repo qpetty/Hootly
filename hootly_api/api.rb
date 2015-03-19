@@ -7,6 +7,7 @@ require 'mysql2'
 require 'json'
 require 'apns'
 require 'dimensions'
+require 'fastimage_resize'
 
 class Hootly_API < Sinatra::Base
 
@@ -96,9 +97,12 @@ class Hootly_API < Sinatra::Base
 	      post = client.query("SELECT * FROM Hoots WHERE id =#{post_id}").first
 	      id = post["id"]
 	      cur_post = {}
-	      cur_post["image_path"] = post["image_path"]
+	      cur_post["id"] = post["id"]
+	      cur_post["image_path"] = 'uploads/' + post["image_path"]
 	      cur_post["hoot_text"] = post["hoot_text"]
 	      cur_post["hootloot"] = post["hootloot"]
+	      cur_post["timestamp"] = post["timestamp"]
+         cur_post["mine"] = post["user_id"] == user_id
 	      vote_dir = 0
 	      user_upvote = client.query("select sum(vote) as votes from Hoots_Upvotes where hoot_id = #{id} and user_id = '#{user_id}'")
 	      user_downvote = client.query("select sum(vote) as votes from Hoots_Downvotes where hoot_id = #{id} and user_id = '#{user_id}'")
@@ -116,10 +120,17 @@ class Hootly_API < Sinatra::Base
 	end
 
 	get '/hoot' do
+      parameters = ['user_id', 'post_id']
+      error = check_params(parameters)
+      if !error.empty?
+         return error
+      end
+
+      escape_parameters = ['user_id', 'post_id']
+      escape_params(escape_parameters, client)
+
 	   post_id = params["post_id"]
-	   post_id = client.escape(post_id)
 	   user_id = params["user_id"]
-	   user_id = client.escape(user_id)
 
 	   post = client.query("SELECT * FROM Hoots where id = #{post_id} and active = true")
 	   post = post.first
@@ -128,6 +139,8 @@ class Hootly_API < Sinatra::Base
 	   post_return["image_path"] = 'uploads/' + post["image_path"]
 	   post_return["hoot_text"] = post["hoot_text"]
 	   post_return["hootloot"] = post["hootloot"]
+      post_return["timestamp"] = post["timestamp"]
+      post_return["mine"] = post["user_id"] == user_id
 
 	   vote_dir = 0
 	   user_upvote = client.query("select sum(vote) as votes from Hoots_Upvotes where hoot_id = #{post_id} and user_id = '#{user_id}'")
@@ -140,7 +153,6 @@ class Hootly_API < Sinatra::Base
 	   end
 
 	   post_return["requester_vote"] = vote_dir
-
 
 	   post_return.to_json
 	end
@@ -178,7 +190,7 @@ class Hootly_API < Sinatra::Base
 	      cur_post["hoot_text"] = post["hoot_text"]
 	      cur_post["hootloot"] = post["hootloot"]
 	      cur_post["timestamp"] = post["timestamp"]
-              cur_post["mine"] = post["user_id"] == user_id
+         cur_post["mine"] = post["user_id"] == user_id
 	      vote_dir = 0
 	      user_upvote = client.query("select sum(vote) as votes from Hoots_Upvotes where hoot_id = #{id} and user_id = '#{user_id}'")
 	      user_downvote = client.query("select sum(vote) as votes from Hoots_Downvotes where hoot_id = #{id} and user_id = '#{user_id}'")
@@ -230,10 +242,26 @@ class Hootly_API < Sinatra::Base
 	   imagepath = user_id.to_s + timestamp.to_s + file_type
 
 	   # This saves the image in the uploads directory
-      p Dimensions.dimensions(params['image'][:tempfile])
+      img_dimensions =  Dimensions.dimensions(params['image'][:tempfile])
+      square_image = params['image'][:tempfile]
+
+      side_length = img_dimensions[0]
+      if img_dimensions[0] > img_dimensions[1]
+         side_length = img_dimensions[1]
+      else
+         side_length = img_dimensions[0]
+      end
+      if img_dimensions[0] != img_dimensions[1]
+         square_image = FastImage.resize(square_image, side_length, side_length)
+      end
+
+      if side_length > 640
+         square_image = FastImage.resize(square_image, 640, 640)
+      end
 
 	   File.open('./uploads/' + imagepath, "wb") do |f|
-		f.write(params['image'][:tempfile].read)
+		   #f.write(params['image'][:tempfile].read)
+         f.write(square_image.read)
 	   end
 
 	   client.query("INSERT INTO Hoots (user_id, hoot_text, timestamp, image_path, latitude, longitude) VALUES ( '#{user_id}', '#{hoot_text}', #{timestamp}, '#{imagepath}', #{lat}, #{long} )")
