@@ -133,6 +133,25 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
         commentTable.tableFooterView = UIView(frame: CGRect.zeroRect)
     }
     
+    @IBAction func reportHoot(sender: AnyObject) {
+        let alertController = UIAlertController(
+            title: "Report to the overseers",
+            message: "I can't handle the hoot!",
+            preferredStyle: .Alert)
+        
+        let openAction = UIAlertAction(title: "Report", style: .Cancel) { (action) in
+            HootAPIToCoreData.reportHoot(self.hoot, completed: { (success) -> (Void) in
+                //Says if the report worked or not, we wont do anything about it right now
+            })
+        }
+        alertController.addAction(openAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Default, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
     func scrollViewDidScroll(scrollView: UIScrollView) {
         //photo.alpha = 1 - (scrollView.contentOffset.y / view.frame.size.width) * 0.5
         blurEffectView?.alpha = (scrollView.contentOffset.y / view.frame.size.width) * 0.6

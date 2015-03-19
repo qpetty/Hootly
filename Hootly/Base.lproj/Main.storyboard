@@ -435,6 +435,9 @@
                     <navigationItem key="navigationItem" title="Hoot!" id="aH4-9t-n8q">
                         <barButtonItem key="rightBarButtonItem" image="Flag" id="3zL-ty-CLp">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="reportHoot:" destination="bVX-S0-grA" id="vVH-BQ-Ohc"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>

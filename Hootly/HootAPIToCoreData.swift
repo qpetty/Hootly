@@ -431,6 +431,29 @@ class HootAPIToCoreData {
         threadMOC.save(nil)
     }
     
+    class func reportHoot(hoot: Hoot?, completed: (success: Bool) -> (Void)) {
+        var url: NSURL
+        
+        if hoot == nil {
+            completed(success: false)
+            return
+        }
+        
+        if let host = hostURL {
+            url = NSURL(string: "hoot?user_id=\(self.hootID)&post_id=\(hoot!.id)", relativeToURL: host)!
+        } else {
+            NSLog("could not construct URL in getHoots()")
+            return
+        }
+        
+        let request = NSMutableURLRequest(URL: url)
+        request.HTTPMethod = "DELETE"
+        
+        NSLog("Reporting hoot(%@) to URL: %@", hoot!.id, url)
+        
+        self.genericURLConnectionFromRequest(request, completed: completed)
+    }
+    
     class func postPUSHToken(id: String, token: String, completed: (success: Bool) -> (Void)) {
         var url: NSURL
         
