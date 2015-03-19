@@ -114,6 +114,45 @@ class HootAPIToCoreData {
         }
     }
     
+    class func getSingleHoot(singleHootID: Int, completed: (Int) -> (Void)) {
+        var url: NSURL
+        
+        let coord = self.coordinates
+        if coord == nil {
+            NSLog("could not get location coordinates")
+            return
+        }
+        
+        if let host = hostURL {
+            let urlPath = "hoot?user_id=\(self.hootID)&post_id=\(singleHootID)"
+            url = NSURL(string: urlPath, relativeToURL: host)!
+        } else {
+            NSLog("could not construct URL in getHoots()")
+            return
+        }
+        
+        NSLog("GETting URL: %@", url)
+        
+        let request = NSURLRequest(URL: url)
+        
+        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) { (response, data, error) -> Void in
+            
+            if (error != nil) {
+                NSLog("%@", error)
+                completed(0)
+                return
+            }
+            
+            if var hoot = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as? Dictionary<String, AnyObject>{
+                completed(self.addHootsToCoreData([hoot], removeOthers: false))
+            } else {
+                completed(0)
+            }
+            
+        }
+
+    }
+    
     class func getHoots(completed: (Int) -> (Void)) {
         var url: NSURL
         
@@ -215,7 +254,7 @@ class HootAPIToCoreData {
                     }
                 }
                 
-                //Create new Hoot if we didnt find it
+                //Create new Hoot if we didnt find it 
                 if foundExistingID == false {
                     var newItem = NSEntityDescription.insertNewObjectForEntityForName("Hoot", inManagedObjectContext: threadMOC) as Hoot
                     newItem.id = id

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -36,7 +36,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Allow Hootly access to your location?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SXJ-Ci-pyW">
-                                <rect key="frame" x="16" y="453" width="568" height="19.5"/>
+                                <rect key="frame" x="16" y="453" width="568" height="20"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -76,13 +76,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Hootly!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EV8-IW-Yrc">
-                                <rect key="frame" x="192" y="124" width="216.5" height="29"/>
+                                <rect key="frame" x="192" y="124" width="217" height="29"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't worry! We won't share your location with anyone. This is just how Hootly works!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="19c-6c-VPg">
-                                <rect key="frame" x="36" y="204" width="528" height="14.5"/>
+                                <rect key="frame" x="36" y="204" width="528" height="15"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                 <color key="textColor" red="0.94117647058823528" green="0.94117647058823528" blue="0.94117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -153,16 +153,16 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CGo-Vt-L4j" id="s4K-Bj-8W6">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dzu-vy-DKE">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dzu-vy-DKE">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="dzu-vy-DKE" secondAttribute="height" multiplier="1:1" id="Dnv-K7-wJX"/>
                                             </constraints>
                                         </imageView>
-                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="md9-we-dTb">
+                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="md9-we-dTb">
                                             <rect key="frame" x="289.5" y="290.5" width="20" height="20"/>
                                         </activityIndicatorView>
-                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eul-Yq-CLs" userLabel="Comment" customClass="CommentView" customModule="Hootly" customModuleProvider="target">
+                                        <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eul-Yq-CLs" userLabel="Comment" customClass="CommentView" customModule="Hootly" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="600" width="600" height="80"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
@@ -259,7 +259,7 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholderText" value="Hoot your Hoot!"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ly1-SZ-bbR" userLabel="Keyboard View">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ly1-SZ-bbR" userLabel="Keyboard View">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" id="1Om-5c-Xdp"/>
@@ -315,7 +315,7 @@
         <!--Details-->
         <scene sceneID="ODn-yz-P9n">
             <objects>
-                <viewController title="Details" id="bVX-S0-grA" customClass="SingleHootViewController" customModule="Hootly" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SingleHoot" title="Details" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bVX-S0-grA" customClass="SingleHootViewController" customModule="Hootly" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="IaO-mB-7YL"/>
                         <viewControllerLayoutGuide type="bottom" id="T7b-7o-R7V"/>
@@ -353,7 +353,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jG8-Jh-1dN" customClass="CommentView" customModule="Hootly" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="109.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="110"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
                                             </subviews>
@@ -386,7 +386,7 @@
                                     <outlet property="delegate" destination="bVX-S0-grA" id="fFF-Ci-02l"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hyy-ro-cxk" userLabel="Keyboard View">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hyy-ro-cxk" userLabel="Keyboard View">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" id="BCb-EN-lWK"/>
@@ -465,16 +465,16 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="J6f-xL-Wi0" id="8dc-XR-19J">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TAz-Xu-Ciz">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TAz-Xu-Ciz">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="TAz-Xu-Ciz" secondAttribute="height" multiplier="1:1" id="o9p-rF-OUX"/>
                                             </constraints>
                                         </imageView>
-                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="wVA-65-xHY">
-                                            <rect key="frame" x="289.5" y="290.5" width="20" height="20"/>
+                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="wVA-65-xHY">
+                                            <rect key="frame" x="290" y="291" width="20" height="20"/>
                                         </activityIndicatorView>
-                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Ye-gz-p7r" userLabel="Comment" customClass="CommentView" customModule="Hootly" customModuleProvider="target">
+                                        <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Ye-gz-p7r" userLabel="Comment" customClass="CommentView" customModule="Hootly" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="600" width="600" height="80"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>

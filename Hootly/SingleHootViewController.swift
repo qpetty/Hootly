@@ -59,6 +59,14 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
         super.viewWillAppear(animated)
         photo.image = hootImage
         
+        hoot?.fetchImage({ (image: UIImage) -> (Void) in
+            self.photo.image = image
+        })
+        
+        HootAPIToCoreData.fetchCommentsForHoot(hoot, completed: { (success) -> (Void) in
+            //Can't pass in nil instead of a closure so we just won't do anything here
+        })
+        
         commentTable.estimatedRowHeight = CGFloat(CELL_HEIGHT)
         //commentTable.rowHeight = UITableViewAutomaticDimension
         

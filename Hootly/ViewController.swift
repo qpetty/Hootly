@@ -57,8 +57,8 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
     func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         let mess = "changed location authorization to"
         switch status {
-        case .Authorized:
-            NSLog("%@: Authorized", mess)
+        case .AuthorizedAlways:
+            NSLog("%@: AuthorizedAlways", mess)
         case .AuthorizedWhenInUse:
             NSLog("%@: AuthorizedWhenInUse", mess)
             beginRefreshing()
@@ -124,7 +124,7 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
     func refreshAndFetchData() {
         
         switch CLLocationManager.authorizationStatus() {
-        case .Authorized, .AuthorizedWhenInUse:
+        case .AuthorizedAlways, .AuthorizedWhenInUse:
             HootAPIToCoreData.getHoots { (addedHoots: Int) -> (Void) in
                 self.refreshControl?.endRefreshing()
                 return
@@ -268,11 +268,6 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
             let dest = segue.destinationViewController as SingleHootViewController
             let cell = sender as HootCell
             dest.hoot = cell.hoot
-            dest.hootImage = cell.photo?.image
-            
-            HootAPIToCoreData.fetchCommentsForHoot(dest.hoot, completed: { (success) -> (Void) in
-                //Can't pass in nil instead of a closure so we just won't do anything here
-            })
             
             tableView.deselectRowAtIndexPath(tableView.indexPathForSelectedRow()!, animated: true)
             
