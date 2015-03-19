@@ -75,7 +75,7 @@
                                     <action selector="buttonPressed:" destination="bh7-L1-lZw" eventType="touchUpInside" id="Djf-Nn-HEw"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Hootly!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EV8-IW-Yrc">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Welcome to Hootly!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EV8-IW-Yrc">
                                 <rect key="frame" x="192" y="124" width="217" height="29"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="deviceRGB"/>
@@ -153,16 +153,16 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CGo-Vt-L4j" id="s4K-Bj-8W6">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dzu-vy-DKE">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dzu-vy-DKE">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="dzu-vy-DKE" secondAttribute="height" multiplier="1:1" id="Dnv-K7-wJX"/>
                                             </constraints>
                                         </imageView>
-                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="md9-we-dTb">
-                                            <rect key="frame" x="289.5" y="290.5" width="20" height="20"/>
+                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="md9-we-dTb">
+                                            <rect key="frame" x="290" y="291" width="20" height="20"/>
                                         </activityIndicatorView>
-                                        <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eul-Yq-CLs" userLabel="Comment" customClass="CommentView" customModule="Hootly" customModuleProvider="target">
+                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eul-Yq-CLs" userLabel="Comment" customClass="CommentView" customModule="Hootly" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="600" width="600" height="80"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
@@ -352,7 +352,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="c9Y-SX-sUT" id="BNZ-c2-jEy">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jG8-Jh-1dN" customClass="CommentView" customModule="Hootly" customModuleProvider="target">
+                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jG8-Jh-1dN" customClass="CommentView" customModule="Hootly" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="600" height="110"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
@@ -465,16 +465,16 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="J6f-xL-Wi0" id="8dc-XR-19J">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TAz-Xu-Ciz">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TAz-Xu-Ciz">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="TAz-Xu-Ciz" secondAttribute="height" multiplier="1:1" id="o9p-rF-OUX"/>
                                             </constraints>
                                         </imageView>
-                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="wVA-65-xHY">
+                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="wVA-65-xHY">
                                             <rect key="frame" x="290" y="291" width="20" height="20"/>
                                         </activityIndicatorView>
-                                        <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Ye-gz-p7r" userLabel="Comment" customClass="CommentView" customModule="Hootly" customModuleProvider="target">
+                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Ye-gz-p7r" userLabel="Comment" customClass="CommentView" customModule="Hootly" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="600" width="600" height="80"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
@@ -512,7 +512,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="dqf-GY-UHj">
                         <nil key="title"/>
-                        <barButtonItem key="leftBarButtonItem" title="Profile" id="J7N-nI-2sS">
+                        <barButtonItem key="leftBarButtonItem" title="100" id="J7N-nI-2sS">
                             <connections>
                                 <segue destination="JXb-hh-STh" kind="show" identifier="ProfileView" id="xVj-pM-l79"/>
                             </connections>
@@ -534,6 +534,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="profileButton" destination="J7N-nI-2sS" id="9X3-nN-nVR"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Kg-ma-EnU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -547,7 +550,7 @@
         <image name="HootlyIcon" width="60" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="YN5-DH-Tl0"/>
+        <segue reference="KVm-Kr-sLE"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

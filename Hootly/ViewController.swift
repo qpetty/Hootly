@@ -15,6 +15,8 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
     var fetchedResultsController: NSFetchedResultsController?
     var managedObjectContext:NSManagedObjectContext?
     
+    @IBOutlet weak var profileButton: UIBarButtonItem!
+    
     let CELL_HEIGHT = 80.0 as CGFloat
     
     override init() {
@@ -121,6 +123,14 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
         manager.startUpdatingLocation()
     }
     
+    func refreshHootLoot() {
+        HootAPIToCoreData.getMyHootLoot { (loot) -> (Void) in
+            if let loot = loot {
+                self.profileButton.title = "\(loot)"
+            }
+        }
+    }
+    
     func refreshAndFetchData() {
         
         switch CLLocationManager.authorizationStatus() {
@@ -129,6 +139,7 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
                 self.refreshControl?.endRefreshing()
                 return
             }
+            refreshHootLoot()
         case .NotDetermined:
             promptForLocation()
         case .Restricted, .Denied:

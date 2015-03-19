@@ -139,7 +139,6 @@
 			isa = PBXGroup;
 			children = (
 				5A94E2FA1A74940300CA1CB8 /* AppDelegate.swift */,
-				5A59CB761ABB4EEB00C6085F /* UIButton+MinBox.swift */,
 				5A94E2FC1A74940300CA1CB8 /* ViewController.swift */,
 				5A2699881AAD0ED00018D393 /* ProfileViewController.swift */,
 				5A9768691A88086E00229E7E /* NewHootViewController.swift */,
@@ -195,6 +194,7 @@
 		5A9768751A88493000229E7E /* Outside Code */ = {
 			isa = PBXGroup;
 			children = (
+				5A59CB761ABB4EEB00C6085F /* UIButton+MinBox.swift */,
 				5A9768721A88492B00229E7E /* SZTextView.h */,
 				5A9768731A88492B00229E7E /* SZTextView.m */,
 				5A716FF81A9D69B00023F705 /* NSMutableData+MultipartFormData.h */,

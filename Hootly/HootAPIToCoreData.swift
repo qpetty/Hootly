@@ -76,6 +76,43 @@ class HootAPIToCoreData {
         }
     }
     
+    class func getMyHootLoot(completed: (loot: Int?) -> (Void)) {
+        var url: NSURL
+        
+        if let host = hostURL {
+            let urlPath = "hootloot?user_id=\(self.hootID)"
+            url = NSURL(string: urlPath, relativeToURL: host)!
+        } else {
+            NSLog("could not construct URL in getHoots()")
+            completed(loot: nil)
+            return
+        }
+        
+        NSLog("GETting URL: %@", url)
+        
+        let request = NSURLRequest(URL: url)
+        
+        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) { (response, data, error) -> Void in
+            
+            if (error != nil) {
+                NSLog("%@", error)
+                completed(loot: nil)
+                return
+            }
+            
+            println(NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil))
+            
+            if var hootArray = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as? Dictionary<String, Int>{
+                if let loot = hootArray["hootloot"] {
+                    completed(loot: loot)
+                    return;
+                }
+            }
+            
+            completed(loot: nil)
+        }
+    }
+    
     class func getMyHoots(completed: (Int) -> (Void)) {
         var url: NSURL
         
