@@ -86,6 +86,7 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
         tableView.estimatedRowHeight = self.view.frame.size.width + CELL_HEIGHT
         tableView.rowHeight = UITableViewAutomaticDimension
         
+        refreshHootLoot()
         //TODO: Might not be the best place for this but we'll try it here for a while
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "managedObjectContextDidSave:", name: NSManagedObjectContextDidSaveNotification, object: nil)
     }
@@ -169,10 +170,12 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
             let sortDes = NSSortDescriptor(key: "time", ascending: false)
             fetchReq.sortDescriptors = [sortDes]
         } else {
-            let sortDes = NSSortDescriptor(key: "rating", ascending: false)
-            fetchReq.sortDescriptors = [sortDes]
+            let ratSortDes = NSSortDescriptor(key: "rating", ascending: false)
+            let timesortDes = NSSortDescriptor(key: "time", ascending: true)
+            fetchReq.sortDescriptors = [ratSortDes, timesortDes]
         }
         
+        fetchReq.predicate = NSPredicate(format: "nearby = true")
         
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchReq, managedObjectContext: managedObjectContext!, sectionNameKeyPath: nil, cacheName: nil)
         fetchedResultsController?.delegate = self
