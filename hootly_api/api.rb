@@ -17,7 +17,7 @@ class Hootly_API < Sinatra::Base
       include Sinatra::PushNotifications
    end
 
-	client = Mysql2::Client.new(:host => "localhost", :username => "root", :password => ENV["HOOTLY_DB_PASSWORD"], :database => "hootly")
+	client = Mysql2::Client.new(:host => "localhost", :username => "root", :password => ENV["HOOTLY_DB_PASSWORD"], :database => "hootly", :reconnect => true)
         APNS.pem = 'push_certs/ck.pem'
         APNS.pass = 'LorraineCucumber42'
 
@@ -114,6 +114,10 @@ class Hootly_API < Sinatra::Base
 	      end
 
 	      cur_post["requester_vote"] = vote_dir
+
+	      num_comments = 0
+	      num_comments = client.query("SELECT count(*) as num_comments FROM Comments WHERE post_id = #{id} and active = true").first["num_comments"]
+	      cur_post["num_comments"] = num_comments
 	      posts_return.push(cur_post)
 	   end
 	   posts_return.to_json
@@ -221,12 +225,17 @@ class Hootly_API < Sinatra::Base
          return ["error" => error].to_json
       end
 
+
 	   user_id = params["user_id"]
 	   hoot_text = params['hoot_text']
 	   timestamp = Time.now.to_i
 	   lat = params["lat"]
 	   long = params["long"]
 
+      hoot_character_limit = 140
+      if hoot_text.size > hoot_character_limit
+         return ["error" => "hoot character count exceeded limit"].to_json
+      end
 
       device_token = '987cb0a6d68138d3e06188c99c1ea60c5cbed40650d7cc4d8d8cfee2dd338d2b'
       APNS.send_notification(device_token, :alert => 'A hoot has been posted', :badge => 1, :sound => 'default')
@@ -306,7 +315,7 @@ class Hootly_API < Sinatra::Base
 
 	   client.query("INSERT INTO Hoots_Downvotes (hoot_id, user_id) VALUES (#{post_id}, '#{user_id}')")
 	   client.query("UPDATE Hoots SET hootloot = hootloot - 1 WHERE id = #{post_id}")
-	   client.query("UPDATE Hoots SET votes = votes - 1 WHERE id = #{post_id}")
+	   client.query("UPDATE Hoots SET votes = votes + 1 WHERE id = #{post_id}")
 	   poster_id = client.query("SELECT * FROM Hoots WHERE id = #{post_id}").first['user_id']
 	   client.query("UPDATE Users SET hootloot = hootloot - 1 WHERE id = '#{poster_id}'")
 
