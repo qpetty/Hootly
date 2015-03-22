@@ -13,6 +13,7 @@
 		5A37D18A1A7D9170006AAC65 /* SingleHootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A37D1891A7D9170006AAC65 /* SingleHootViewController.swift */; };
 		5A37D1931A7DD60D006AAC65 /* CommentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A37D1921A7DD60D006AAC65 /* CommentView.xib */; };
 		5A37D1951A7DD7EB006AAC65 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A37D1941A7DD7EB006AAC65 /* CommentView.swift */; };
+		5A59CB771ABB4EEB00C6085F /* UIButton+MinBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A59CB761ABB4EEB00C6085F /* UIButton+MinBox.swift */; };
 		5A61AB1C1A900D2A00B06495 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A61AB1B1A900D2A00B06495 /* CoreData.framework */; };
 		5A61AB201A900E6400B06495 /* Hootly.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5A61AB1E1A900E6400B06495 /* Hootly.xcdatamodeld */; };
 		5A716FFA1A9D69B00023F705 /* NSMutableData+MultipartFormData.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A716FF91A9D69B00023F705 /* NSMutableData+MultipartFormData.m */; };
@@ -51,6 +52,7 @@
 		5A37D1891A7D9170006AAC65 /* SingleHootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleHootViewController.swift; sourceTree = "<group>"; };
 		5A37D1921A7DD60D006AAC65 /* CommentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentView.xib; sourceTree = "<group>"; };
 		5A37D1941A7DD7EB006AAC65 /* CommentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
+		5A59CB761ABB4EEB00C6085F /* UIButton+MinBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+MinBox.swift"; sourceTree = "<group>"; };
 		5A61AB1B1A900D2A00B06495 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		5A61AB1F1A900E6400B06495 /* Hootly.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Hootly.xcdatamodel; sourceTree = "<group>"; };
 		5A716FF81A9D69B00023F705 /* NSMutableData+MultipartFormData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableData+MultipartFormData.h"; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 		5A9768751A88493000229E7E /* Outside Code */ = {
 			isa = PBXGroup;
 			children = (
+				5A59CB761ABB4EEB00C6085F /* UIButton+MinBox.swift */,
 				5A9768721A88492B00229E7E /* SZTextView.h */,
 				5A9768731A88492B00229E7E /* SZTextView.m */,
 				5A716FF81A9D69B00023F705 /* NSMutableData+MultipartFormData.h */,
@@ -319,6 +322,7 @@
 				5A26998B1AAD194A0018D393 /* Hoot.swift in Sources */,
 				5A94E2FB1A74940300CA1CB8 /* AppDelegate.swift in Sources */,
 				D1839CBB1A9192FA00C87B19 /* LocationPrompt.swift in Sources */,
+				5A59CB771ABB4EEB00C6085F /* UIButton+MinBox.swift in Sources */,
 				5A94E31D1A749F6600CA1CB8 /* HootCell.swift in Sources */,
 				5A8248101A92B4630055E334 /* HootAPIToCoreData.swift in Sources */,
 			);

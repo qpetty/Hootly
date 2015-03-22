@@ -19,6 +19,8 @@ class ProfileViewController: UITableViewController, UITableViewDataSource, UITab
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
+        
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         managedObjectContext = appDelegate.managedObjectContext
         
@@ -47,6 +49,10 @@ class ProfileViewController: UITableViewController, UITableViewDataSource, UITab
         tableView.rowHeight = UITableViewAutomaticDimension
         
         beginRefreshing()
+    }
+    
+    @IBAction func closeModal(sender: AnyObject) {
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     func fetchResultsFromCoreData(sortedByDate: Bool) {

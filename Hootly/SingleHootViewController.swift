@@ -59,6 +59,14 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
         super.viewWillAppear(animated)
         photo.image = hootImage
         
+        hoot?.fetchImage({ (image: UIImage) -> (Void) in
+            self.photo.image = image
+        })
+        
+        HootAPIToCoreData.fetchCommentsForHoot(hoot, completed: { (success) -> (Void) in
+            //Can't pass in nil instead of a closure so we just won't do anything here
+        })
+        
         commentTable.estimatedRowHeight = CGFloat(CELL_HEIGHT)
         //commentTable.rowHeight = UITableViewAutomaticDimension
         
@@ -123,6 +131,25 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
         let filledSpace = width + hoot!.replies.doubleValue * CELL_HEIGHT
         
         commentTable.tableFooterView = UIView(frame: CGRect.zeroRect)
+    }
+    
+    @IBAction func reportHoot(sender: AnyObject) {
+        let alertController = UIAlertController(
+            title: "Report to the overseers",
+            message: "I can't handle the hoot!",
+            preferredStyle: .Alert)
+        
+        let openAction = UIAlertAction(title: "Report", style: .Cancel) { (action) in
+            HootAPIToCoreData.reportHoot(self.hoot, completed: { (success) -> (Void) in
+                //Says if the report worked or not, we wont do anything about it right now
+            })
+        }
+        alertController.addAction(openAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Default, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {

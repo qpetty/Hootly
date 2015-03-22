@@ -76,6 +76,43 @@ class HootAPIToCoreData {
         }
     }
     
+    class func getMyHootLoot(completed: (loot: Int?) -> (Void)) {
+        var url: NSURL
+        
+        if let host = hostURL {
+            let urlPath = "hootloot?user_id=\(self.hootID)"
+            url = NSURL(string: urlPath, relativeToURL: host)!
+        } else {
+            NSLog("could not construct URL in getHoots()")
+            completed(loot: nil)
+            return
+        }
+        
+        NSLog("GETting URL: %@", url)
+        
+        let request = NSURLRequest(URL: url)
+        
+        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) { (response, data, error) -> Void in
+            
+            if (error != nil) {
+                NSLog("%@", error)
+                completed(loot: nil)
+                return
+            }
+            
+            println(NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil))
+            
+            if var hootArray = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as? Dictionary<String, Int>{
+                if let loot = hootArray["hootloot"] {
+                    completed(loot: loot)
+                    return;
+                }
+            }
+            
+            completed(loot: nil)
+        }
+    }
+    
     class func getMyHoots(completed: (Int) -> (Void)) {
         var url: NSURL
         
@@ -112,6 +149,45 @@ class HootAPIToCoreData {
             }
             
         }
+    }
+    
+    class func getSingleHoot(singleHootID: Int, completed: (Int) -> (Void)) {
+        var url: NSURL
+        
+        let coord = self.coordinates
+        if coord == nil {
+            NSLog("could not get location coordinates")
+            return
+        }
+        
+        if let host = hostURL {
+            let urlPath = "hoot?user_id=\(self.hootID)&post_id=\(singleHootID)"
+            url = NSURL(string: urlPath, relativeToURL: host)!
+        } else {
+            NSLog("could not construct URL in getHoots()")
+            return
+        }
+        
+        NSLog("GETting URL: %@", url)
+        
+        let request = NSURLRequest(URL: url)
+        
+        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) { (response, data, error) -> Void in
+            
+            if (error != nil) {
+                NSLog("%@", error)
+                completed(0)
+                return
+            }
+            
+            if var hoot = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as? Dictionary<String, AnyObject>{
+                completed(self.addHootsToCoreData([hoot], removeOthers: false))
+            } else {
+                completed(0)
+            }
+            
+        }
+
     }
     
     class func getHoots(completed: (Int) -> (Void)) {
@@ -215,7 +291,7 @@ class HootAPIToCoreData {
                     }
                 }
                 
-                //Create new Hoot if we didnt find it
+                //Create new Hoot if we didnt find it 
                 if foundExistingID == false {
                     var newItem = NSEntityDescription.insertNewObjectForEntityForName("Hoot", inManagedObjectContext: threadMOC) as Hoot
                     newItem.id = id
@@ -353,6 +429,29 @@ class HootAPIToCoreData {
         
         //TODO: Check value
         threadMOC.save(nil)
+    }
+    
+    class func reportHoot(hoot: Hoot?, completed: (success: Bool) -> (Void)) {
+        var url: NSURL
+        
+        if hoot == nil {
+            completed(success: false)
+            return
+        }
+        
+        if let host = hostURL {
+            url = NSURL(string: "hoot?user_id=\(self.hootID)&post_id=\(hoot!.id)", relativeToURL: host)!
+        } else {
+            NSLog("could not construct URL in getHoots()")
+            return
+        }
+        
+        let request = NSMutableURLRequest(URL: url)
+        request.HTTPMethod = "DELETE"
+        
+        NSLog("Reporting hoot(%@) to URL: %@", hoot!.id, url)
+        
+        self.genericURLConnectionFromRequest(request, completed: completed)
     }
     
     class func postPUSHToken(id: String, token: String, completed: (success: Bool) -> (Void)) {

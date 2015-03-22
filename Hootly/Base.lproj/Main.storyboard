@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -36,7 +36,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Allow Hootly access to your location?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SXJ-Ci-pyW">
-                                <rect key="frame" x="16" y="453" width="568" height="19.5"/>
+                                <rect key="frame" x="16" y="453" width="568" height="20"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -76,13 +76,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Hootly!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EV8-IW-Yrc">
-                                <rect key="frame" x="192" y="124" width="216.5" height="29"/>
+                                <rect key="frame" x="191" y="124" width="217" height="29"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't worry! We won't share your location with anyone. This is just how Hootly works!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="19c-6c-VPg">
-                                <rect key="frame" x="36" y="204" width="528" height="14.5"/>
+                                <rect key="frame" x="36" y="204" width="528" height="15"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                 <color key="textColor" red="0.94117647058823528" green="0.94117647058823528" blue="0.94117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -136,9 +136,26 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="raC-k0-4h9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-363.5" y="1164.5"/>
+            <point key="canvasLocation" x="-1444" y="548"/>
         </scene>
-        <!--Profile View Controller-->
+        <!--Navigation Controller-->
+        <scene sceneID="lYX-Tl-SwO">
+            <objects>
+                <navigationController id="ny0-1K-hvH" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="xgq-wl-PNs">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.55294117649999996" green="0.73333333329999995" blue="0.94509803920000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="JXb-hh-STh" kind="relationship" relationship="rootViewController" id="tdl-lb-B49"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Z6T-B3-cSv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="267" y="1616"/>
+        </scene>
+        <!--Profile-->
         <scene sceneID="Zcw-gP-Bo2">
             <objects>
                 <tableViewController id="JXb-hh-STh" customClass="ProfileViewController" customModule="Hootly" customModuleProvider="target" sceneMemberID="viewController">
@@ -160,7 +177,7 @@
                                             </constraints>
                                         </imageView>
                                         <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="md9-we-dTb">
-                                            <rect key="frame" x="289.5" y="290.5" width="20" height="20"/>
+                                            <rect key="frame" x="290" y="291" width="20" height="20"/>
                                         </activityIndicatorView>
                                         <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eul-Yq-CLs" userLabel="Comment" customClass="CommentView" customModule="Hootly" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="600" width="600" height="80"/>
@@ -198,8 +215,24 @@
                             <outlet property="delegate" destination="JXb-hh-STh" id="jKg-Pm-4BQ"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Profile" id="SBh-dL-aSD">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="IxM-Ac-Gkt">
+                            <connections>
+                                <action selector="closeModal:" destination="JXb-hh-STh" id="G75-eL-Q09"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="msS-h3-34r" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationBar contentMode="scaleToFill" id="gXS-Uq-UPq">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <items>
+                        <navigationItem title="Profile" id="3Vm-yC-Dm8">
+                            <barButtonItem key="backBarButtonItem" title="Hoots" id="zKL-dm-JAn"/>
+                        </navigationItem>
+                    </items>
+                </navigationBar>
             </objects>
             <point key="canvasLocation" x="1007" y="1189"/>
         </scene>
@@ -315,7 +348,7 @@
         <!--Details-->
         <scene sceneID="ODn-yz-P9n">
             <objects>
-                <viewController title="Details" id="bVX-S0-grA" customClass="SingleHootViewController" customModule="Hootly" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SingleHoot" title="Details" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bVX-S0-grA" customClass="SingleHootViewController" customModule="Hootly" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="IaO-mB-7YL"/>
                         <viewControllerLayoutGuide type="bottom" id="T7b-7o-R7V"/>
@@ -353,7 +386,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jG8-Jh-1dN" customClass="CommentView" customModule="Hootly" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="109.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="109"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
                                             </subviews>
@@ -435,6 +468,9 @@
                     <navigationItem key="navigationItem" title="Hoot!" id="aH4-9t-n8q">
                         <barButtonItem key="rightBarButtonItem" image="Flag" id="3zL-ty-CLp">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="reportHoot:" destination="bVX-S0-grA" id="vVH-BQ-Ohc"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
@@ -472,7 +508,7 @@
                                             </constraints>
                                         </imageView>
                                         <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="wVA-65-xHY">
-                                            <rect key="frame" x="289.5" y="290.5" width="20" height="20"/>
+                                            <rect key="frame" x="290" y="291" width="20" height="20"/>
                                         </activityIndicatorView>
                                         <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Ye-gz-p7r" userLabel="Comment" customClass="CommentView" customModule="Hootly" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="600" width="600" height="80"/>
@@ -512,9 +548,9 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="dqf-GY-UHj">
                         <nil key="title"/>
-                        <barButtonItem key="leftBarButtonItem" title="Profile" id="J7N-nI-2sS">
+                        <barButtonItem key="leftBarButtonItem" title="100" id="J7N-nI-2sS">
                             <connections>
-                                <segue destination="JXb-hh-STh" kind="show" identifier="ProfileView" id="xVj-pM-l79"/>
+                                <segue destination="ny0-1K-hvH" kind="presentation" identifier="ProfileView" id="TEL-BA-44b"/>
                             </connections>
                         </barButtonItem>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="aUS-28-uTg">
@@ -534,6 +570,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="profileButton" destination="J7N-nI-2sS" id="9X3-nN-nVR"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Kg-ma-EnU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
