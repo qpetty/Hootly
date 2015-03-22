@@ -65,7 +65,7 @@ module Sinatra
          person_people = 'people have' if hoot['votes'] > 1
 
          alert = "#{hoot['votes']} #{person_people} voted on your Hoot!"
-         APNS.send_notification(device_token, :alert => alert, :sound => SOUND, :other => {:hoot_id => hoot['id']})
+         APNS.send_notification(device_token, :badge => 1, :alert => alert, :sound => SOUND, :other => {:hoot_id => hoot['id']})
          client.query("UPDATE Users SET last_notification = #{Time.now.to_i} WHERE id = '#{user['id']}'")
       end
 
@@ -86,7 +86,7 @@ module Sinatra
          person_people = 'people have' if comment['votes'] > 1
 
          alert = "#{comment['votes']} #{person_people} voted on your Comment!"
-         APNS.send_notification(device_token, :alert => alert, :sound => SOUND, :other => {:hoot_id => comment['post_id']})
+         APNS.send_notification(device_token, :alert => alert, :badge => 1, :sound => SOUND, :other => {:hoot_id => comment['post_id']})
          client.query("UPDATE Users SET last_notification = #{Time.now.to_i} WHERE id = '#{user['id']}'")
       end
 
@@ -109,12 +109,12 @@ module Sinatra
          comments.each do |comment|
             c_device_token = client.query("SELECT device_token FROM Users WHERE id = '#{comment['user_id']}'").first['device_token']
             if !c_device_token.nil? and comment_device_tokens[c_device_token].nil?
-               APNS.send_notification(c_device_token, :alert => comment_alert, :sound => SOUND, :other => {:hoot_id => hoot['id']})
+               APNS.send_notification(c_device_token, :alert => comment_alert, :badge => 1, :sound => SOUND, :other => {:hoot_id => hoot['id']})
             end
             comment_device_tokens[c_device_token] = true
          end
          alert = "#{comment_count} #{person_people} replied to your Hoot!"
-         APNS.send_notification(device_token, :alert => alert, :sound => SOUND, :other => {:hoot_id => hoot['id']})
+         APNS.send_notification(device_token, :alert => alert, :badge => 1, :sound => SOUND, :other => {:hoot_id => hoot['id']})
       end
    end
    helpers ParameterCheck, ParameterEscape, PushNotifications
