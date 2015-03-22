@@ -55,6 +55,8 @@ module Sinatra
          device_token = user['device_token']
          return if device_token.nil?
 
+         notification_count = user['notifications']
+         return if notification_count.nil?
 
          last_notification = user['last_notification']
          last_notification = 0 if last_notification.nil?
@@ -65,7 +67,7 @@ module Sinatra
          person_people = 'people have' if hoot['votes'] > 1
 
          alert = "#{hoot['votes']} #{person_people} voted on your Hoot!"
-         APNS.send_notification(device_token, :badge => 1, :alert => alert, :sound => SOUND, :other => {:hoot_id => hoot['id']})
+         APNS.send_notification(device_token, :badge => notification_count, :alert => alert, :sound => SOUND, :other => {:hoot_id => hoot['id']})
          client.query("UPDATE Users SET last_notification = #{Time.now.to_i} WHERE id = '#{user['id']}'")
       end
 
