@@ -116,6 +116,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NSLog("didReceiveRemoteNotification with dictionary: \(userInfo)")
         UIApplication.sharedApplication().applicationIconBadgeNumber = 0
         
+        HootAPIToCoreData.resetPUSHNotificationCount { (success) -> (Void) in
+            //Check for success if needed, the return value is not important at the moment
+        }
+        
         if let hoot_id = userInfo["hoot_id"] as? Int {
             HootAPIToCoreData.getSingleHoot(hoot_id) { (returnedHoots) -> (Void) in
                 println("Got Hoot:\(hoot_id)")
