@@ -16,8 +16,6 @@ protocol CommentFormProtocol: class {
 
 @IBDesignable
 class CommentFormView: NibDesignable, UITextViewDelegate {
-    var active = false
-    
     private let characterLimit = 140
     
     @IBOutlet weak var textField: SZTextView!
@@ -47,6 +45,12 @@ class CommentFormView: NibDesignable, UITextViewDelegate {
     @IBInspectable var initialStatus: Int = 0 {
         didSet {
             status = NSMakeRange(initialStatus, 100)
+        }
+    }
+    
+    var active: Bool = false {
+        didSet {
+            submitButton.enabled = active
         }
     }
     
