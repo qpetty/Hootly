@@ -55,6 +55,7 @@ module Sinatra
          device_token = user['device_token']
          return if device_token.nil?
 
+         client.query("Update Users SET notifications = notifications + 1 WHERE id = '#{hoot['user_id']}'")
          notification_count = user['notifications']
          return if notification_count.nil?
 
@@ -67,6 +68,7 @@ module Sinatra
          person_people = 'people have' if hoot['votes'] > 1
 
          alert = "#{hoot['votes']} #{person_people} voted on your Hoot!"
+
          APNS.send_notification(device_token, :badge => notification_count, :alert => alert, :sound => SOUND, :other => {:hoot_id => hoot['id']})
          client.query("UPDATE Users SET last_notification = #{Time.now.to_i} WHERE id = '#{user['id']}'")
       end
@@ -84,11 +86,15 @@ module Sinatra
          last_notification = 0 if last_notification.nil?
          return if Time.now.to_i - last_notification <= NOTIFICATION_THRESHOLD
 
+         client.query("Update Users SET notifications = notifications + 1 WHERE id = '#{user['id']}'")
+         notification_count = user['notifications']
+         return if notification_count.nil?
+
          person_people = 'person has'
          person_people = 'people have' if comment['votes'] > 1
 
          alert = "#{comment['votes']} #{person_people} voted on your Comment!"
-         APNS.send_notification(device_token, :alert => alert, :badge => 1, :sound => SOUND, :other => {:hoot_id => comment['post_id']})
+         APNS.send_notification(device_token, :alert => alert, :badge => notification_count, :sound => SOUND, :other => {:hoot_id => comment['post_id']})
          client.query("UPDATE Users SET last_notification = #{Time.now.to_i} WHERE id = '#{user['id']}'")
       end
 
@@ -98,6 +104,8 @@ module Sinatra
          return if user.nil?
          device_token = user['device_token']
          return if device_token.nil?
+
+         client.query("Update Users SET notifications = notifications + 1 WHERE id = '#{user['id']}'")
 
          comments = client.query("SELECT * FROM Comments WHERE post_id = '#{post_id}'")
          comment_count = comments.count
@@ -109,14 +117,17 @@ module Sinatra
          comment_device_tokens = {}
          comment_device_tokens[device_token] = true
          comments.each do |comment|
+            client.query("Update Users SET notifications = notifications + 1 WHERE id = '#{comment['user_id']}'")
+            notification_count = client.query("SELECT notifications FROM Users WHERE id = '#{comment['user_id']}'").first['notifications']
             c_device_token = client.query("SELECT device_token FROM Users WHERE id = '#{comment['user_id']}'").first['device_token']
             if !c_device_token.nil? and comment_device_tokens[c_device_token].nil?
-               APNS.send_notification(c_device_token, :alert => comment_alert, :badge => 1, :sound => SOUND, :other => {:hoot_id => hoot['id']})
+               APNS.send_notification(c_device_token, :alert => comment_alert, :badge => notification_count, :sound => SOUND, :other => {:hoot_id => hoot['id']})
             end
             comment_device_tokens[c_device_token] = true
          end
+         notification_count = user['notifications']
          alert = "#{comment_count} #{person_people} replied to your Hoot!"
-         APNS.send_notification(device_token, :alert => alert, :badge => 1, :sound => SOUND, :other => {:hoot_id => hoot['id']})
+         APNS.send_notification(device_token, :alert => alert, :badge => notification_count, :sound => SOUND, :other => {:hoot_id => hoot['id']})
       end
    end
    helpers ParameterCheck, ParameterEscape, PushNotifications

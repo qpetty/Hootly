@@ -35,19 +35,35 @@ class Hootly_API < Sinatra::Base
 	end
 
    post '/newtoken' do
-      parameters = ['token', 'user_id']
+      parameters = ['token', 'user_id', 'device_type']
       error = check_params(parameters)
       if !error.empty?
          return error
       end
-      escape_parameters = ['token', 'user_id']
+      escape_parameters = ['token', 'user_id', 'device_type']
       escape_params(escape_parameters, client)
 
       token = params['token']
       user_id = params['user_id']
+      device_type = params['device_type']
 
-      client.query("UPDATE Users SET device_token = '#{token}' WHERE id = '#{user_id}'")
+      client.query("UPDATE Users SET device_token = '#{token}', device_type = '#{device_type}' WHERE id = '#{user_id}'")
    end
+
+   post '/resetbadgecount' do
+      parameters = ['user_id']
+      error = check_params(parameters)
+
+      if !error.empty?
+         return error
+      end
+      escape_parameters = ['user_id']
+      escape_params(escape_parameters, client)
+      user_id = params['user_id']
+      client.query("UPDATE Users SET notifications = 0 WHERE id = '#{user_id}'")
+      ["Success"].to_json
+   end
+      
 
 	get '/hootloot' do
 
@@ -102,7 +118,7 @@ class Hootly_API < Sinatra::Base
 	      cur_post["hoot_text"] = post["hoot_text"]
 	      cur_post["hootloot"] = post["hootloot"]
 	      cur_post["timestamp"] = post["timestamp"]
-         cur_post["mine"] = post["user_id"] == user_id
+              cur_post["mine"] = post["user_id"] == user_id
 	      vote_dir = 0
 	      user_upvote = client.query("select sum(vote) as votes from Hoots_Upvotes where hoot_id = #{id} and user_id = '#{user_id}'")
 	      user_downvote = client.query("select sum(vote) as votes from Hoots_Downvotes where hoot_id = #{id} and user_id = '#{user_id}'")
