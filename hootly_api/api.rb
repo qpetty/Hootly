@@ -43,6 +43,8 @@ class Hootly_API < Sinatra::Base
       escape_parameters = ['token', 'user_id', 'device_type']
       escape_params(escape_parameters, client)
 
+      return if !real_user?(user_id)
+
       token = params['token']
       user_id = params['user_id']
       device_type = params['device_type']
@@ -59,6 +61,8 @@ class Hootly_API < Sinatra::Base
       end
       escape_parameters = ['user_id']
       escape_params(escape_parameters, client)
+      return if !real_user?(user_id)
+
       user_id = params['user_id']
       client.query("UPDATE Users SET notifications = 0 WHERE id = '#{user_id}'")
       ["Success"].to_json
@@ -75,6 +79,7 @@ class Hootly_API < Sinatra::Base
 
       escape_parameters = ['user_id']
       escape_params(escape_parameters, client)
+      return if !real_user?(user_id)
 
 	   data = {}
 	   user_id = params['user_id']
@@ -94,6 +99,7 @@ class Hootly_API < Sinatra::Base
 
 	   user_id = params['user_id']
 	   user_id = client.escape(user_id)
+      return if !real_user?(user_id)
 	   comments = client.query("SELECT post_id FROM Comments WHERE user_id = '#{user_id}'")
 
 	   post_ids = []
@@ -148,6 +154,7 @@ class Hootly_API < Sinatra::Base
 
       escape_parameters = ['user_id', 'post_id']
       escape_params(escape_parameters, client)
+      return if !real_user?(user_id)
 
 	   post_id = params["post_id"]
 	   user_id = params["user_id"]
@@ -186,6 +193,7 @@ class Hootly_API < Sinatra::Base
 
       escape_parameters = ['lat', 'long', 'user_id']
       escape_params(escape_parameters, client)
+      return if !real_user?(user_id)
 
 	   lat = params['lat']
 	   long = params['long']
@@ -240,6 +248,7 @@ class Hootly_API < Sinatra::Base
       if !error.empty?
          return ["error" => error].to_json
       end
+      return if !real_user?(user_id)
 
 
 	   user_id = params["user_id"]
@@ -304,6 +313,7 @@ class Hootly_API < Sinatra::Base
 	   user_id = params['user_id']
 	   post_id = client.escape(post_id)
 	   user_id = client.escape(user_id)
+      return if !real_user?(user_id)
 
 	   client.query("INSERT INTO Hoots_Upvotes (hoot_id, user_id) VALUES (#{post_id}, '#{user_id}')")
 	   client.query("UPDATE Hoots SET hootloot = hootloot + 1 WHERE id = #{post_id}")
@@ -323,6 +333,7 @@ class Hootly_API < Sinatra::Base
 
       escape_parameters = ['post_id', 'user_id']
       escape_params(escape_parameters, client)
+      return if !real_user?(user_id)
 
 	   post_id = params['post_id']
 	   user_id = params['user_id']
@@ -359,6 +370,7 @@ class Hootly_API < Sinatra::Base
 	   comments = client.query("select * from Comments where post_id = #{post_id} and active = true")
 	   requester_user_id = params["user_id"]
 	   requester_user_id = client.escape(requester_user_id)
+      return if !real_user?(requester_user_id)
 	   comments.each do |comment|
 	      vote_dir = 0
 	      comment_id = comment["id"]
@@ -395,6 +407,7 @@ class Hootly_API < Sinatra::Base
 	   post_id = client.escape(post_id)
 	   text = client.escape(text)
 	   user_id = client.escape(user_id)
+      return if !real_user?(user_id)
 
 	   timestamp = Time.now.to_i
 
@@ -413,6 +426,7 @@ class Hootly_API < Sinatra::Base
 
       escape_parameters = ['comment_id', 'user_id']
       escape_params(escape_parameters, client)
+      return if !real_user?(user_id)
 
 	   comment_id = params['comment_id']
 	   user_id = params['user_id']
@@ -436,6 +450,7 @@ class Hootly_API < Sinatra::Base
 
       escape_parameters = ['comment_id', 'user_id']
       escape_params(escape_parameters, client)
+      return if !real_user?(user_id)
 
 	   comment_id = params['comment_id']
 	   user_id = params['user_id']

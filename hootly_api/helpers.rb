@@ -18,6 +18,11 @@ module Sinatra
 
          return ""
       end
+
+      def real_user?(user_id)
+         user_check = client.query("SELECT * FROM Users WHERE id = '#{user_id}'").first.nil?
+         return user_check
+      end
    end
 
    module ParameterEscape
