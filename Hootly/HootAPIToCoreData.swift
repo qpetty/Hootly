@@ -143,7 +143,7 @@ class HootAPIToCoreData {
             }
             
             if var hootArray = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as? Array<Dictionary<String, AnyObject>>{
-                completed(self.addHootsToCoreData(hootArray, removeOthers: false))
+                completed(self.addHootsToCoreData(hootArray, removeOthers: false, localHoots: nil, showInHootHistory: true))
             } else {
                 completed(0)
             }
@@ -181,7 +181,7 @@ class HootAPIToCoreData {
             }
             
             if var hoot = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as? Dictionary<String, AnyObject>{
-                completed(self.addHootsToCoreData([hoot], removeOthers: false))
+                completed(self.addHootsToCoreData([hoot], removeOthers: false, localHoots: nil, showInHootHistory: nil))
             } else {
                 completed(0)
             }
@@ -220,7 +220,7 @@ class HootAPIToCoreData {
             }
             
             if var hootArray = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as? Array<Dictionary<String, AnyObject>>{
-                completed(self.addHootsToCoreData(hootArray, removeOthers: true))
+                completed(self.addHootsToCoreData(hootArray, removeOthers: true, localHoots: true, showInHootHistory: nil))
             } else {
                 completed(0)
             }
@@ -228,7 +228,7 @@ class HootAPIToCoreData {
         }
     }
     
-    class func addHootsToCoreData(hootArray: Array<Dictionary<String, AnyObject>>, removeOthers: Bool) -> Int {
+    class func addHootsToCoreData(hootArray: Array<Dictionary<String, AnyObject>>, removeOthers: Bool, localHoots: Bool?, showInHootHistory: Bool?) -> Int {
         
         var threadMOC = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
         threadMOC.parentContext = self.managedObjectCon
@@ -270,6 +270,14 @@ class HootAPIToCoreData {
                     if oldHoot.id == id {
                         foundExistingID = true
                         
+                        if let localHoots = localHoots {
+                            oldHoot.nearby = localHoots
+                        }
+                        
+                        if let showInHootHistory = showInHootHistory {
+                            oldHoot.showInHistory = showInHootHistory
+                        }
+
                         if let value = singleHoot["hootloot"] as? NSNumber {
                             if (value != oldHoot.rating) {
                                 oldHoot.rating = singleHoot["hootloot"] as NSNumber
@@ -301,6 +309,16 @@ class HootAPIToCoreData {
                     newItem.replies = singleHoot["num_comments"] as NSNumber
                     newItem.voted = singleHoot["requester_vote"] as NSNumber
                     newItem.myHoot = singleHoot["mine"] as Bool
+                    newItem.nearby = false
+                    newItem.showInHistory = false
+                    
+                    if let localHoots = localHoots {
+                        newItem.nearby = localHoots
+                    }
+                    
+                    if let showInHootHistory = showInHootHistory {
+                        newItem.showInHistory = showInHootHistory
+                    }
                     
                     if let tempPhotoURL = NSURL(string: singleHoot["image_path"] as String, relativeToURL: self.hostURL!) {
                         newItem.photoURL = tempPhotoURL
@@ -327,7 +345,7 @@ class HootAPIToCoreData {
         
         //Prepare fetch request to get all old hoots not in our new list
         var fetchReq = NSFetchRequest(entityName: "Hoot")
-        fetchReq.predicate = NSPredicate(format: "(NOT(id IN %@)) && (myHoot = false)", idArray)
+        fetchReq.predicate = NSPredicate(format: "(NOT(id IN %@)) && myHoot = false && showInHistory = false", idArray)
         fetchReq.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
         
         var fetchError: NSError?

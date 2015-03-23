@@ -61,7 +61,7 @@ class ProfileViewController: UITableViewController, UITableViewDataSource, UITab
         let sortDes = NSSortDescriptor(key: "time", ascending: false)
         fetchReq.sortDescriptors = [sortDes]
         
-        fetchReq.predicate = NSPredicate(format: "myHoot = true")
+        fetchReq.predicate = NSPredicate(format: "showInHistory = true")
         
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchReq, managedObjectContext: managedObjectContext!, sectionNameKeyPath: nil, cacheName: nil)
         fetchedResultsController?.delegate = self
