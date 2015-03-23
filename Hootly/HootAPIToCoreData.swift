@@ -248,6 +248,10 @@ class HootAPIToCoreData {
             removeHootsWithIDs(idArray)
         }
 
+        if let localHoots = localHoots {
+            clearNearbyHoots(threadMOC)
+        }
+        
         var fetchError: NSError?
         
         //Prepare fetch request to add new hoots
@@ -332,13 +336,25 @@ class HootAPIToCoreData {
         
         if let error = fetchError {
             NSLog("error saving context in getHoots()")
-            return 9
+            return 0
         }
 
 
         return hootArray.count
     }
 
+    class func clearNearbyHoots(context: NSManagedObjectContext) {
+        let fetchReq = NSFetchRequest(entityName: "Hoot")
+        fetchReq.predicate = NSPredicate(format: "nearby = true")
+        
+        var fetchError: NSError?
+        let validHoots = context.executeFetchRequest(fetchReq, error: &fetchError) as [Hoot]
+        
+        for hoot: Hoot in validHoots {
+            hoot.nearby = false
+        }
+    }
+    
     class func removeHootsWithIDs(idArray: [Int]) {
         var threadMOC = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
         threadMOC.parentContext = self.managedObjectCon
