@@ -134,22 +134,26 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
     }
     
     @IBAction func reportHoot(sender: AnyObject) {
-        let alertController = UIAlertController(
-            title: "Report to the overseers",
-            message: "I can't handle the hoot!",
-            preferredStyle: .Alert)
         
-        let openAction = UIAlertAction(title: "Report", style: .Cancel) { (action) in
+        let client = FFAlertClient.sharedAlertClientWithTitle("Report to the overseers", message: "I can't handle the hoot!", cancelButtonTitle: "")
+        
+        let reportButton = FFAlertButton(title: "Report") { () -> Void in
+            //Reporting
             HootAPIToCoreData.reportHoot(self.hoot, completed: { (success) -> (Void) in
                 //Says if the report worked or not, we wont do anything about it right now
             })
         }
-        alertController.addAction(openAction)
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Default, handler: nil)
-        alertController.addAction(cancelAction)
+        let cancelButton = FFAlertButton(title: "Cancel") { () -> Void in
+            //Cancel
+        }
         
-        self.presentViewController(alertController, animated: true, completion: nil)
+        client.addButton(reportButton)
+        client.addButton(cancelButton)
+        
+        client.showWithCompletion { (isCanceled) -> Void in
+            //Completed
+        }
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {

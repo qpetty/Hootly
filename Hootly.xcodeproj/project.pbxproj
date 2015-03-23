@@ -35,6 +35,9 @@
 		5AA987941ABFCDB000B73BA6 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5AA987931ABFCDB000B73BA6 /* Settings.bundle */; };
 		5AAFBE161A9446D5009003B9 /* Hoot+ImageForTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAFBE151A9446D5009003B9 /* Hoot+ImageForTableView.swift */; };
 		5ACCCE171A9D97F3000BD67C /* SingleCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACCCE161A9D97F3000BD67C /* SingleCommentCell.swift */; };
+		5AD298EC1ABFDE66006C2D6F /* FFAlertButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD298E51ABFDE66006C2D6F /* FFAlertButton.m */; };
+		5AD298ED1ABFDE66006C2D6F /* FFAlertClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD298E71ABFDE66006C2D6F /* FFAlertClient.m */; };
+		5AD298EF1ABFDE66006C2D6F /* UIApplication+Navigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD298EB1ABFDE66006C2D6F /* UIApplication+Navigation.m */; };
 		5ADAE5C61AA43B3C00BC4449 /* HootComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADAE5C51AA43B3C00BC4449 /* HootComment.swift */; };
 		D12280BE1A87F2F100CDDFB8 /* CommentFormView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D12280BD1A87F2F100CDDFB8 /* CommentFormView.xib */; };
 		D1839CBB1A9192FA00C87B19 /* LocationPrompt.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1839CBA1A9192FA00C87B19 /* LocationPrompt.swift */; };
@@ -86,6 +89,13 @@
 		5AA987931ABFCDB000B73BA6 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		5AAFBE151A9446D5009003B9 /* Hoot+ImageForTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Hoot+ImageForTableView.swift"; sourceTree = "<group>"; };
 		5ACCCE161A9D97F3000BD67C /* SingleCommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleCommentCell.swift; sourceTree = "<group>"; };
+		5AD298E41ABFDE66006C2D6F /* FFAlertButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFAlertButton.h; sourceTree = "<group>"; };
+		5AD298E51ABFDE66006C2D6F /* FFAlertButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FFAlertButton.m; sourceTree = "<group>"; };
+		5AD298E61ABFDE66006C2D6F /* FFAlertClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFAlertClient.h; sourceTree = "<group>"; };
+		5AD298E71ABFDE66006C2D6F /* FFAlertClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FFAlertClient.m; sourceTree = "<group>"; };
+		5AD298E81ABFDE66006C2D6F /* FFLettingYouKnow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFLettingYouKnow.h; sourceTree = "<group>"; };
+		5AD298EA1ABFDE66006C2D6F /* UIApplication+Navigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+Navigation.h"; sourceTree = "<group>"; };
+		5AD298EB1ABFDE66006C2D6F /* UIApplication+Navigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+Navigation.m"; sourceTree = "<group>"; };
 		5ADAE5C51AA43B3C00BC4449 /* HootComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HootComment.swift; sourceTree = "<group>"; };
 		D12280BD1A87F2F100CDDFB8 /* CommentFormView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentFormView.xib; sourceTree = "<group>"; };
 		D1839CBA1A9192FA00C87B19 /* LocationPrompt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationPrompt.swift; sourceTree = "<group>"; };
@@ -217,6 +227,7 @@
 		5A9768751A88493000229E7E /* Outside Code */ = {
 			isa = PBXGroup;
 			children = (
+				5AD298E31ABFDE66006C2D6F /* FFLettingYouKnow */,
 				5A59CB761ABB4EEB00C6085F /* UIButton+MinBox.swift */,
 				5A9768721A88492B00229E7E /* SZTextView.h */,
 				5A9768731A88492B00229E7E /* SZTextView.m */,
@@ -224,6 +235,20 @@
 				5A716FF91A9D69B00023F705 /* NSMutableData+MultipartFormData.m */,
 			);
 			name = "Outside Code";
+			sourceTree = "<group>";
+		};
+		5AD298E31ABFDE66006C2D6F /* FFLettingYouKnow */ = {
+			isa = PBXGroup;
+			children = (
+				5AD298E41ABFDE66006C2D6F /* FFAlertButton.h */,
+				5AD298E51ABFDE66006C2D6F /* FFAlertButton.m */,
+				5AD298E61ABFDE66006C2D6F /* FFAlertClient.h */,
+				5AD298E71ABFDE66006C2D6F /* FFAlertClient.m */,
+				5AD298E81ABFDE66006C2D6F /* FFLettingYouKnow.h */,
+				5AD298EA1ABFDE66006C2D6F /* UIApplication+Navigation.h */,
+				5AD298EB1ABFDE66006C2D6F /* UIApplication+Navigation.m */,
+			);
+			path = FFLettingYouKnow;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -357,17 +382,20 @@
 				5A94E2FD1A74940300CA1CB8 /* ViewController.swift in Sources */,
 				5A9768701A88262D00229E7E /* CommentFormView.swift in Sources */,
 				5A61AB201A900E6400B06495 /* Hootly.xcdatamodeld in Sources */,
+				5AD298EC1ABFDE66006C2D6F /* FFAlertButton.m in Sources */,
 				5A2699891AAD0ED00018D393 /* ProfileViewController.swift in Sources */,
 				5ADAE5C61AA43B3C00BC4449 /* HootComment.swift in Sources */,
 				5A37D18A1A7D9170006AAC65 /* SingleHootViewController.swift in Sources */,
 				5AA9878D1ABF660900B73BA6 /* Hoot.swift in Sources */,
 				5AAFBE161A9446D5009003B9 /* Hoot+ImageForTableView.swift in Sources */,
+				5AD298EF1ABFDE66006C2D6F /* UIApplication+Navigation.m in Sources */,
 				5A9768741A88492B00229E7E /* SZTextView.m in Sources */,
 				5A2699871AACEC5D0018D393 /* NibDesignable.swift in Sources */,
 				5A97686A1A88086E00229E7E /* NewHootViewController.swift in Sources */,
 				5A94E2FB1A74940300CA1CB8 /* AppDelegate.swift in Sources */,
 				D1839CBB1A9192FA00C87B19 /* LocationPrompt.swift in Sources */,
 				5A59CB771ABB4EEB00C6085F /* UIButton+MinBox.swift in Sources */,
+				5AD298ED1ABFDE66006C2D6F /* FFAlertClient.m in Sources */,
 				5A94E31D1A749F6600CA1CB8 /* HootCell.swift in Sources */,
 				5A8248101A92B4630055E334 /* HootAPIToCoreData.swift in Sources */,
 			);

@@ -137,6 +137,14 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
         switch CLLocationManager.authorizationStatus() {
         case .AuthorizedAlways, .AuthorizedWhenInUse:
             HootAPIToCoreData.getHoots { (addedHoots: Int) -> (Void) in
+                
+                if addedHoots == 0 {
+                    let client = FFAlertClient.sharedAlertClientWithMessage("Congrats you're the first here! Now post a hoot with the camera button above.", cancelButtonTitle: "OK")
+                    client.showWithCompletion { (isCanceled) -> Void in
+                        //Dismissed
+                    }
+                }
+                
                 self.refreshControl?.endRefreshing()
                 return
             }
@@ -144,22 +152,21 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
         case .NotDetermined:
             promptForLocation()
         case .Restricted, .Denied:
-            let alertController = UIAlertController(
-                title: "Location Access Disabled",
-                message: "In order to use retrieve nearby hoots, please open this app's settings and set location access to 'While Using the App'.",
-                preferredStyle: .Alert)
             
-            let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-            alertController.addAction(cancelAction)
+            let client = FFAlertClient.sharedAlertClientWithTitle("Location Access Disabled", message: "In order to use retrieve nearby hoots, please open this app's settings and set location access to 'While Using the App'.", cancelButtonTitle: "Cancel")
             
-            let openAction = UIAlertAction(title: "Open Settings", style: .Default) { (action) in
+            let settingsButton = FFAlertButton(title: "Open Settings") { () -> Void in
                 if let url = NSURL(string:UIApplicationOpenSettingsURLString) {
                     UIApplication.sharedApplication().openURL(url)
                 }
             }
-            alertController.addAction(openAction)
+            client.addButton(settingsButton)
             
-            self.presentViewController(alertController, animated: true, completion: nil)
+            client.showWithCompletion({ (isCanceled) -> Void in
+                //Dismissed
+                self.refreshControl?.endRefreshing()
+                return
+            })
         }
     }
     
