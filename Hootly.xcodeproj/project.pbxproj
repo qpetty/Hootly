@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		5A2699871AACEC5D0018D393 /* NibDesignable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2699861AACEC5D0018D393 /* NibDesignable.swift */; };
 		5A2699891AAD0ED00018D393 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2699881AAD0ED00018D393 /* ProfileViewController.swift */; };
+		5A2B952C1ABFD9FB00B85231 /* ack_script.pl in Resources */ = {isa = PBXBuildFile; fileRef = 5A2B95281ABFD9FB00B85231 /* ack_script.pl */; };
+		5A2B952D1ABFD9FB00B85231 /* KIBoundary.license in Resources */ = {isa = PBXBuildFile; fileRef = 5A2B95291ABFD9FB00B85231 /* KIBoundary.license */; };
+		5A2B952E1ABFD9FB00B85231 /* NibDesignable.license in Resources */ = {isa = PBXBuildFile; fileRef = 5A2B952A1ABFD9FB00B85231 /* NibDesignable.license */; };
+		5A2B952F1ABFD9FB00B85231 /* SZTextView.license in Resources */ = {isa = PBXBuildFile; fileRef = 5A2B952B1ABFD9FB00B85231 /* SZTextView.license */; };
 		5A37D18A1A7D9170006AAC65 /* SingleHootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A37D1891A7D9170006AAC65 /* SingleHootViewController.swift */; };
 		5A37D1931A7DD60D006AAC65 /* CommentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A37D1921A7DD60D006AAC65 /* CommentView.xib */; };
 		5A37D1951A7DD7EB006AAC65 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A37D1941A7DD7EB006AAC65 /* CommentView.swift */; };
@@ -28,6 +32,7 @@
 		5A9768701A88262D00229E7E /* CommentFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A97686F1A88262D00229E7E /* CommentFormView.swift */; };
 		5A9768741A88492B00229E7E /* SZTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9768731A88492B00229E7E /* SZTextView.m */; };
 		5AA9878D1ABF660900B73BA6 /* Hoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA9878C1ABF660900B73BA6 /* Hoot.swift */; };
+		5AA987941ABFCDB000B73BA6 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5AA987931ABFCDB000B73BA6 /* Settings.bundle */; };
 		5AAFBE161A9446D5009003B9 /* Hoot+ImageForTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAFBE151A9446D5009003B9 /* Hoot+ImageForTableView.swift */; };
 		5ACCCE171A9D97F3000BD67C /* SingleCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACCCE161A9D97F3000BD67C /* SingleCommentCell.swift */; };
 		5ADAE5C61AA43B3C00BC4449 /* HootComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADAE5C51AA43B3C00BC4449 /* HootComment.swift */; };
@@ -48,6 +53,10 @@
 /* Begin PBXFileReference section */
 		5A2699861AACEC5D0018D393 /* NibDesignable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NibDesignable.swift; sourceTree = "<group>"; };
 		5A2699881AAD0ED00018D393 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		5A2B95281ABFD9FB00B85231 /* ack_script.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = ack_script.pl; sourceTree = "<group>"; };
+		5A2B95291ABFD9FB00B85231 /* KIBoundary.license */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = KIBoundary.license; sourceTree = "<group>"; };
+		5A2B952A1ABFD9FB00B85231 /* NibDesignable.license */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NibDesignable.license; sourceTree = "<group>"; };
+		5A2B952B1ABFD9FB00B85231 /* SZTextView.license */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SZTextView.license; sourceTree = "<group>"; };
 		5A37D1891A7D9170006AAC65 /* SingleHootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleHootViewController.swift; sourceTree = "<group>"; };
 		5A37D1921A7DD60D006AAC65 /* CommentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentView.xib; sourceTree = "<group>"; };
 		5A37D1941A7DD7EB006AAC65 /* CommentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
@@ -74,6 +83,7 @@
 		5A9768721A88492B00229E7E /* SZTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZTextView.h; sourceTree = "<group>"; };
 		5A9768731A88492B00229E7E /* SZTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZTextView.m; sourceTree = "<group>"; };
 		5AA9878C1ABF660900B73BA6 /* Hoot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hoot.swift; sourceTree = "<group>"; };
+		5AA987931ABFCDB000B73BA6 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		5AAFBE151A9446D5009003B9 /* Hoot+ImageForTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Hoot+ImageForTableView.swift"; sourceTree = "<group>"; };
 		5ACCCE161A9D97F3000BD67C /* SingleCommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleCommentCell.swift; sourceTree = "<group>"; };
 		5ADAE5C51AA43B3C00BC4449 /* HootComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HootComment.swift; sourceTree = "<group>"; };
@@ -106,6 +116,17 @@
 				5A2699861AACEC5D0018D393 /* NibDesignable.swift */,
 			);
 			name = "Nib Rendering";
+			sourceTree = "<group>";
+		};
+		5A2B95271ABFD9FB00B85231 /* licenses */ = {
+			isa = PBXGroup;
+			children = (
+				5A2B95281ABFD9FB00B85231 /* ack_script.pl */,
+				5A2B95291ABFD9FB00B85231 /* KIBoundary.license */,
+				5A2B952A1ABFD9FB00B85231 /* NibDesignable.license */,
+				5A2B952B1ABFD9FB00B85231 /* SZTextView.license */,
+			);
+			path = licenses;
 			sourceTree = "<group>";
 		};
 		5A61AB1D1A900D3400B06495 /* Frameworks */ = {
@@ -162,6 +183,7 @@
 				5A94E3031A74940300CA1CB8 /* LaunchScreen.xib */,
 				5A94E2F81A74940300CA1CB8 /* Supporting Files */,
 				5A9768711A88492A00229E7E /* Hootly-Bridging-Header.h */,
+				5A2B95271ABFD9FB00B85231 /* licenses */,
 			);
 			path = Hootly;
 			sourceTree = "<group>";
@@ -170,6 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				5A94E2F91A74940300CA1CB8 /* Info.plist */,
+				5AA987931ABFCDB000B73BA6 /* Settings.bundle */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -210,6 +233,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5A94E3141A74940300CA1CB8 /* Build configuration list for PBXNativeTarget "Hootly" */;
 			buildPhases = (
+				5A2B95301ABFDA7800B85231 /* ShellScript */,
 				5A94E2F11A74940300CA1CB8 /* Sources */,
 				5A94E2F21A74940300CA1CB8 /* Frameworks */,
 				5A94E2F31A74940300CA1CB8 /* Resources */,
@@ -284,10 +308,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A2B952E1ABFD9FB00B85231 /* NibDesignable.license in Resources */,
 				5A94E3001A74940300CA1CB8 /* Main.storyboard in Resources */,
+				5A2B952F1ABFD9FB00B85231 /* SZTextView.license in Resources */,
 				D12280BE1A87F2F100CDDFB8 /* CommentFormView.xib in Resources */,
 				5A94E3051A74940300CA1CB8 /* LaunchScreen.xib in Resources */,
+				5A2B952D1ABFD9FB00B85231 /* KIBoundary.license in Resources */,
 				5A37D1931A7DD60D006AAC65 /* CommentView.xib in Resources */,
+				5A2B952C1ABFD9FB00B85231 /* ack_script.pl in Resources */,
+				5AA987941ABFCDB000B73BA6 /* Settings.bundle in Resources */,
 				5A94E3021A74940300CA1CB8 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -300,6 +329,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5A2B95301ABFDA7800B85231 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo \"Assembling Acknowledgements in Settings bundle\"\ncd hootly/licenses\n./ack_script.pl\ncd ../..";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		5A94E2F11A74940300CA1CB8 /* Sources */ = {
