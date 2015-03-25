@@ -162,11 +162,18 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
     }
     
     func commentToSubmit(comment: String) {
-        HootAPIToCoreData.postComment(comment, hootID: hoot!.id.integerValue, delegate: self)
+        if HootAPIToCoreData.postComment(comment, hootID: hoot!.id.integerValue, delegate: self) == true {
+            commentForm.enabled = false
+        } else {
+            let client = FFAlertClient.sharedAlertClientWithMessage("Cannot connect to the internet. Please try again.", cancelButtonTitle: "OK")
+            client.showWithCompletion { (isCanceled) -> Void in
+                //Dismissed
+            }
+        }
     }
     
     func exitWithoutComment() {
-        self.commentForm.textField.resignFirstResponder()
+        commentForm.textField.resignFirstResponder()
     }
     
     func fetchResultsFromCoreData() {
@@ -200,11 +207,18 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
         HootAPIToCoreData.fetchCommentsForHoot(self.hoot, completed: { (success) -> (Void) in
             println("new comment so maybe scroll to bottom here after animation")
         })
-        self.commentForm.textField.resignFirstResponder()
+        commentForm.textField.text = ""
+        commentForm.textField.resignFirstResponder()
+        commentForm.enabled = true
     }
     
     func connection(connection: NSURLConnection, didFailWithError error: NSError) {
-        NSLog("failure submitting comment")
+        let client = FFAlertClient.sharedAlertClientWithMessage("Error occured while uploading comment. Please try again.", cancelButtonTitle: "OK")
+        client.showWithCompletion { (isCanceled) -> Void in
+            //Dismissed
+        }
+        NSLog("Error: \(error) uploading comment")
+        commentForm.enabled = true
     }
     
     func connection(connection: NSURLConnection, didSendBodyData bytesWritten: Int, totalBytesWritten: Int, totalBytesExpectedToWrite: Int) {

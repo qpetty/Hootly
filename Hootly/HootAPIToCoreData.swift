@@ -532,20 +532,20 @@ class HootAPIToCoreData {
         self.genericURLConnectionFromRequest(request, completed: completed)
     }
     
-    class func postHoot(image: UIImage, comment: String, delegate: NSURLConnectionDataDelegate) {
+    class func postHoot(image: UIImage, comment: String, delegate: NSURLConnectionDataDelegate) -> Bool {
         var url: NSURL
         
         let coord = self.coordinates
         if coord == nil {
             NSLog("could not get location coordinates")
-            return
+            return false
         }
         
         if let host = hostURL {
             url = NSURL(string: "hoots", relativeToURL: host)!
         } else {
             NSLog("could not construct URL in getHoots()")
-            return
+            return false
         }
         
         let request = NSMutableURLRequest(URL: url)
@@ -566,16 +566,17 @@ class HootAPIToCoreData {
         
         let conn = NSURLConnection(request: request, delegate: delegate, startImmediately: true)
         //self.genericURLConnectionFromRequest(request, completed: completed)
+        return true
     }
     
-    class func postComment(comment: String, hootID: Int, delegate: NSURLConnectionDataDelegate) {
+    class func postComment(comment: String, hootID: Int, delegate: NSURLConnectionDataDelegate) -> Bool {
         var url: NSURL
         
         if let host = hostURL {
             url = NSURL(string: "comments", relativeToURL: host)!
         } else {
             NSLog("could not construct URL in getHoots()")
-            return
+            return false
         }
         
         let request = NSMutableURLRequest(URL: url)
@@ -594,6 +595,7 @@ class HootAPIToCoreData {
         
         let conn = NSURLConnection(request: request, delegate: delegate, startImmediately: true)
         //self.genericURLConnectionFromRequest(request, completed: completed)
+        return true
     }
     
     class func postHootUpVote(id: Int, completed: (success: Bool) -> (Void)) {

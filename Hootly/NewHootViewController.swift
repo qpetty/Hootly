@@ -30,6 +30,7 @@ class NewHootViewController: UIViewController, CommentFormProtocol, NSURLConnect
         commentForm.delegate = self
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "moveTextFormUp:", name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardAway:", name: UIKeyboardWillHideNotification, object: nil)
         commentForm.textField.becomeFirstResponder()
     }
     
@@ -46,7 +47,14 @@ class NewHootViewController: UIViewController, CommentFormProtocol, NSURLConnect
             image = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
         }
-        HootAPIToCoreData.postHoot(image!, comment: comment, delegate: self)
+        if HootAPIToCoreData.postHoot(image!, comment: comment, delegate: self) == true {
+            commentForm.enabled = false
+        } else {
+            let client = FFAlertClient.sharedAlertClientWithMessage("Cannot either connect to the internet or get your location. Please try again.", cancelButtonTitle: "OK")
+            client.showWithCompletion { (isCanceled) -> Void in
+                //Dismissed
+            }
+        }
     }
     
     func exitWithoutComment() {
@@ -55,9 +63,20 @@ class NewHootViewController: UIViewController, CommentFormProtocol, NSURLConnect
     
     func moveTextFormUp(aNotification: NSNotification) {
         if let userInfo = aNotification.userInfo {
-            
             let kbSize = (userInfo[UIKeyboardFrameEndUserInfoKey] as NSValue).CGRectValue().size.height
             keyboardHeight.constant = kbSize
+            
+            UIView.animateWithDuration(0.1, animations: { () -> Void in
+                self.view.layoutIfNeeded()
+            })
+        }
+    }
+    
+    func keyboardAway(aNotification: NSNotification) {
+        
+        if let info = aNotification.userInfo {
+            
+            keyboardHeight.constant = 0
             
             UIView.animateWithDuration(0.1, animations: { () -> Void in
                 self.view.layoutIfNeeded()
@@ -72,7 +91,12 @@ class NewHootViewController: UIViewController, CommentFormProtocol, NSURLConnect
     }
     
     func connection(connection: NSURLConnection, didFailWithError error: NSError) {
-        NSLog("couldnt submit this hoot")
+        let client = FFAlertClient.sharedAlertClientWithMessage("Error occured while uploading hoot. Please try again.", cancelButtonTitle: "OK")
+        client.showWithCompletion { (isCanceled) -> Void in
+            //Dismissed
+        }
+        NSLog("Error: \(error) uploading hoot")
+        commentForm.enabled = true
     }
     
     func connection(connection: NSURLConnection, didSendBodyData bytesWritten: Int, totalBytesWritten: Int, totalBytesExpectedToWrite: Int) {
