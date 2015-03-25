@@ -530,7 +530,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				"OTHER_SWIFT_FLAGS[arch=*]" = "-D DEBUG";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "4ffbf7eb-b93c-43b5-895b-334c5721ccfe";
 				SWIFT_OBJC_BRIDGING_HEADER = "Hootly/Hootly-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -548,7 +548,7 @@
 				INFOPLIST_FILE = Hootly/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "4ffbf7eb-b93c-43b5-895b-334c5721ccfe";
 				SWIFT_OBJC_BRIDGING_HEADER = "Hootly/Hootly-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
