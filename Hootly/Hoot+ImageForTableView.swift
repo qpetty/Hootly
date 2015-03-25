@@ -42,7 +42,9 @@ extension Hoot {
             }
             
             //Create the image file
-            NSLog("Fetching Image from network \(imageURL)")
+            #if DEBUG
+                NSLog("Fetching Image from network \(imageURL)")
+            #endif
             if let imageData = NSData(contentsOfURL: imageURL) {
                 if let image = UIImage(data: imageData) {
                     //return image
@@ -70,7 +72,9 @@ extension Hoot {
                 }
             }
         } else {
-            NSLog("Fetching Image from disk \(imageURL)")
+            #if DEBUG
+                NSLog("Fetching Image from disk \(imageURL)")
+            #endif
             if let urlContents = NSData(contentsOfURL: imageURL) {
                 if let image = UIImage(data: urlContents) {
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
