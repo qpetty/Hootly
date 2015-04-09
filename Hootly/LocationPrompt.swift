@@ -24,7 +24,7 @@ class LocationPrompt: UIViewController {
         declineLocationButton.layer.borderColor = UIColor.whiteColor().CGColor
     }
     @IBAction func buttonPressed(sender: AnyObject) {
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let defaults = NSUserDefaults.standardUserDefaults()
         let userIDData = NSKeyedArchiver.archivedDataWithRootObject(NSNumber(bool: true))
         

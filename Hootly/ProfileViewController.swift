@@ -21,7 +21,7 @@ class ProfileViewController: UITableViewController, UITableViewDataSource, UITab
         
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
         
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         managedObjectContext = appDelegate.managedObjectContext
         
         refreshControl = UIRefreshControl()
@@ -109,7 +109,7 @@ class ProfileViewController: UITableViewController, UITableViewDataSource, UITab
             tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
         case .Update:
             if let cell = tableView.cellForRowAtIndexPath(indexPath!) as? HootCell {
-                cell.setHoot(cell.hoot!)
+                cell.setHootInfo(cell.hoot!)
             }
         case .Move:
             tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
@@ -138,10 +138,10 @@ class ProfileViewController: UITableViewController, UITableViewDataSource, UITab
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Hoot", forIndexPath: indexPath) as HootCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("Hoot", forIndexPath: indexPath) as! HootCell
         
         if let singleHoot = fetchedResultsController?.objectAtIndexPath(indexPath) as? Hoot {
-            cell.setHoot(singleHoot)
+            cell.setHootInfo(singleHoot)
         }
         
         return cell
@@ -150,8 +150,8 @@ class ProfileViewController: UITableViewController, UITableViewDataSource, UITab
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segue.identifier! {
         case "ProfileDetailHoot":
-            let dest = segue.destinationViewController as SingleHootViewController
-            let cell = sender as HootCell
+            let dest = segue.destinationViewController as! SingleHootViewController
+            let cell = sender as! HootCell
             dest.hoot = cell.hoot
             dest.hootImage = cell.photo?.image
             

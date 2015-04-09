@@ -16,7 +16,7 @@ class HootCell: UITableViewCell {
     
     var hoot: Hoot?
     
-    func setHoot(singleHoot: Hoot) {
+    func setHootInfo(singleHoot: Hoot) {
         if hoot != singleHoot {
             hoot = singleHoot
             

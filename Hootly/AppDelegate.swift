@@ -42,9 +42,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var firstVC: UIViewController
         
         if let userIDData = NSUserDefaults.standardUserDefaults().dataForKey(self.locationScreenShown) {
-            firstVC = storyboard.instantiateViewControllerWithIdentifier("IntialViewController") as UIViewController
+            firstVC = storyboard.instantiateViewControllerWithIdentifier("IntialViewController") as! UIViewController
         } else {
-            firstVC = storyboard.instantiateViewControllerWithIdentifier("LocationScreen") as UIViewController
+            firstVC = storyboard.instantiateViewControllerWithIdentifier("LocationScreen") as! UIViewController
         }
         
         self.window?.rootViewController = firstVC
@@ -86,7 +86,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     let tokenResponse = { (success: Bool) -> (Void) in
-        let appD = UIApplication.sharedApplication().delegate as AppDelegate
+        let appD = UIApplication.sharedApplication().delegate as! AppDelegate
         if success == true {
             let userIDData = NSKeyedArchiver.archivedDataWithRootObject(NSNumber(bool: true))
             let defaults = NSUserDefaults.standardUserDefaults()
@@ -97,7 +97,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func application( application: UIApplication!, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData! ) {
+    func application( application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData ) {
         
         var characterSet: NSCharacterSet = NSCharacterSet( charactersInString: "<>" )
         
@@ -108,7 +108,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         pushToken = deviceTokenString
     }
     
-    func application( application: UIApplication!, didFailToRegisterForRemoteNotificationsWithError error: NSError! ) {
+    func application( application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError ) {
         NSLog("\ndidFailToRegisterForRemoteNotificationsWithError: \(error.localizedDescription)\n")
     }
     
@@ -159,7 +159,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if let hoot = hootToShow {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let singleHootViewController = storyboard.instantiateViewControllerWithIdentifier("SingleHoot") as SingleHootViewController
+            let singleHootViewController = storyboard.instantiateViewControllerWithIdentifier("SingleHoot") as! SingleHootViewController
             
             if let navController = self.window?.rootViewController as? UINavigationController {
                 NSLog("pushing \(navController)")
@@ -183,7 +183,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     lazy var applicationDocumentsDirectory: NSURL = {
         // The directory the application uses to store the Core Data store file. This code uses a directory named "ovl.HootyCD" in the application's documents Application Support directory.
         let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-        return urls[urls.count-1] as NSURL
+        return urls[urls.count-1]as! NSURL
         }()
     
     lazy var managedObjectModel: NSManagedObjectModel = {
@@ -206,7 +206,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
             dict[NSLocalizedFailureReasonErrorKey] = failureReason
             dict[NSUnderlyingErrorKey] = error
-            error = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
+            error = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict as [NSObject : AnyObject])
             // Replace this with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             NSLog("Unresolved error \(error), \(error!.userInfo)")

@@ -19,9 +19,9 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
     
     let CELL_HEIGHT = 80.0 as CGFloat
     
-    override init() {
-        super.init()
-    }
+    //override init() {
+        //super.init()
+    //}
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -44,7 +44,7 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         managedObjectContext = appDelegate.managedObjectContext
         
         promptForLocation()
@@ -112,7 +112,7 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
     }
     
     func promptForLocation() {
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let manager = appDelegate.locationManager
 
         if CLLocationManager.authorizationStatus() == .NotDetermined && CLLocationManager.locationServicesEnabled() {
@@ -231,7 +231,7 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
             tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
         case .Update:
             if let cell = tableView.cellForRowAtIndexPath(indexPath!) as? HootCell {
-                cell.setHoot(cell.hoot!)
+                cell.setHootInfo(cell.hoot!)
             }
         case .Move:
             tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
@@ -260,17 +260,17 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Hoot", forIndexPath: indexPath) as HootCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("Hoot", forIndexPath: indexPath) as! HootCell
         
         if let singleHoot = fetchedResultsController?.objectAtIndexPath(indexPath) as? Hoot {
-            cell.setHoot(singleHoot)
+            cell.setHootInfo(singleHoot)
         }
         
         return cell
     }
     
-    func imagePickerController(picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
-        let vc = storyboard?.instantiateViewControllerWithIdentifier("NewHoot") as NewHootViewController
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
+        let vc = storyboard?.instantiateViewControllerWithIdentifier("NewHoot")as! NewHootViewController
         vc.image = image
         
         dismissViewControllerAnimated(true, completion: { () -> Void in
@@ -286,14 +286,14 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segue.identifier! {
         case "DetailHoot":
-            let dest = segue.destinationViewController as SingleHootViewController
-            let cell = sender as HootCell
+            let dest = segue.destinationViewController as! SingleHootViewController
+            let cell = sender as! HootCell
             dest.hoot = cell.hoot
             
             tableView.deselectRowAtIndexPath(tableView.indexPathForSelectedRow()!, animated: true)
             
         case "Camera":
-            let dest = segue.destinationViewController as UIImagePickerController
+            let dest = segue.destinationViewController as! UIImagePickerController
             dest.delegate = self
             dest.sourceType = .Camera
             dest.allowsEditing = true

@@ -44,7 +44,7 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
         self.blurEffectView?.alpha = 0
         self.photo.addSubview(blurEffectView!)
         
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         managedObjectContext = appDelegate.managedObjectContext
         
         commentForm.delegate = self
@@ -89,7 +89,7 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
 
         if let info = aNotification.userInfo {
             
-            let keyboardFrame = (info[UIKeyboardFrameEndUserInfoKey] as NSValue).CGRectValue()
+            let keyboardFrame = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
             
             keyboardHeight.constant = keyboardFrame.height
             
@@ -259,7 +259,7 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
             commentTable.deleteRowsAtIndexPaths([adjustedIndexPath!], withRowAnimation: .Fade)
         case .Update:
             if let cell = commentTable.cellForRowAtIndexPath(adjustedIndexPath!) as? SingleCommentCell {
-                let comment = anObject as HootComment
+                let comment = anObject as! HootComment
                 cell.commentView.setValuesWithComment(comment)
                 NSLog("loading \(adjustedIndexPath!.row)")
             }
@@ -306,10 +306,10 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
         
         //Get the clear cell so that we can see the picture behind
         if indexPath.row == 0 {
-            return commentTable.dequeueReusableCellWithIdentifier("Clear") as UITableViewCell
+            return commentTable.dequeueReusableCellWithIdentifier("Clear") as! UITableViewCell
         }
         
-        let cell = commentTable.dequeueReusableCellWithIdentifier("CommentCell", forIndexPath: indexPath) as SingleCommentCell
+        let cell = commentTable.dequeueReusableCellWithIdentifier("CommentCell", forIndexPath: indexPath)as! SingleCommentCell
         
         if indexPath.row == 1 {
             cell.commentView.setValuesWithHoot(hoot!)

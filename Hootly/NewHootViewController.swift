@@ -63,7 +63,7 @@ class NewHootViewController: UIViewController, CommentFormProtocol, NSURLConnect
     
     func moveTextFormUp(aNotification: NSNotification) {
         if let userInfo = aNotification.userInfo {
-            let kbSize = (userInfo[UIKeyboardFrameEndUserInfoKey] as NSValue).CGRectValue().size.height
+            let kbSize = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue().size.height
             keyboardHeight.constant = kbSize
             
             UIView.animateWithDuration(0.1, animations: { () -> Void in

@@ -49,7 +49,7 @@ class CommentView: NibDesignable {
                     self.hootComment!.voted = 1
                     self.hootComment!.score = self.hootComment!.score.integerValue + 1
                 }
-            }, nil)
+            }, completion: nil)
     }
 
     @IBAction func downVoteButtonDidPress(sender: AnyObject) {
@@ -79,7 +79,7 @@ class CommentView: NibDesignable {
                     self.hootComment!.voted = -1
                     self.hootComment!.score = self.hootComment!.score.integerValue - 1
                 }
-            }, nil)
+            }, completion: nil)
     }
     
     func showReplies(show: Bool) {
@@ -98,7 +98,7 @@ class CommentView: NibDesignable {
         setCommentText(newHoot.comment)
         setRatingText(newHoot.rating)
         setReplyText(newHoot.replies)
-        setTime(newHoot.time)
+        setHootTime(newHoot.time)
         setVoted(newHoot.voted.integerValue)
         
         showReplies(true)
@@ -109,7 +109,7 @@ class CommentView: NibDesignable {
         
         setCommentText(newComment.text)
         setRatingText(newComment.score)
-        setTime(newComment.time)
+        setHootTime(newComment.time)
         setVoted(newComment.voted.integerValue)
 
         showReplies(false)
@@ -146,7 +146,7 @@ class CommentView: NibDesignable {
         }
     }
     
-    func setTime(date: NSDate) {
+    func setHootTime(date: NSDate) {
         let elapsedTime = NSDate().timeIntervalSinceDate(date)
         
         let formatter = NSDateComponentsFormatter()

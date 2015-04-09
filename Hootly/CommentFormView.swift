@@ -85,7 +85,7 @@ class CommentFormView: NibDesignable, UITextViewDelegate {
     }
     
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
-        let len = countElements(textView.text) - range.length + countElements(text)
+        let len = count(textView.text) - range.length + count(text)
         
         if len > characterLimit {
             return false
