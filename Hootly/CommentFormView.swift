@@ -48,9 +48,24 @@ class CommentFormView: NibDesignable, UITextViewDelegate {
         }
     }
     
-    var active: Bool = false {
+    var hasCharacters: Bool = false {
         didSet {
-            submitButton.enabled = active
+            if enabled && hasCharacters {
+                submitButton.enabled = true
+            } else {
+                submitButton.enabled = false
+            }
+        }
+    }
+    
+    var enabled: Bool = true {
+        didSet {
+            if enabled && hasCharacters {
+                submitButton.enabled = true
+            } else {
+                submitButton.enabled = false
+            }
+            textField.editable = enabled
         }
     }
     
@@ -70,26 +85,24 @@ class CommentFormView: NibDesignable, UITextViewDelegate {
     }
     
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
-        let len = countElements(textView.text) - range.length + countElements(text)
+        let len = count(textView.text) - range.length + count(text)
         
         if len > characterLimit {
             return false
         } else if len > 0 {
-            active = true
+            hasCharacters = true
         } else {
-            active = false
+            hasCharacters = false
         }
 
         return true
     }
     
     @IBAction func submitComment(sender: AnyObject) {
-        if active {
+        if hasCharacters {
             delegate?.commentToSubmit(textField.text)
         } else {
             delegate?.exitWithoutComment()
         }
-        textField.text = ""
-        active = false
     }
 }

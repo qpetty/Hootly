@@ -11,7 +11,7 @@
 }
 
 -(NSString *)KIMultipartBoundary {
-    return @"KIBoundaryThatHopefullyNoOneWillEverUse";
+    return @"SuperDuperHootBoundaryThatHopefullyNoOneWillEverUse";
 }
 
 # pragma mark - Foundation Objects

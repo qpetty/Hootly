@@ -44,7 +44,7 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
         self.blurEffectView?.alpha = 0
         self.photo.addSubview(blurEffectView!)
         
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         managedObjectContext = appDelegate.managedObjectContext
         
         commentForm.delegate = self
@@ -89,7 +89,7 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
 
         if let info = aNotification.userInfo {
             
-            let keyboardFrame = (info[UIKeyboardFrameEndUserInfoKey] as NSValue).CGRectValue()
+            let keyboardFrame = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
             
             keyboardHeight.constant = keyboardFrame.height
             
@@ -134,22 +134,26 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
     }
     
     @IBAction func reportHoot(sender: AnyObject) {
-        let alertController = UIAlertController(
-            title: "Report to the overseers",
-            message: "I can't handle the hoot!",
-            preferredStyle: .Alert)
         
-        let openAction = UIAlertAction(title: "Report", style: .Cancel) { (action) in
+        let client = FFAlertClient.sharedAlertClientWithTitle("Report to the overseers", message: "I can't handle the hoot!", cancelButtonTitle: "")
+        
+        let reportButton = FFAlertButton(title: "Report") { () -> Void in
+            //Reporting
             HootAPIToCoreData.reportHoot(self.hoot, completed: { (success) -> (Void) in
                 //Says if the report worked or not, we wont do anything about it right now
             })
         }
-        alertController.addAction(openAction)
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Default, handler: nil)
-        alertController.addAction(cancelAction)
+        let cancelButton = FFAlertButton(title: "Cancel") { () -> Void in
+            //Cancel
+        }
         
-        self.presentViewController(alertController, animated: true, completion: nil)
+        client.addButton(reportButton)
+        client.addButton(cancelButton)
+        
+        client.showWithCompletion { (isCanceled) -> Void in
+            //Completed
+        }
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -158,11 +162,18 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
     }
     
     func commentToSubmit(comment: String) {
-        HootAPIToCoreData.postComment(comment, hootID: hoot!.id.integerValue, delegate: self)
+        if HootAPIToCoreData.postComment(comment, hootID: hoot!.id.integerValue, delegate: self) == true {
+            commentForm.enabled = false
+        } else {
+            let client = FFAlertClient.sharedAlertClientWithMessage("Cannot connect to the internet. Please try again.", cancelButtonTitle: "OK")
+            client.showWithCompletion { (isCanceled) -> Void in
+                //Dismissed
+            }
+        }
     }
     
     func exitWithoutComment() {
-        self.commentForm.textField.resignFirstResponder()
+        commentForm.textField.resignFirstResponder()
     }
     
     func fetchResultsFromCoreData() {
@@ -196,11 +207,18 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
         HootAPIToCoreData.fetchCommentsForHoot(self.hoot, completed: { (success) -> (Void) in
             println("new comment so maybe scroll to bottom here after animation")
         })
-        self.commentForm.textField.resignFirstResponder()
+        commentForm.textField.text = ""
+        commentForm.textField.resignFirstResponder()
+        commentForm.enabled = true
     }
     
     func connection(connection: NSURLConnection, didFailWithError error: NSError) {
-        NSLog("failure submitting comment")
+        let client = FFAlertClient.sharedAlertClientWithMessage("Error occured while uploading comment. Please try again.", cancelButtonTitle: "OK")
+        client.showWithCompletion { (isCanceled) -> Void in
+            //Dismissed
+        }
+        NSLog("Error: \(error) uploading comment")
+        commentForm.enabled = true
     }
     
     func connection(connection: NSURLConnection, didSendBodyData bytesWritten: Int, totalBytesWritten: Int, totalBytesExpectedToWrite: Int) {
@@ -241,7 +259,7 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
             commentTable.deleteRowsAtIndexPaths([adjustedIndexPath!], withRowAnimation: .Fade)
         case .Update:
             if let cell = commentTable.cellForRowAtIndexPath(adjustedIndexPath!) as? SingleCommentCell {
-                let comment = anObject as HootComment
+                let comment = anObject as! HootComment
                 cell.commentView.setValuesWithComment(comment)
                 NSLog("loading \(adjustedIndexPath!.row)")
             }
@@ -288,10 +306,10 @@ class SingleHootViewController: UIViewController, UIScrollViewDelegate, UITableV
         
         //Get the clear cell so that we can see the picture behind
         if indexPath.row == 0 {
-            return commentTable.dequeueReusableCellWithIdentifier("Clear") as UITableViewCell
+            return commentTable.dequeueReusableCellWithIdentifier("Clear") as! UITableViewCell
         }
         
-        let cell = commentTable.dequeueReusableCellWithIdentifier("CommentCell", forIndexPath: indexPath) as SingleCommentCell
+        let cell = commentTable.dequeueReusableCellWithIdentifier("CommentCell", forIndexPath: indexPath)as! SingleCommentCell
         
         if indexPath.row == 1 {
             cell.commentView.setValuesWithHoot(hoot!)

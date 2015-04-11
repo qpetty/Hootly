@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		5A2699871AACEC5D0018D393 /* NibDesignable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2699861AACEC5D0018D393 /* NibDesignable.swift */; };
 		5A2699891AAD0ED00018D393 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2699881AAD0ED00018D393 /* ProfileViewController.swift */; };
+		5A2B952C1ABFD9FB00B85231 /* ack_script.pl in Resources */ = {isa = PBXBuildFile; fileRef = 5A2B95281ABFD9FB00B85231 /* ack_script.pl */; };
+		5A2B952D1ABFD9FB00B85231 /* KIBoundary.license in Resources */ = {isa = PBXBuildFile; fileRef = 5A2B95291ABFD9FB00B85231 /* KIBoundary.license */; };
+		5A2B952E1ABFD9FB00B85231 /* NibDesignable.license in Resources */ = {isa = PBXBuildFile; fileRef = 5A2B952A1ABFD9FB00B85231 /* NibDesignable.license */; };
+		5A2B952F1ABFD9FB00B85231 /* SZTextView.license in Resources */ = {isa = PBXBuildFile; fileRef = 5A2B952B1ABFD9FB00B85231 /* SZTextView.license */; };
 		5A37D18A1A7D9170006AAC65 /* SingleHootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A37D1891A7D9170006AAC65 /* SingleHootViewController.swift */; };
 		5A37D1931A7DD60D006AAC65 /* CommentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A37D1921A7DD60D006AAC65 /* CommentView.xib */; };
 		5A37D1951A7DD7EB006AAC65 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A37D1941A7DD7EB006AAC65 /* CommentView.swift */; };
@@ -28,8 +32,12 @@
 		5A9768701A88262D00229E7E /* CommentFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A97686F1A88262D00229E7E /* CommentFormView.swift */; };
 		5A9768741A88492B00229E7E /* SZTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9768731A88492B00229E7E /* SZTextView.m */; };
 		5AA9878D1ABF660900B73BA6 /* Hoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA9878C1ABF660900B73BA6 /* Hoot.swift */; };
+		5AA987941ABFCDB000B73BA6 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5AA987931ABFCDB000B73BA6 /* Settings.bundle */; };
 		5AAFBE161A9446D5009003B9 /* Hoot+ImageForTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAFBE151A9446D5009003B9 /* Hoot+ImageForTableView.swift */; };
 		5ACCCE171A9D97F3000BD67C /* SingleCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACCCE161A9D97F3000BD67C /* SingleCommentCell.swift */; };
+		5AD298EC1ABFDE66006C2D6F /* FFAlertButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD298E51ABFDE66006C2D6F /* FFAlertButton.m */; };
+		5AD298ED1ABFDE66006C2D6F /* FFAlertClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD298E71ABFDE66006C2D6F /* FFAlertClient.m */; };
+		5AD298EF1ABFDE66006C2D6F /* UIApplication+Navigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD298EB1ABFDE66006C2D6F /* UIApplication+Navigation.m */; };
 		5ADAE5C61AA43B3C00BC4449 /* HootComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADAE5C51AA43B3C00BC4449 /* HootComment.swift */; };
 		D12280BE1A87F2F100CDDFB8 /* CommentFormView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D12280BD1A87F2F100CDDFB8 /* CommentFormView.xib */; };
 		D1839CBB1A9192FA00C87B19 /* LocationPrompt.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1839CBA1A9192FA00C87B19 /* LocationPrompt.swift */; };
@@ -48,6 +56,10 @@
 /* Begin PBXFileReference section */
 		5A2699861AACEC5D0018D393 /* NibDesignable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NibDesignable.swift; sourceTree = "<group>"; };
 		5A2699881AAD0ED00018D393 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		5A2B95281ABFD9FB00B85231 /* ack_script.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = ack_script.pl; sourceTree = "<group>"; };
+		5A2B95291ABFD9FB00B85231 /* KIBoundary.license */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = KIBoundary.license; sourceTree = "<group>"; };
+		5A2B952A1ABFD9FB00B85231 /* NibDesignable.license */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NibDesignable.license; sourceTree = "<group>"; };
+		5A2B952B1ABFD9FB00B85231 /* SZTextView.license */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SZTextView.license; sourceTree = "<group>"; };
 		5A37D1891A7D9170006AAC65 /* SingleHootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleHootViewController.swift; sourceTree = "<group>"; };
 		5A37D1921A7DD60D006AAC65 /* CommentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentView.xib; sourceTree = "<group>"; };
 		5A37D1941A7DD7EB006AAC65 /* CommentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
@@ -74,8 +86,16 @@
 		5A9768721A88492B00229E7E /* SZTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZTextView.h; sourceTree = "<group>"; };
 		5A9768731A88492B00229E7E /* SZTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZTextView.m; sourceTree = "<group>"; };
 		5AA9878C1ABF660900B73BA6 /* Hoot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hoot.swift; sourceTree = "<group>"; };
+		5AA987931ABFCDB000B73BA6 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		5AAFBE151A9446D5009003B9 /* Hoot+ImageForTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Hoot+ImageForTableView.swift"; sourceTree = "<group>"; };
 		5ACCCE161A9D97F3000BD67C /* SingleCommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleCommentCell.swift; sourceTree = "<group>"; };
+		5AD298E41ABFDE66006C2D6F /* FFAlertButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFAlertButton.h; sourceTree = "<group>"; };
+		5AD298E51ABFDE66006C2D6F /* FFAlertButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FFAlertButton.m; sourceTree = "<group>"; };
+		5AD298E61ABFDE66006C2D6F /* FFAlertClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFAlertClient.h; sourceTree = "<group>"; };
+		5AD298E71ABFDE66006C2D6F /* FFAlertClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FFAlertClient.m; sourceTree = "<group>"; };
+		5AD298E81ABFDE66006C2D6F /* FFLettingYouKnow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFLettingYouKnow.h; sourceTree = "<group>"; };
+		5AD298EA1ABFDE66006C2D6F /* UIApplication+Navigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+Navigation.h"; sourceTree = "<group>"; };
+		5AD298EB1ABFDE66006C2D6F /* UIApplication+Navigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+Navigation.m"; sourceTree = "<group>"; };
 		5ADAE5C51AA43B3C00BC4449 /* HootComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HootComment.swift; sourceTree = "<group>"; };
 		D12280BD1A87F2F100CDDFB8 /* CommentFormView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentFormView.xib; sourceTree = "<group>"; };
 		D1839CBA1A9192FA00C87B19 /* LocationPrompt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationPrompt.swift; sourceTree = "<group>"; };
@@ -106,6 +126,17 @@
 				5A2699861AACEC5D0018D393 /* NibDesignable.swift */,
 			);
 			name = "Nib Rendering";
+			sourceTree = "<group>";
+		};
+		5A2B95271ABFD9FB00B85231 /* licenses */ = {
+			isa = PBXGroup;
+			children = (
+				5A2B95281ABFD9FB00B85231 /* ack_script.pl */,
+				5A2B95291ABFD9FB00B85231 /* KIBoundary.license */,
+				5A2B952A1ABFD9FB00B85231 /* NibDesignable.license */,
+				5A2B952B1ABFD9FB00B85231 /* SZTextView.license */,
+			);
+			path = licenses;
 			sourceTree = "<group>";
 		};
 		5A61AB1D1A900D3400B06495 /* Frameworks */ = {
@@ -162,6 +193,7 @@
 				5A94E3031A74940300CA1CB8 /* LaunchScreen.xib */,
 				5A94E2F81A74940300CA1CB8 /* Supporting Files */,
 				5A9768711A88492A00229E7E /* Hootly-Bridging-Header.h */,
+				5A2B95271ABFD9FB00B85231 /* licenses */,
 			);
 			path = Hootly;
 			sourceTree = "<group>";
@@ -170,6 +202,7 @@
 			isa = PBXGroup;
 			children = (
 				5A94E2F91A74940300CA1CB8 /* Info.plist */,
+				5AA987931ABFCDB000B73BA6 /* Settings.bundle */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -194,6 +227,7 @@
 		5A9768751A88493000229E7E /* Outside Code */ = {
 			isa = PBXGroup;
 			children = (
+				5AD298E31ABFDE66006C2D6F /* FFLettingYouKnow */,
 				5A59CB761ABB4EEB00C6085F /* UIButton+MinBox.swift */,
 				5A9768721A88492B00229E7E /* SZTextView.h */,
 				5A9768731A88492B00229E7E /* SZTextView.m */,
@@ -203,6 +237,20 @@
 			name = "Outside Code";
 			sourceTree = "<group>";
 		};
+		5AD298E31ABFDE66006C2D6F /* FFLettingYouKnow */ = {
+			isa = PBXGroup;
+			children = (
+				5AD298E41ABFDE66006C2D6F /* FFAlertButton.h */,
+				5AD298E51ABFDE66006C2D6F /* FFAlertButton.m */,
+				5AD298E61ABFDE66006C2D6F /* FFAlertClient.h */,
+				5AD298E71ABFDE66006C2D6F /* FFAlertClient.m */,
+				5AD298E81ABFDE66006C2D6F /* FFLettingYouKnow.h */,
+				5AD298EA1ABFDE66006C2D6F /* UIApplication+Navigation.h */,
+				5AD298EB1ABFDE66006C2D6F /* UIApplication+Navigation.m */,
+			);
+			path = FFLettingYouKnow;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -210,6 +258,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5A94E3141A74940300CA1CB8 /* Build configuration list for PBXNativeTarget "Hootly" */;
 			buildPhases = (
+				5A2B95301ABFDA7800B85231 /* ShellScript */,
 				5A94E2F11A74940300CA1CB8 /* Sources */,
 				5A94E2F21A74940300CA1CB8 /* Frameworks */,
 				5A94E2F31A74940300CA1CB8 /* Resources */,
@@ -256,6 +305,7 @@
 					};
 					5A94E3091A74940300CA1CB8 = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = 8TCDK8463J;
 						TestTargetID = 5A94E2F41A74940300CA1CB8;
 					};
 				};
@@ -284,10 +334,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A2B952E1ABFD9FB00B85231 /* NibDesignable.license in Resources */,
 				5A94E3001A74940300CA1CB8 /* Main.storyboard in Resources */,
+				5A2B952F1ABFD9FB00B85231 /* SZTextView.license in Resources */,
 				D12280BE1A87F2F100CDDFB8 /* CommentFormView.xib in Resources */,
 				5A94E3051A74940300CA1CB8 /* LaunchScreen.xib in Resources */,
+				5A2B952D1ABFD9FB00B85231 /* KIBoundary.license in Resources */,
 				5A37D1931A7DD60D006AAC65 /* CommentView.xib in Resources */,
+				5A2B952C1ABFD9FB00B85231 /* ack_script.pl in Resources */,
+				5AA987941ABFCDB000B73BA6 /* Settings.bundle in Resources */,
 				5A94E3021A74940300CA1CB8 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -301,6 +356,22 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		5A2B95301ABFDA7800B85231 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo \"Assembling Acknowledgements in Settings bundle\"\ncd hootly/licenses\n./ack_script.pl\ncd ../..";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		5A94E2F11A74940300CA1CB8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -312,17 +383,20 @@
 				5A94E2FD1A74940300CA1CB8 /* ViewController.swift in Sources */,
 				5A9768701A88262D00229E7E /* CommentFormView.swift in Sources */,
 				5A61AB201A900E6400B06495 /* Hootly.xcdatamodeld in Sources */,
+				5AD298EC1ABFDE66006C2D6F /* FFAlertButton.m in Sources */,
 				5A2699891AAD0ED00018D393 /* ProfileViewController.swift in Sources */,
 				5ADAE5C61AA43B3C00BC4449 /* HootComment.swift in Sources */,
 				5A37D18A1A7D9170006AAC65 /* SingleHootViewController.swift in Sources */,
 				5AA9878D1ABF660900B73BA6 /* Hoot.swift in Sources */,
 				5AAFBE161A9446D5009003B9 /* Hoot+ImageForTableView.swift in Sources */,
+				5AD298EF1ABFDE66006C2D6F /* UIApplication+Navigation.m in Sources */,
 				5A9768741A88492B00229E7E /* SZTextView.m in Sources */,
 				5A2699871AACEC5D0018D393 /* NibDesignable.swift in Sources */,
 				5A97686A1A88086E00229E7E /* NewHootViewController.swift in Sources */,
 				5A94E2FB1A74940300CA1CB8 /* AppDelegate.swift in Sources */,
 				D1839CBB1A9192FA00C87B19 /* LocationPrompt.swift in Sources */,
 				5A59CB771ABB4EEB00C6085F /* UIButton+MinBox.swift in Sources */,
+				5AD298ED1ABFDE66006C2D6F /* FFAlertClient.m in Sources */,
 				5A94E31D1A749F6600CA1CB8 /* HootCell.swift in Sources */,
 				5A8248101A92B4630055E334 /* HootAPIToCoreData.swift in Sources */,
 			);
@@ -383,7 +457,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Octave Labs LLC (8TCDK8463J)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Octave Labs LLC (8TCDK8463J)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -403,6 +478,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "61010470-606e-4672-b387-18a38777297a";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -426,7 +502,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Octave Labs LLC (8TCDK8463J)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Octave Labs LLC (8TCDK8463J)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -439,6 +516,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "61010470-606e-4672-b387-18a38777297a";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -451,12 +529,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Octave Labs LLC (8TCDK8463J)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Octave Labs LLC (8TCDK8463J)";
 				INFOPLIST_FILE = Hootly/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				"OTHER_SWIFT_FLAGS[arch=*]" = "-D DEBUG";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "61010470-606e-4672-b387-18a38777297a";
 				SWIFT_OBJC_BRIDGING_HEADER = "Hootly/Hootly-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -469,12 +548,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Octave Labs LLC (8TCDK8463J)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Octave Labs LLC (8TCDK8463J)";
 				INFOPLIST_FILE = Hootly/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "61010470-606e-4672-b387-18a38777297a";
 				SWIFT_OBJC_BRIDGING_HEADER = "Hootly/Hootly-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -484,6 +563,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -495,6 +576,7 @@
 				INFOPLIST_FILE = HootlyTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hootly.app/Hootly";
 			};
 			name = Debug;
@@ -503,6 +585,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -510,6 +594,7 @@
 				INFOPLIST_FILE = HootlyTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hootly.app/Hootly";
 			};
 			name = Release;

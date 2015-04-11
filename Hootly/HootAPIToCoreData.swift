@@ -13,12 +13,12 @@ import CoreLocation
 class HootAPIToCoreData {
     
     class var managedObjectCon: NSManagedObjectContext {
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         return appDelegate.managedObjectContext!
     }
     
     class var hootID: String {
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         if let hootID = appDelegate.hootlyID {
             return hootID
         } else {
@@ -36,7 +36,7 @@ class HootAPIToCoreData {
     }
     
     class var coordinates: CLLocationCoordinate2D? {
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let manager = appDelegate.locationManager
 
         if manager.location == nil {
@@ -248,6 +248,10 @@ class HootAPIToCoreData {
             removeHootsWithIDs(idArray)
         }
 
+        if let localHoots = localHoots {
+            clearNearbyHoots(threadMOC)
+        }
+        
         var fetchError: NSError?
         
         //Prepare fetch request to add new hoots
@@ -255,7 +259,7 @@ class HootAPIToCoreData {
         fetchReq.predicate = NSPredicate(format: "(id IN %@)", idArray)
         fetchReq.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
         
-        let validHoots = threadMOC.executeFetchRequest(fetchReq, error: &fetchError) as [Hoot]
+        let validHoots = threadMOC.executeFetchRequest(fetchReq, error: &fetchError) as! [Hoot]
         
         if let error = fetchError {
             NSLog("error exectuting fetch request for hoots to keep")
@@ -280,19 +284,19 @@ class HootAPIToCoreData {
 
                         if let value = singleHoot["hootloot"] as? NSNumber {
                             if (value != oldHoot.rating) {
-                                oldHoot.rating = singleHoot["hootloot"] as NSNumber
+                                oldHoot.rating = singleHoot["hootloot"] as! NSNumber
                             }
                         }
                         
                         if let value = singleHoot["num_comments"] as? NSNumber {
                             if (value != oldHoot.replies) {
-                                oldHoot.replies = singleHoot["num_comments"] as NSNumber
+                                oldHoot.replies = singleHoot["num_comments"] as! NSNumber
                             }
                         }
                         
                         if let value = singleHoot["requester_vote"] as? NSNumber {
                             if (value != oldHoot.voted) {
-                                oldHoot.voted = singleHoot["requester_vote"] as NSNumber
+                                oldHoot.voted = singleHoot["requester_vote"] as! NSNumber
                             }
                         }
                         break
@@ -301,14 +305,14 @@ class HootAPIToCoreData {
                 
                 //Create new Hoot if we didnt find it 
                 if foundExistingID == false {
-                    var newItem = NSEntityDescription.insertNewObjectForEntityForName("Hoot", inManagedObjectContext: threadMOC) as Hoot
+                    var newItem = NSEntityDescription.insertNewObjectForEntityForName("Hoot", inManagedObjectContext: threadMOC) as! Hoot
                     newItem.id = id
-                    newItem.time = NSDate(timeIntervalSince1970: singleHoot["timestamp"]! as NSTimeInterval)
-                    newItem.comment = singleHoot["hoot_text"] as String
-                    newItem.rating = singleHoot["hootloot"] as NSNumber
-                    newItem.replies = singleHoot["num_comments"] as NSNumber
-                    newItem.voted = singleHoot["requester_vote"] as NSNumber
-                    newItem.myHoot = singleHoot["mine"] as Bool
+                    newItem.time = NSDate(timeIntervalSince1970: singleHoot["timestamp"]! as! NSTimeInterval)
+                    newItem.comment = singleHoot["hoot_text"] as! String
+                    newItem.rating = singleHoot["hootloot"] as! NSNumber
+                    newItem.replies = singleHoot["num_comments"] as! NSNumber
+                    newItem.voted = singleHoot["requester_vote"] as! NSNumber
+                    newItem.myHoot = singleHoot["mine"] as! Bool
                     newItem.nearby = false
                     newItem.showInHistory = false
                     
@@ -320,7 +324,7 @@ class HootAPIToCoreData {
                         newItem.showInHistory = showInHootHistory
                     }
                     
-                    if let tempPhotoURL = NSURL(string: singleHoot["image_path"] as String, relativeToURL: self.hostURL!) {
+                    if let tempPhotoURL = NSURL(string: singleHoot["image_path"] as! String, relativeToURL: self.hostURL!) {
                         newItem.photoURL = tempPhotoURL
                     }
                 }
@@ -332,13 +336,25 @@ class HootAPIToCoreData {
         
         if let error = fetchError {
             NSLog("error saving context in getHoots()")
-            return 9
+            return 0
         }
 
 
         return hootArray.count
     }
 
+    class func clearNearbyHoots(context: NSManagedObjectContext) {
+        let fetchReq = NSFetchRequest(entityName: "Hoot")
+        fetchReq.predicate = NSPredicate(format: "nearby = true")
+        
+        var fetchError: NSError?
+        let validHoots = context.executeFetchRequest(fetchReq, error: &fetchError) as! [Hoot]
+        
+        for hoot: Hoot in validHoots {
+            hoot.nearby = false
+        }
+    }
+    
     class func removeHootsWithIDs(idArray: [Int]) {
         var threadMOC = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
         threadMOC.parentContext = self.managedObjectCon
@@ -349,7 +365,7 @@ class HootAPIToCoreData {
         fetchReq.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
         
         var fetchError: NSError?
-        let hootsToDelete = threadMOC.executeFetchRequest(fetchReq, error: &fetchError) as [Hoot]
+        let hootsToDelete = threadMOC.executeFetchRequest(fetchReq, error: &fetchError) as! [Hoot]
         
         if let error = fetchError {
             NSLog("error exectuting fetch request for hoots to delete")
@@ -413,12 +429,12 @@ class HootAPIToCoreData {
         var threadMOC = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
         threadMOC.parentContext = hoot.managedObjectContext
         
-        let backgroundContextSelf = threadMOC.objectWithID(hoot.objectID) as Hoot
+        let backgroundContextSelf = threadMOC.objectWithID(hoot.objectID) as! Hoot
         var existingComments = backgroundContextSelf.mutableSetValueForKey("comments")
         existingComments.removeAllObjects()
         
         for singleComment in commentArray {
-            var newComment = NSEntityDescription.insertNewObjectForEntityForName("HootComment", inManagedObjectContext: threadMOC) as HootComment
+            var newComment = NSEntityDescription.insertNewObjectForEntityForName("HootComment", inManagedObjectContext: threadMOC) as! HootComment
             
             if let value = singleComment["comment_id"] as? NSNumber {
                 newComment.id = value
@@ -516,20 +532,20 @@ class HootAPIToCoreData {
         self.genericURLConnectionFromRequest(request, completed: completed)
     }
     
-    class func postHoot(image: UIImage, comment: String, delegate: NSURLConnectionDataDelegate) {
+    class func postHoot(image: UIImage, comment: String, delegate: NSURLConnectionDataDelegate) -> Bool {
         var url: NSURL
         
         let coord = self.coordinates
         if coord == nil {
             NSLog("could not get location coordinates")
-            return
+            return false
         }
         
         if let host = hostURL {
             url = NSURL(string: "hoots", relativeToURL: host)!
         } else {
             NSLog("could not construct URL in getHoots()")
-            return
+            return false
         }
         
         let request = NSMutableURLRequest(URL: url)
@@ -550,16 +566,17 @@ class HootAPIToCoreData {
         
         let conn = NSURLConnection(request: request, delegate: delegate, startImmediately: true)
         //self.genericURLConnectionFromRequest(request, completed: completed)
+        return true
     }
     
-    class func postComment(comment: String, hootID: Int, delegate: NSURLConnectionDataDelegate) {
+    class func postComment(comment: String, hootID: Int, delegate: NSURLConnectionDataDelegate) -> Bool {
         var url: NSURL
         
         if let host = hostURL {
             url = NSURL(string: "comments", relativeToURL: host)!
         } else {
             NSLog("could not construct URL in getHoots()")
-            return
+            return false
         }
         
         let request = NSMutableURLRequest(URL: url)
@@ -578,6 +595,7 @@ class HootAPIToCoreData {
         
         let conn = NSURLConnection(request: request, delegate: delegate, startImmediately: true)
         //self.genericURLConnectionFromRequest(request, completed: completed)
+        return true
     }
     
     class func postHootUpVote(id: Int, completed: (success: Bool) -> (Void)) {

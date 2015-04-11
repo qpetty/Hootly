@@ -12,7 +12,7 @@ import UIKit
 extension Hoot {
 
     var documentDirectory: String {
-        return NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+        return NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
     }
     
     var imageDirectoryName: String {
@@ -23,7 +23,7 @@ extension Hoot {
         
         if let imageURL = self.photoURL as? NSURL {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { () -> Void in
-                self.loadImageFromDiskOrNetwork(imageURL, fetchedImage)
+                self.loadImageFromDiskOrNetwork(imageURL, fetchedImage: fetchedImage)
             })
         }
         
@@ -42,7 +42,9 @@ extension Hoot {
             }
             
             //Create the image file
-            NSLog("Fetching Image from network \(imageURL)")
+            #if DEBUG
+                NSLog("Fetching Image from network \(imageURL)")
+            #endif
             if let imageData = NSData(contentsOfURL: imageURL) {
                 if let image = UIImage(data: imageData) {
                     //return image
@@ -70,7 +72,9 @@ extension Hoot {
                 }
             }
         } else {
-            NSLog("Fetching Image from disk \(imageURL)")
+            #if DEBUG
+                NSLog("Fetching Image from disk \(imageURL)")
+            #endif
             if let urlContents = NSData(contentsOfURL: imageURL) {
                 if let image = UIImage(data: urlContents) {
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
