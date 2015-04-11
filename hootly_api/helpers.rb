@@ -1,6 +1,7 @@
 require 'sinatra/base'
 require 'json'
-require 'apns'
+#require 'apns'
+require 'pushmeup'
 
 module Sinatra
    module ParameterCheck
@@ -19,8 +20,8 @@ module Sinatra
          return ""
       end
 
-      def real_user?(user_id)
-         user_check = client.query("SELECT * FROM Users WHERE id = '#{user_id}'").first.nil?
+      def real_user?(user_id, client)
+         user_check = !client.query("SELECT * FROM Users WHERE id = '#{user_id}'").first.nil?
          return user_check
       end
    end
@@ -49,8 +50,12 @@ module Sinatra
       NOTIFICATION_THRESHOLD = 15 * 60
       BADGE = 1
       SOUND = 'default'
+      APNS.host = 'gateway.push.apple.com'
       APNS.pem = 'push_certs/ck.pem'
-      APNS.pass = 'LorraineCucumber42'
+      APNS.pass = 'Lorraine42'
+
+      GCM.key = "AIzaSyANiPVXok3rf5HaGC507jLD_sDomQhdQhc"
+
       def hoot_vote_activity(post_id, client)
          hoot = client.query("SELECT * FROM Hoots WHERE id = '#{post_id}'").first
          user = client.query("SELECT * FROM Users WHERE id = '#{hoot['user_id']}'").first
@@ -74,7 +79,13 @@ module Sinatra
 
          alert = "#{hoot['votes']} #{person_people} voted on your Hoot!"
 
-         APNS.send_notification(device_token, :badge => notification_count, :alert => alert, :sound => SOUND, :other => {:hoot_id => hoot['id']})
+         if user['device_type'] == "iOS"
+            APNS.send_notification(device_token, :badge => notification_count, :alert => alert, :sound => SOUND, :other => {:hoot_id => hoot['id']})
+         end
+         if user['device_type'] == "android"
+            data = { :alert => alert } 
+            GCM.send_notification(device_token, data)
+         end
          client.query("UPDATE Users SET last_notification = #{Time.now.to_i} WHERE id = '#{user['id']}'")
       end
 
@@ -99,7 +110,14 @@ module Sinatra
          person_people = 'people have' if comment['votes'] > 1
 
          alert = "#{comment['votes']} #{person_people} voted on your Comment!"
-         APNS.send_notification(device_token, :alert => alert, :badge => notification_count, :sound => SOUND, :other => {:hoot_id => comment['post_id']})
+         if user['device_type'] == "iOS"
+            APNS.send_notification(device_token, :alert => alert, :badge => notification_count, :sound => SOUND, :other => {:hoot_id => comment['post_id']})
+         end
+         if user['device_type'] == "android"
+            data = { :alert => alert } 
+            GCM.send_notification(device_token, data)
+         end
+
          client.query("UPDATE Users SET last_notification = #{Time.now.to_i} WHERE id = '#{user['id']}'")
       end
 
@@ -107,13 +125,13 @@ module Sinatra
          hoot = client.query("SELECT * FROM Hoots WHERE id = '#{post_id}'").first
          user = client.query("SELECT * FROM Users WHERE id = '#{hoot['user_id']}'").first
          return if user.nil?
-         device_token = user['device_token']
-         return if device_token.nil?
 
          client.query("Update Users SET notifications = notifications + 1 WHERE id = '#{user['id']}'")
 
          comments = client.query("SELECT * FROM Comments WHERE post_id = '#{post_id}'")
          comment_count = comments.count
+         device_token = user['device_token']
+         return if device_token.nil?
 
          person_people = 'person has'
          person_people = 'people have' if comment_count > 1
@@ -123,16 +141,32 @@ module Sinatra
          comment_device_tokens[device_token] = true
          comments.each do |comment|
             client.query("Update Users SET notifications = notifications + 1 WHERE id = '#{comment['user_id']}'")
-            notification_count = client.query("SELECT notifications FROM Users WHERE id = '#{comment['user_id']}'").first['notifications']
-            c_device_token = client.query("SELECT device_token FROM Users WHERE id = '#{comment['user_id']}'").first['device_token']
-            if !c_device_token.nil? and comment_device_tokens[c_device_token].nil?
-               APNS.send_notification(c_device_token, :alert => comment_alert, :badge => notification_count, :sound => SOUND, :other => {:hoot_id => hoot['id']})
+            device_info = client.query("SELECT device_token, notifications, device_type FROM Users WHERE id = '#{comment['user_id']}'").first
+            c_device_token = device_info['device_token']
+            notification_count = device_info['notifications']
+            device_type = device_info['device_type']
+            if !c_device_token.nil? and comment_device_tokens[c_device_token].nil? and !device_type.nil?
+               if device_type == "iOS"
+                  APNS.send_notification(c_device_token, :alert => comment_alert, :badge => notification_count, :sound => SOUND, :other => {:hoot_id => hoot['id']})
+               end
+               if device_type == "android"
+                  data = {:alert => comment_alert}  
+                  GCM.send_notification(c_device_token, data)
+               end
             end
             comment_device_tokens[c_device_token] = true
          end
+
+
          notification_count = user['notifications']
          alert = "#{comment_count} #{person_people} replied to your Hoot!"
-         APNS.send_notification(device_token, :alert => alert, :badge => notification_count, :sound => SOUND, :other => {:hoot_id => hoot['id']})
+         if user['device_type'] == "iOS" 
+            APNS.send_notification(device_token, :alert => alert, :badge => notification_count, :sound => SOUND, :other => {:hoot_id => hoot['id']})
+         end
+         if user['device_type'] == "android"
+            data = { :alert => alert } 
+            GCM.send_notification(device_token, data)
+         end
       end
    end
    helpers ParameterCheck, ParameterEscape, PushNotifications

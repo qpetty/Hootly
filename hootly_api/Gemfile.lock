@@ -12,9 +12,16 @@ GEM
     fastimage_resize (2.0.3)
       RubyInline (>= 3.8.2)
       fastimage (>= 1.2.9)
+    httparty (0.13.3)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     json (1.8.2)
     kgio (2.9.3)
+    multi_xml (0.5.5)
     mysql2 (0.3.18)
+    pushmeup (0.3.0)
+      httparty
+      json
     rack (1.6.0)
     rack-protection (1.5.3)
       rack
@@ -39,5 +46,6 @@ DEPENDENCIES
   fastimage_resize
   json
   mysql2
+  pushmeup
   sinatra
   unicorn

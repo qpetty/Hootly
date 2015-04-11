@@ -8,6 +8,7 @@ require 'json'
 require 'apns'
 require 'dimensions'
 require 'fastimage_resize'
+require 'pushmeup'
 
 class Hootly_API < Sinatra::Base
 
@@ -18,8 +19,10 @@ class Hootly_API < Sinatra::Base
    end
 
 	client = Mysql2::Client.new(:host => "localhost", :username => "root", :password => ENV["HOOTLY_DB_PASSWORD"], :database => "hootly", :reconnect => true)
+
+        APNS.host = 'gateway.push.apple.com'
         APNS.pem = 'push_certs/ck.pem'
-        APNS.pass = 'LorraineCucumber42'
+        APNS.pass = 'Lorraine42'
 
 	get '/' do
 	   "hello world"
@@ -43,10 +46,10 @@ class Hootly_API < Sinatra::Base
       escape_parameters = ['token', 'user_id', 'device_type']
       escape_params(escape_parameters, client)
 
-      return if !real_user?(user_id)
 
       token = params['token']
       user_id = params['user_id']
+      return if !real_user?(user_id, client)
       device_type = params['device_type']
 
       client.query("UPDATE Users SET device_token = '#{token}', device_type = '#{device_type}' WHERE id = '#{user_id}'")
@@ -61,9 +64,9 @@ class Hootly_API < Sinatra::Base
       end
       escape_parameters = ['user_id']
       escape_params(escape_parameters, client)
-      return if !real_user?(user_id)
 
       user_id = params['user_id']
+      return if !real_user?(user_id, client)
       client.query("UPDATE Users SET notifications = 0 WHERE id = '#{user_id}'")
       ["Success"].to_json
    end
@@ -79,10 +82,10 @@ class Hootly_API < Sinatra::Base
 
       escape_parameters = ['user_id']
       escape_params(escape_parameters, client)
-      return if !real_user?(user_id)
 
 	   data = {}
 	   user_id = params['user_id']
+      return if !real_user?(user_id, client)
 	   hootloot = client.query("SELECT hootloot FROM Users where id = '#{user_id}'")
 	   if hootloot.first
 	      data['hootloot'] = hootloot.first['hootloot']
@@ -99,7 +102,7 @@ class Hootly_API < Sinatra::Base
 
 	   user_id = params['user_id']
 	   user_id = client.escape(user_id)
-      return if !real_user?(user_id)
+      return if !real_user?(user_id, client)
 	   comments = client.query("SELECT post_id FROM Comments WHERE user_id = '#{user_id}'")
 
 	   post_ids = []
@@ -154,10 +157,10 @@ class Hootly_API < Sinatra::Base
 
       escape_parameters = ['user_id', 'post_id']
       escape_params(escape_parameters, client)
-      return if !real_user?(user_id)
 
 	   post_id = params["post_id"]
 	   user_id = params["user_id"]
+           return if !real_user?(user_id, client)
 
 	   post = client.query("SELECT * FROM Hoots where id = #{post_id} and active = true")
 	   post = post.first
@@ -193,11 +196,11 @@ class Hootly_API < Sinatra::Base
 
       escape_parameters = ['lat', 'long', 'user_id']
       escape_params(escape_parameters, client)
-      return if !real_user?(user_id)
 
 	   lat = params['lat']
 	   long = params['long']
 	   user_id = params['user_id']
+      return if !real_user?(user_id, client)
 
       posts = client.query("SELECT *, (7926 *
                                        asin( sqrt( pow(sin((radians(latitude) - radians(#{lat}))/2), 2) +
@@ -248,7 +251,6 @@ class Hootly_API < Sinatra::Base
       if !error.empty?
          return ["error" => error].to_json
       end
-      return if !real_user?(user_id)
 
 
 	   user_id = params["user_id"]
@@ -262,10 +264,9 @@ class Hootly_API < Sinatra::Base
          return ["error" => "hoot character count exceeded limit"].to_json
       end
 
-      device_token = '987cb0a6d68138d3e06188c99c1ea60c5cbed40650d7cc4d8d8cfee2dd338d2b'
-      APNS.send_notification(device_token, :alert => 'A hoot has been posted', :badge => 1, :sound => 'default')
 
 	   user_id = client.escape(user_id)
+      return if !real_user?(user_id, client)
 	   hoot_text = client.escape(hoot_text)
 
 	   lat = client.escape(lat)
@@ -273,7 +274,7 @@ class Hootly_API < Sinatra::Base
 
 	   # determine an image path here
 	   file_type = ".jpeg"
-	   imagepath = user_id.to_s + timestamp.to_s + file_type
+	   imagepath = timestamp.to_s + user_id.to_s +  file_type
 
 	   # This saves the image in the uploads directory
       img_dimensions =  Dimensions.dimensions(params['image'][:tempfile])
@@ -313,13 +314,15 @@ class Hootly_API < Sinatra::Base
 	   user_id = params['user_id']
 	   post_id = client.escape(post_id)
 	   user_id = client.escape(user_id)
-      return if !real_user?(user_id)
+      return if !real_user?(user_id, client)
 
 	   client.query("INSERT INTO Hoots_Upvotes (hoot_id, user_id) VALUES (#{post_id}, '#{user_id}')")
 	   client.query("UPDATE Hoots SET hootloot = hootloot + 1 WHERE id = #{post_id}")
 	   client.query("UPDATE Hoots SET votes = votes + 1 WHERE id = #{post_id}")
 	   poster_id = client.query("SELECT * FROM Hoots WHERE id = #{post_id}").first['user_id']
 	   client.query("UPDATE Users SET hootloot = hootloot + 2 WHERE id = '#{poster_id}'")
+
+	   client.query("UPDATE Users SET hootloot = hootloot + 1 WHERE id = '#{user_id}'")
 
       hoot_vote_activity(post_id, client)
 	end
@@ -333,12 +336,12 @@ class Hootly_API < Sinatra::Base
 
       escape_parameters = ['post_id', 'user_id']
       escape_params(escape_parameters, client)
-      return if !real_user?(user_id)
 
 	   post_id = params['post_id']
 	   user_id = params['user_id']
 	   post_id = client.escape(post_id)
 	   user_id = client.escape(user_id)
+      return if !real_user?(user_id, client)
 
 	   client.query("INSERT INTO Hoots_Downvotes (hoot_id, user_id) VALUES (#{post_id}, '#{user_id}')")
 	   client.query("UPDATE Hoots SET hootloot = hootloot - 1 WHERE id = #{post_id}")
@@ -350,6 +353,7 @@ class Hootly_API < Sinatra::Base
 	   if hoot_hootloot <= -5
 	      client.query("UPDATE Hoots SET active = false WHERE id = #{post_id}")
 	   end
+	   client.query("UPDATE Users SET hootloot = hootloot + 1 WHERE id = '#{user_id}'")
 
       hoot_vote_activity(post_id, client)
 	end
@@ -370,7 +374,7 @@ class Hootly_API < Sinatra::Base
 	   comments = client.query("select * from Comments where post_id = #{post_id} and active = true")
 	   requester_user_id = params["user_id"]
 	   requester_user_id = client.escape(requester_user_id)
-      return if !real_user?(requester_user_id)
+      return if !real_user?(requester_user_id, client)
 	   comments.each do |comment|
 	      vote_dir = 0
 	      comment_id = comment["id"]
@@ -407,7 +411,7 @@ class Hootly_API < Sinatra::Base
 	   post_id = client.escape(post_id)
 	   text = client.escape(text)
 	   user_id = client.escape(user_id)
-      return if !real_user?(user_id)
+      return if !real_user?(user_id, client)
 
 	   timestamp = Time.now.to_i
 
@@ -426,17 +430,19 @@ class Hootly_API < Sinatra::Base
 
       escape_parameters = ['comment_id', 'user_id']
       escape_params(escape_parameters, client)
-      return if !real_user?(user_id)
 
 	   comment_id = params['comment_id']
 	   user_id = params['user_id']
+      return if !real_user?(user_id, client)
 
 	   client.query("INSERT INTO Comments_Upvotes (comment_id, user_id) VALUES (#{comment_id}, '#{user_id}')")
 	   client.query("UPDATE Comments SET hootloot = hootloot + 1 WHERE id = #{comment_id}")
 	   client.query("UPDATE Comments SET votes = votes + 1 WHERE id = #{comment_id}")
 
+
 	   poster_id = client.query("SELECT * FROM Comments WHERE id = #{comment_id}").first['user_id']
 	   client.query("UPDATE Users SET hootloot = hootloot + 2 WHERE id = '#{poster_id}'")
+	   client.query("UPDATE Users SET hootloot = hootloot + 1 WHERE id = '#{user_id}'")
 
       comment_vote_activity(comment_id, client)
 	end
@@ -450,10 +456,10 @@ class Hootly_API < Sinatra::Base
 
       escape_parameters = ['comment_id', 'user_id']
       escape_params(escape_parameters, client)
-      return if !real_user?(user_id)
 
 	   comment_id = params['comment_id']
 	   user_id = params['user_id']
+      return if !real_user?(user_id, client)
 
 	   client.query("INSERT INTO Comments_Downvotes (comment_id, user_id) VALUES (#{comment_id}, '#{user_id}')")
 	   client.query("UPDATE Comments SET hootloot = hootloot - 1 WHERE id = #{comment_id}")
@@ -465,6 +471,8 @@ class Hootly_API < Sinatra::Base
 	   if comment_hootloot <= -5
 	      client.query("UPDATE Comments SET active = false WHERE id = #{comment_id}")
 	   end
+
+	   client.query("UPDATE Users SET hootloot = hootloot + 1 WHERE id = '#{user_id}'")
 
       comment_vote_activity(comment_id, client)
 	end
@@ -481,6 +489,6 @@ class Hootly_API < Sinatra::Base
 
 	   post_id = params['post_id']
 
-	   client.query("Update Hoots SET active = false WHERE id = #{post_id}");
+	   #client.query("Update Hoots SET active = false WHERE id = #{post_id}");
 	end
 end
